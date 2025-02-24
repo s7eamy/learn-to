@@ -7,8 +7,6 @@ const Home = () => {
 			<h1>Learn To</h1>
 			<p>A platform to reach your studying goals</p>
 			<hr />
-			<button>Create a flashcard</button>
-			<button>View flashcards</button>
 		</div>
 	);
 };
