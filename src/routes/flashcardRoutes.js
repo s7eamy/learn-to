@@ -29,4 +29,26 @@ router.get("/:id", (req, res) => {
 	});
 });
 
+router.post("/:id", (req, res) => {
+	const { id } = req.params;
+	const { front, back } = req.body;
+	console.log(id, front, back);
+	db.run(
+		"INSERT INTO flashcards (set_id, question, answer) VALUES (?, ?, ?)",
+		[id, front, back],
+		function (err) {
+			if (err) return res.status(500).json({ error: err.message });
+			db.get(
+				"SELECT * FROM flashcards WHERE id = ?",
+				[this.lastID],
+				(err, row) => {
+					if (err)
+						return res.status(500).json({ error: err.message });
+					res.json(row);
+				}
+			);
+		}
+	);
+});
+
 export default router;
