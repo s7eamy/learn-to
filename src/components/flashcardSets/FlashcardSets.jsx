@@ -27,7 +27,6 @@ const AddFlashcardSetButton = () => {
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
-							event.preventDefault();
 							const title = event.target.title.value;
 							fetch("/api/flashcards", {
 								method: "POST",
@@ -35,8 +34,12 @@ const AddFlashcardSetButton = () => {
 									"Content-Type": "application/json",
 								},
 								body: JSON.stringify({ title }),
-							});
-							handleClose();
+							})
+								.then((res) => res.json())
+								.then((newSet) => {
+									onSetCreated(newSet);
+									handleClose();
+								});
 						},
 					},
 				}}
@@ -64,6 +67,9 @@ const AddFlashcardSetButton = () => {
 
 const Flashcards = () => {
 	const [flashcards, setFlashcards] = useState([]);
+	const addNewSet = (newSet) => {
+		setFlashcards((prev) => [...prev, newSet]);
+	};
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -83,7 +89,7 @@ const Flashcards = () => {
 			<Button variant="outlined" onClick={() => navigate("/")}>
 				Go back
 			</Button>
-			<AddFlashcardSetButton />
+			<AddFlashcardSetButton onSetCreated={addNewSet} />
 			<Divider style={{ margin: "20px 0" }} />
 			<Typography variant="h4">Current flashcard sets:</Typography>
 			<List>
