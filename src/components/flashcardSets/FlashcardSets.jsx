@@ -8,7 +8,13 @@ import {
 	DialogActions,
 	TextField,
 } from "@mui/material";
-import { List, ListItem, ListItemText } from "@mui/material";
+import {
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemText,
+	Link,
+} from "@mui/material";
 
 const AddFlashcardSetButton = () => {
 	const [open, setOpen] = React.useState(false);
@@ -65,7 +71,7 @@ const AddFlashcardSetButton = () => {
 	);
 };
 
-const Flashcards = () => {
+const FlashcardSets = () => {
 	const [flashcards, setFlashcards] = useState([]);
 	const addNewSet = (newSet) => {
 		setFlashcards((prev) => [...prev, newSet]);
@@ -95,7 +101,12 @@ const Flashcards = () => {
 			<List>
 				{flashcards.map((flashcard) => (
 					<ListItem key={flashcard.id}>
-						<ListItemText primary={flashcard.title} />
+						<ListItemButton
+							component={Link}
+							to={`/flashcards/${flashcard.id}`}
+						>
+							<ListItemText primary={flashcard.title} />
+						</ListItemButton>
 					</ListItem>
 				))}
 			</List>
@@ -103,4 +114,4 @@ const Flashcards = () => {
 	);
 };
 
-export default Flashcards;
+export default FlashcardSets;
