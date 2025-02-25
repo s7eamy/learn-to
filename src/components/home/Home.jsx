@@ -1,13 +1,21 @@
 import React from "react";
-import "./home.css";
+import { useNavigate } from "react-router-dom";
+import { Typography, Divider, Button, Container } from "@mui/material";
 
 const Home = () => {
+	const navigate = useNavigate();
+
 	return (
-		<div className="container">
-			<h1>Learn To</h1>
-			<p>A platform to reach your studying goals</p>
-			<hr />
-		</div>
+		<Container>
+			<Typography variant="h2">Learn2</Typography>
+			<Typography variant="h3">
+				A platform to reach your studying goals
+			</Typography>
+			<Divider style={{ margin: "20px 0" }} />
+			<Button variant="contained" onClick={() => navigate("/flashcards")}>
+				View flashcard sets
+			</Button>
+		</Container>
 	);
 };
 
