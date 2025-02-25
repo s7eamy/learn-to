@@ -1,15 +1,92 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Container, Typography, Divider, Button } from "@mui/material";
+import {
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
+	TextField,
+} from "@mui/material";
+
+const AddFlashcardButton = () => {
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
+	return (
+		<div>
+			<Button variant="contained" onClick={handleOpen}>
+				Create new flashcard
+			</Button>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				slotProps={{
+					paper: {
+						component: "form",
+						onSubmit: (event) => {
+							const front = event.target.front.value;
+							const back = event.target.back.value;
+							fetch(`/api/flashcards/${id}`, {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({ front, back }),
+							})
+								.then((res) => res.json())
+								.then((newCard) => {
+									onCardCreated(newCard);
+									handleClose();
+								});
+						},
+					},
+				}}
+			>
+				<DialogTitle>Create new flashcard</DialogTitle>
+				<DialogContent>
+					<TextField
+						autoFocus
+						required
+						margin="dense"
+						id="front"
+						label="Front"
+						type="text"
+						fullWidth
+					/>
+					<TextField
+						autoFocus
+						required
+						margin="dense"
+						id="back"
+						label="Back"
+						type="text"
+						fullWidth
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose}>Cancel</Button>
+					<Button type="submit">Submit</Button>
+				</DialogActions>
+			</Dialog>
+		</div>
+	);
+};
 
 const Flashcards = () => {
 	const id = useParams()["setId"];
+	const [flashcards, setFlashcards] = useState([]);
+	const addNewCard = (newCard) => {
+		setFlashcards((prev) => [...prev, newCard]);
+	};
 	const [set, setSet] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		fetch(`/api/flashcards/${id}`)
 			.then((res) => {
-				console.log(res);
 				return res.json();
 			})
 			.then((set) => setSet(set));
@@ -21,6 +98,11 @@ const Flashcards = () => {
 		<div>
 			<Container>
 				<Typography variant="h3">Flashcard set {set.title}</Typography>
+				<Divider style={{ margin: "20px 0" }} />
+				<Button variant="outlined" onClick={() => navigate("/")}>
+					Go back
+				</Button>
+				<AddFlashcardButton id={id} onCardCreated={addNewCard} />
 			</Container>
 		</div>
 	);
