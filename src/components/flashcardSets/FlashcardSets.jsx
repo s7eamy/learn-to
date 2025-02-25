@@ -23,14 +23,19 @@ const AddFlashcardSetButton = () => {
 			<Dialog
 				open={open}
 				onClose={handleClose}
-				aria-labelledby="form-dialog-title"
 				slotProps={{
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
 							event.preventDefault();
 							const title = event.target.title.value;
-							console.log(title);
+							fetch("/api/flashcards", {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({ title }),
+							});
 							handleClose();
 						},
 					},
@@ -40,6 +45,7 @@ const AddFlashcardSetButton = () => {
 				<DialogContent>
 					<TextField
 						autoFocus
+						required
 						margin="dense"
 						id="title"
 						label="Title"
