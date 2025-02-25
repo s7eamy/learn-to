@@ -1,6 +1,10 @@
 import express from "express";
 const router = express.Router();
 
+router.get("/test", (req, res) => {
+	res.json({ message: "Hello from the flashcard routes!" });
+});
+
 router.get("/", (req, res) => {
 	res.json([
 		{ id: 1, title: "Flashcard set 1" },
