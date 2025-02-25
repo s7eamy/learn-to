@@ -5,7 +5,6 @@ import { Container, Typography } from "@mui/material";
 const Flashcards = () => {
 	const id = useParams()["setId"];
 	const [set, setSet] = useState(null);
-	console.log(id);
 
 	useEffect(() => {
 		fetch(`/api/flashcards/${id}`)
