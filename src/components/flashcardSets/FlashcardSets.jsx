@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Typography, Divider, Button, Container } from "@mui/material";
+import { List, ListItem, ListItemText } from "@mui/material";
 
 const Flashcards = () => {
 	const [flashcards, setFlashcards] = useState([]);
@@ -11,19 +13,25 @@ const Flashcards = () => {
 	}, []);
 
 	return (
-		<div className="container">
-			<h1>Learn To - Flashcards</h1>
-			<p>A platform to reach your studying goals</p>
-			<hr />
-			<button>Create new flashcard set</button>
-			<hr />
-			<h2>Current flashcards:</h2>
-			<div id="flashcards">
-				{flashcards.map((card) => (
-					<div key={card.id}>{card.title}</div>
+		<Container>
+			<Typography variant="h2">Learn2 - Flashcards</Typography>
+			<Typography variant="h3">
+				A platform to reach your studying goals
+			</Typography>
+			<Divider style={{ margin: "20px 0" }} />
+			<Button variant="contained" onClick={() => navigate("/flashcards")}>
+				Create new flashcard set
+			</Button>
+			<Divider style={{ margin: "20px 0" }} />
+			<Typography variant="h4">Current flashcard sets:</Typography>
+			<List>
+				{flashcards.map((flashcard) => (
+					<ListItem key={flashcard.id}>
+						<ListItemText primary={flashcard.title} />
+					</ListItem>
 				))}
-			</div>
-		</div>
+			</List>
+		</Container>
 	);
 };
 
