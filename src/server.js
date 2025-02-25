@@ -1,5 +1,6 @@
 // Import required modules
 import express from "express"; // Use Express for the Node.js server
+import flashcardRoutes from "./routes/flashcardRoutes.js"; // Import the flashcard routes
 
 // Create an Express app
 const app = express();
@@ -8,6 +9,8 @@ const app = express();
 app.get("/greet", (req, res) => {
 	res.json({ message: "Hello from Vite and Node.js!" });
 });
+
+app.use("/flashcards", flashcardRoutes); // Use the flashcard routes
 
 // Start the server on port 3000
 const PORT = 3000;
