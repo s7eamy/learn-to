@@ -99,7 +99,10 @@ const Flashcards = () => {
 			<Container>
 				<Typography variant="h3">Flashcard set {set.title}</Typography>
 				<Divider style={{ margin: "20px 0" }} />
-				<Button variant="outlined" onClick={() => navigate("/")}>
+				<Button
+					variant="outlined"
+					onClick={() => navigate("/flashcards")}
+				>
 					Go back
 				</Button>
 				<AddFlashcardButton id={id} onCardCreated={addNewCard} />
