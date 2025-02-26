@@ -8,9 +8,12 @@ import {
 	DialogContent,
 	DialogActions,
 	TextField,
+	List,
+	ListItem,
+	ListItemText,
 } from "@mui/material";
 
-const AddFlashcardButton = () => {
+const AddFlashcardButton = ({ id, onCardCreated }) => {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -91,6 +94,13 @@ const Flashcards = () => {
 			})
 			.then((set) => setSet(set));
 	}, [id]);
+	useEffect(() => {
+		fetch(`/api/flashcards/${id}/cards`)
+			.then((res) => {
+				return res.json();
+			})
+			.then((cards) => setFlashcards(cards));
+	}, [id]);
 
 	if (!set) return <div>Loading...</div>;
 
@@ -106,6 +116,20 @@ const Flashcards = () => {
 					Go back
 				</Button>
 				<AddFlashcardButton id={id} onCardCreated={addNewCard} />
+				<Divider style={{ margin: "20px 0" }} />
+				<Typography variant="h4">
+					Current flashcards ({flashcards.length}):
+				</Typography>
+				<List>
+					{flashcards.map((flashcard) => (
+						<ListItem key={flashcard.id}>
+							<ListItemText
+								primary={flashcard.question}
+								secondary={flashcard.answer}
+							/>
+						</ListItem>
+					))}
+				</List>
 			</Container>
 		</div>
 	);

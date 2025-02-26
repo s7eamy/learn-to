@@ -29,10 +29,17 @@ router.get("/:id", (req, res) => {
 	});
 });
 
+router.get("/:id/cards", (req, res) => {
+	const { id } = req.params;
+	db.all("SELECT * FROM flashcards WHERE set_id = ?", [id], (err, rows) => {
+		if (err) return res.status(500).json({ error: err.message });
+		res.json(rows);
+	});
+});
+
 router.post("/:id", (req, res) => {
 	const { id } = req.params;
 	const { front, back } = req.body;
-	console.log(id, front, back);
 	db.run(
 		"INSERT INTO flashcards (set_id, question, answer) VALUES (?, ?, ?)",
 		[id, front, back],

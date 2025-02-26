@@ -16,7 +16,7 @@ import {
 	Link,
 } from "@mui/material";
 
-const AddFlashcardSetButton = () => {
+const AddFlashcardSetButton = ({ onSetCreated }) => {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -72,16 +72,16 @@ const AddFlashcardSetButton = () => {
 };
 
 const FlashcardSets = () => {
-	const [flashcards, setFlashcards] = useState([]);
+	const [flashcardSet, setFlashcardSet] = useState([]);
 	const addNewSet = (newSet) => {
-		setFlashcards((prev) => [...prev, newSet]);
+		setFlashcardSet((prev) => [...prev, newSet]);
 	};
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		fetch("/api/flashcards")
 			.then((res) => res.json())
-			.then((data) => setFlashcards(data))
+			.then((data) => setFlashcardSet(data))
 			.catch((err) => console.error(err));
 	}, []);
 
@@ -99,13 +99,13 @@ const FlashcardSets = () => {
 			<Divider style={{ margin: "20px 0" }} />
 			<Typography variant="h4">Current flashcard sets:</Typography>
 			<List>
-				{flashcards.map((flashcard) => (
-					<ListItem key={flashcard.id}>
+				{flashcardSet.map((set) => (
+					<ListItem key={set.id}>
 						<ListItemButton
 							component={Link}
-							to={`/flashcards/${flashcard.id}`}
+							to={`/flashcards/${set.id}`}
 						>
-							<ListItemText primary={flashcard.title} />
+							<ListItemText primary={set.title} />
 						</ListItemButton>
 					</ListItem>
 				))}
