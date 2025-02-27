@@ -8,9 +8,15 @@ import {
 	DialogActions,
 	TextField,
 } from "@mui/material";
-import { List, ListItem, ListItemText } from "@mui/material";
+import {
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemText,
+	Link,
+} from "@mui/material";
 
-const AddFlashcardSetButton = () => {
+const AddFlashcardSetButton = ({ onSetCreated }) => {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -27,7 +33,6 @@ const AddFlashcardSetButton = () => {
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
-							event.preventDefault();
 							const title = event.target.title.value;
 							fetch("/api/flashcards", {
 								method: "POST",
@@ -35,8 +40,12 @@ const AddFlashcardSetButton = () => {
 									"Content-Type": "application/json",
 								},
 								body: JSON.stringify({ title }),
-							});
-							handleClose();
+							})
+								.then((res) => res.json())
+								.then((newSet) => {
+									onSetCreated(newSet);
+									handleClose();
+								});
 						},
 					},
 				}}
@@ -62,14 +71,17 @@ const AddFlashcardSetButton = () => {
 	);
 };
 
-const Flashcards = () => {
-	const [flashcards, setFlashcards] = useState([]);
+const FlashcardSets = () => {
+	const [flashcardSet, setFlashcardSet] = useState([]);
+	const addNewSet = (newSet) => {
+		setFlashcardSet((prev) => [...prev, newSet]);
+	};
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		fetch("/api/flashcards")
 			.then((res) => res.json())
-			.then((data) => setFlashcards(data))
+			.then((data) => setFlashcardSet(data))
 			.catch((err) => console.error(err));
 	}, []);
 
@@ -83,13 +95,18 @@ const Flashcards = () => {
 			<Button variant="outlined" onClick={() => navigate("/")}>
 				Go back
 			</Button>
-			<AddFlashcardSetButton />
+			<AddFlashcardSetButton onSetCreated={addNewSet} />
 			<Divider style={{ margin: "20px 0" }} />
 			<Typography variant="h4">Current flashcard sets:</Typography>
 			<List>
-				{flashcards.map((flashcard) => (
-					<ListItem key={flashcard.id}>
-						<ListItemText primary={flashcard.title} />
+				{flashcardSet.map((set) => (
+					<ListItem key={set.id}>
+						<ListItemButton
+							component={Link}
+							to={`/flashcards/${set.id}`}
+						>
+							<ListItemText primary={set.title} />
+						</ListItemButton>
 					</ListItem>
 				))}
 			</List>
@@ -97,4 +114,4 @@ const Flashcards = () => {
 	);
 };
 
-export default Flashcards;
+export default FlashcardSets;

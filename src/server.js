@@ -5,6 +5,8 @@ import flashcardRoutes from "./routes/flashcardRoutes.js"; // Import the flashca
 // Create an Express app
 const app = express();
 
+app.use(express.json()); // Parse JSON request bodies
+
 // Serve a basic API response
 app.get("/greet", (req, res) => {
 	res.json({ message: "Hello from Vite and Node.js!" });
