@@ -32,7 +32,7 @@ const AddFlashcardButton = ({ id, onCardCreated }) => {
 						onSubmit: (event) => {
 							const front = event.target.front.value;
 							const back = event.target.back.value;
-							fetch(`/api/flashcards/${id}`, {
+							fetch(`/api/sets/${id}`, {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
@@ -88,14 +88,14 @@ const Flashcards = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch(`/api/flashcards/${id}`)
+		fetch(`/api/sets/${id}`)
 			.then((res) => {
 				return res.json();
 			})
 			.then((set) => setSet(set));
 	}, [id]);
 	useEffect(() => {
-		fetch(`/api/flashcards/${id}/cards`)
+		fetch(`/api/sets/${id}/cards`)
 			.then((res) => {
 				return res.json();
 			})
@@ -109,10 +109,7 @@ const Flashcards = () => {
 			<Container>
 				<Typography variant="h3">Flashcard set {set.title}</Typography>
 				<Divider style={{ margin: "20px 0" }} />
-				<Button
-					variant="outlined"
-					onClick={() => navigate("/flashcards")}
-				>
+				<Button variant="outlined" onClick={() => navigate("/sets")}>
 					Go back
 				</Button>
 				<AddFlashcardButton id={id} onCardCreated={addNewCard} />

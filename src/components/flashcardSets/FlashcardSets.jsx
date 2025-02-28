@@ -34,7 +34,7 @@ const AddFlashcardSetButton = ({ onSetCreated }) => {
 						component: "form",
 						onSubmit: (event) => {
 							const title = event.target.title.value;
-							fetch("/api/flashcards", {
+							fetch("/api/sets", {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
@@ -79,7 +79,7 @@ const FlashcardSets = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch("/api/flashcards")
+		fetch("/api/sets")
 			.then((res) => res.json())
 			.then((data) => setFlashcardSet(data))
 			.catch((err) => console.error(err));
@@ -101,10 +101,7 @@ const FlashcardSets = () => {
 			<List>
 				{flashcardSet.map((set) => (
 					<ListItem key={set.id}>
-						<ListItemButton
-							component={Link}
-							to={`/flashcards/${set.id}`}
-						>
+						<ListItemButton component={Link} to={`/sets/${set.id}`}>
 							<ListItemText primary={set.title} />
 						</ListItemButton>
 					</ListItem>
