@@ -34,7 +34,7 @@ const AddFlashcardButton = ({ id, onCardCreated }) => {
 						onSubmit: (event) => {
 							const front = event.target.front.value;
 							const back = event.target.back.value;
-							fetch(`/api/sets/${id}`, {
+							fetch(`/api/sets/${id}/cards`, {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
