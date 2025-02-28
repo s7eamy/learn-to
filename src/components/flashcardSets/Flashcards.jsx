@@ -11,7 +11,9 @@ import {
 	List,
 	ListItem,
 	ListItemText,
+	IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const AddFlashcardButton = ({ id, onCardCreated }) => {
 	const [open, setOpen] = React.useState(false);
@@ -119,7 +121,14 @@ const Flashcards = () => {
 				</Typography>
 				<List>
 					{flashcards.map((flashcard) => (
-						<ListItem key={flashcard.id}>
+						<ListItem
+							key={flashcard.id}
+							secondaryAction={
+								<IconButton edge="end" aria-label="delete">
+									<DeleteIcon />
+								</IconButton>
+							}
+						>
 							<ListItemText
 								primary={flashcard.question}
 								secondary={flashcard.answer}
