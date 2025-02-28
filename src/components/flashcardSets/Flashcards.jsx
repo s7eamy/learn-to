@@ -32,6 +32,7 @@ const AddFlashcardButton = ({ id, onCardCreated }) => {
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
+							event.preventDefault();
 							const front = event.target.front.value;
 							const back = event.target.back.value;
 							fetch(`/api/sets/${id}/cards`, {
