@@ -104,6 +104,19 @@ const Flashcards = () => {
 			.then((cards) => setFlashcards(cards));
 	}, [id]);
 
+	const handleDelete = (cardId) => {
+		fetch(`/api/sets/${id}/cards/${cardId}`, {
+			method: "DELETE",
+		})
+			.then((res) => {
+				if (!res.ok) throw new Error("Delete failed");
+				setFlashcards((cards) =>
+					cards.filter((card) => card.id !== cardId)
+				);
+			})
+			.catch((err) => console.error("Error deleting card:", err));
+	};
+
 	if (!set) return <div>Loading...</div>;
 
 	return (
@@ -124,7 +137,11 @@ const Flashcards = () => {
 						<ListItem
 							key={flashcard.id}
 							secondaryAction={
-								<IconButton edge="end" aria-label="delete">
+								<IconButton
+									edge="end"
+									aria-label="delete"
+									onClick={() => handleDelete(flashcard.id)}
+								>
 									<DeleteIcon />
 								</IconButton>
 							}
