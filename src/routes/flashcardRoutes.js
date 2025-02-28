@@ -59,11 +59,15 @@ router.post("/:setId/cards", (req, res) => {
 });
 
 router.delete("/:setId/cards/:cardId", (req, res) => {
-	const { cardId } = req.params;
-	db.run("DELETE FROM flashcards WHERE id = ?", [cardId], (err) => {
-		if (err) return res.status(500).json({ error: err.message });
-		res.json({ success: true });
-	});
+	const { setId, cardId } = req.params;
+	db.run(
+		"DELETE FROM flashcards WHERE id = ? AND set_id = ?",
+		[cardId, setId],
+		(err) => {
+			if (err) return res.status(500).json({ error: err.message });
+			res.json({ success: true });
+		}
+	);
 });
 
 export default router;
