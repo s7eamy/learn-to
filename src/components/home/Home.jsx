@@ -12,7 +12,7 @@ const Home = () => {
 				A platform to reach your studying goals
 			</Typography>
 			<Divider style={{ margin: "20px 0" }} />
-			<Button variant="contained" onClick={() => navigate("/flashcards")}>
+			<Button variant="contained" onClick={() => navigate("/sets")}>
 				View flashcard sets
 			</Button>
 		</Container>

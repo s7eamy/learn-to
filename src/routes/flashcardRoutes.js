@@ -37,12 +37,12 @@ router.get("/:id/cards", (req, res) => {
 	});
 });
 
-router.post("/:id", (req, res) => {
-	const { id } = req.params;
+router.post("/:setId/cards", (req, res) => {
+	const { setId } = req.params;
 	const { front, back } = req.body;
 	db.run(
 		"INSERT INTO flashcards (set_id, question, answer) VALUES (?, ?, ?)",
-		[id, front, back],
+		[setId, front, back],
 		function (err) {
 			if (err) return res.status(500).json({ error: err.message });
 			db.get(
@@ -54,6 +54,18 @@ router.post("/:id", (req, res) => {
 					res.json(row);
 				}
 			);
+		}
+	);
+});
+
+router.delete("/:setId/cards/:cardId", (req, res) => {
+	const { setId, cardId } = req.params;
+	db.run(
+		"DELETE FROM flashcards WHERE id = ? AND set_id = ?",
+		[cardId, setId],
+		(err) => {
+			if (err) return res.status(500).json({ error: err.message });
+			res.json({ success: true });
 		}
 	);
 });

@@ -9,8 +9,8 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/flashcards" element={<FlashcardSets />} />
-				<Route path="/flashcards/:setId" element={<Flashcards />} />
+				<Route path="/sets" element={<FlashcardSets />} />
+				<Route path="/sets/:setId" element={<Flashcards />} />
 			</Routes>
 		</Router>
 	);

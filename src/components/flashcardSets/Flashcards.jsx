@@ -11,7 +11,9 @@ import {
 	List,
 	ListItem,
 	ListItemText,
+	IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const AddFlashcardButton = ({ id, onCardCreated }) => {
 	const [open, setOpen] = React.useState(false);
@@ -30,9 +32,10 @@ const AddFlashcardButton = ({ id, onCardCreated }) => {
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
+							event.preventDefault();
 							const front = event.target.front.value;
 							const back = event.target.back.value;
-							fetch(`/api/flashcards/${id}`, {
+							fetch(`/api/sets/${id}/cards`, {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
@@ -88,19 +91,32 @@ const Flashcards = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch(`/api/flashcards/${id}`)
+		fetch(`/api/sets/${id}`)
 			.then((res) => {
 				return res.json();
 			})
 			.then((set) => setSet(set));
 	}, [id]);
 	useEffect(() => {
-		fetch(`/api/flashcards/${id}/cards`)
+		fetch(`/api/sets/${id}/cards`)
 			.then((res) => {
 				return res.json();
 			})
 			.then((cards) => setFlashcards(cards));
 	}, [id]);
+
+	const handleDelete = (cardId) => {
+		fetch(`/api/sets/${id}/cards/${cardId}`, {
+			method: "DELETE",
+		})
+			.then((res) => {
+				if (!res.ok) throw new Error("Delete failed");
+				setFlashcards((cards) =>
+					cards.filter((card) => card.id !== cardId)
+				);
+			})
+			.catch((err) => console.error("Error deleting card:", err));
+	};
 
 	if (!set) return <div>Loading...</div>;
 
@@ -109,10 +125,7 @@ const Flashcards = () => {
 			<Container>
 				<Typography variant="h3">Flashcard set {set.title}</Typography>
 				<Divider style={{ margin: "20px 0" }} />
-				<Button
-					variant="outlined"
-					onClick={() => navigate("/flashcards")}
-				>
+				<Button variant="outlined" onClick={() => navigate("/sets")}>
 					Go back
 				</Button>
 				<AddFlashcardButton id={id} onCardCreated={addNewCard} />
@@ -122,7 +135,18 @@ const Flashcards = () => {
 				</Typography>
 				<List>
 					{flashcards.map((flashcard) => (
-						<ListItem key={flashcard.id}>
+						<ListItem
+							key={flashcard.id}
+							secondaryAction={
+								<IconButton
+									edge="end"
+									aria-label="delete"
+									onClick={() => handleDelete(flashcard.id)}
+								>
+									<DeleteIcon />
+								</IconButton>
+							}
+						>
 							<ListItemText
 								primary={flashcard.question}
 								secondary={flashcard.answer}

@@ -12,7 +12,7 @@ app.get("/greet", (req, res) => {
 	res.json({ message: "Hello from Vite and Node.js!" });
 });
 
-app.use("/flashcards", flashcardRoutes); // Use the flashcard routes
+app.use("/sets", flashcardRoutes); // Use the flashcard routes
 
 // Start the server on port 3000
 const PORT = 3000;
