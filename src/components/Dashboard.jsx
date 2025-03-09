@@ -7,11 +7,11 @@ const Dashboard = () => {
 		<Container>
 			<Typography variant="h2">Dashboard</Typography>
 			<Typography variant="h4">Choose a functionality:</Typography>
-			<Button variant="contained" component={Link} to="/quiz" style={{ margin: "10px" }}>
-				Go to Quiz
-			</Button>
 			<Button variant="contained" component={Link} to="/sets" style={{ margin: "10px" }}>
-				Go to Flashcards
+				Flashcards
+			</Button>
+			<Button variant="contained" component={Link} to="/quizzes" style={{ margin: "10px" }}>
+				Quizzes
 			</Button>
 		</Container>
 	);
