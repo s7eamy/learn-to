@@ -1,7 +1,7 @@
 // Import required modules
 import express from "express"; // Use Express for the Node.js server
 import flashcardRoutes from "./routes/flashcardRoutes.js"; // Import the flashcard routes
-
+import quizRoutes from "./routes/quizRoutes.js"; // Import the quiz routes
 // Create an Express app
 const app = express();
 
@@ -13,6 +13,7 @@ app.get("/greet", (req, res) => {
 });
 
 app.use("/sets", flashcardRoutes); // Use the flashcard routes
+app.use("/quizzes", quizRoutes); // Use the quiz routes
 
 // Start the server on port 3000
 const PORT = 3000;
