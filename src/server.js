@@ -17,7 +17,7 @@ app.get("/greet", (req, res) => {
 });
 
 app.use("/sets", flashcardRoutes); // Use the flashcard routes
-app.use("/api/quizzes", quizRoutes); // Use the quiz routes
+app.use("/quizzes", quizRoutes); // Use the quiz routes
 // Start the server on port 3000
 const PORT = 3000;
 app.listen(PORT, () => {
