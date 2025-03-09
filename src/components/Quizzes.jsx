@@ -34,7 +34,7 @@ const AddQuizButton = ({ onQuizCreated }) => {
             onSubmit: (event) => {
               event.preventDefault();
               const name = event.target.name.value;
-              fetch("http://localhost:3000/api/quizzes", {
+              fetch("/api/quizzes", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Quizzes = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/quizzes")
+    fetch("/api/quizzes")
       .then((res) => res.json())
       .then((data) => setQuizzes(data))
       .catch((err) => console.error(err));
