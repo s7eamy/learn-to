@@ -2,6 +2,7 @@
 import express from "express"; // Use Express for the Node.js server
 import flashcardRoutes from "./routes/flashcardRoutes.js"; // Import the flashcard routes
 import bodyParser from "body-parser";
+import cors from "cors"
 import fs from "fs";
 import path from "path";
 import process from "node:process";
@@ -18,8 +19,10 @@ app.get("/greet", (req, res) => {
 
 app.use("/flashcards", flashcardRoutes); // Use the flashcard routes
 
+app.use(cors());
 //Middleware to parse JSON
 app.use(bodyParser.json())
+
 
 //path to user data
 const usersFilePath = path.join(process.cwd(), "users.json");
