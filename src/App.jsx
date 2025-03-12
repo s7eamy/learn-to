@@ -5,6 +5,7 @@ import Flashcards from "./components/flashcardSets/Flashcards";
 import Dashboard from "./components/Dashboard";
 import Quizzes from "./components/Quizzes";
 import Login from "./components/auth/Login";
+import Register from "./components/auth/Register.jsx";
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Dashboard />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 				<Route path="/sets" element={<FlashcardSets />} />
 				<Route path="/sets/:setId" element={<Flashcards />} />
 				<Route path="/quizzes" element={<Quizzes />} />
