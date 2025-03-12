@@ -52,6 +52,32 @@ router.get("/", (req, res) => {
 	res.json({ msg: "Hello from the auth route!" });
 });
 
+router.post("/register", function (req, res) {
+	var salt = crypto.randomBytes(16);
+	crypto.pbkdf2(
+		req.body.password,
+		salt,
+		310000,
+		32,
+		"sha256",
+		function (err, hashedPassword) {
+			if (err) {
+				return console.error(err);
+			}
+			db.run(
+				"INSERT INTO users (username, hashed_password, salt) VALUES (?, ?, ?)",
+				[req.body.username, hashedPassword, salt],
+				function (err) {
+					if (err) {
+						return res.sendStatus(409);
+					}
+					return res.sendStatus(200);
+				}
+			);
+		}
+	);
+});
+
 router.post(
 	"/login/password",
 	passport.authenticate("local", {
