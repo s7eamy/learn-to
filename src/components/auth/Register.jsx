@@ -7,8 +7,10 @@ import {
 	Box,
 	Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
@@ -28,9 +30,12 @@ const Register = () => {
 				body: JSON.stringify(formData),
 			});
 
-			if (!response.ok) throw new Error("Register failed");
+			if (response.status == 409)
+				throw new Error("Username already exists!");
+			else if (!response.ok)
+				throw new Error("An error occurred when trying to register!");
 
-			const data = await response.json();
+			navigate("/login");
 			// Handle successful login (e.g., save token, redirect)
 		} catch (err) {
 			setError(err.message);
