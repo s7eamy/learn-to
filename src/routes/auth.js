@@ -7,6 +7,7 @@ const router = express.Router();
 
 passport.use(
 	new LocalStrategy(function verify(username, password, cb) {
+		console.log(`Verifying user ${username} with password ${password}`);
 		db.get(
 			"SELECT * FROM users WHERE username = ?",
 			[username],
@@ -48,10 +49,6 @@ passport.use(
 	})
 );
 
-router.get("/", (req, res) => {
-	res.json({ msg: "Hello from the auth route!" });
-});
-
 router.post("/register", function (req, res) {
 	var salt = crypto.randomBytes(16);
 	crypto.pbkdf2(
@@ -78,12 +75,39 @@ router.post("/register", function (req, res) {
 	);
 });
 
-router.post(
-	"/login/password",
-	passport.authenticate("local", {
-		successRedirect: "/",
-		failureRedirect: "/login",
-	})
-);
+router.post("/login", (req, res, next) => {
+	passport.authenticate("local", (err, user, info) => {
+		if (err) {
+			return res
+				.status(500)
+				.json({ message: "Internal server error when authenticating" });
+		}
+		if (!user) {
+			return res
+				.status(401)
+				.json({ message: info.message || "Login failed" });
+		}
+		req.logIn(user, (err) => {
+			if (err) {
+				return res
+					.status(500)
+					.json({ message: "Internal server error when logging in" });
+			}
+			return res.status(200).json({ message: "Login successful" });
+		});
+	})(req, res, next);
+});
+
+passport.serializeUser(function (user, cb) {
+	process.nextTick(function () {
+		cb(null, { id: user.id, username: user.username });
+	});
+});
+
+passport.deserializeUser(function (user, cb) {
+	process.nextTick(function () {
+		return cb(null, user);
+	});
+});
 
 export default router;
