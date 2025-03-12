@@ -32,9 +32,8 @@ db.serialize(() => {
   `);
 
 	db.run(`
-    CREATE TABLE IF NOT EXISTS user (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT NOT NULL,
+    CREATE TABLE IF NOT EXISTS users (
+      username TEXT NOT NULL PRIMARY KEY,
       salt TEXT NOT NULL,
       hashed_password TEXT NOT NULL
     )`);
