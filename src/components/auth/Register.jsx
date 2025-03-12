@@ -28,7 +28,7 @@ const Register = () => {
 				body: JSON.stringify(formData),
 			});
 
-			if (!response.ok) throw new Error("Login failed");
+			if (!response.ok) throw new Error("Register failed");
 
 			const data = await response.json();
 			// Handle successful login (e.g., save token, redirect)
@@ -59,7 +59,7 @@ const Register = () => {
 				}}
 			>
 				<Typography variant="h4" align="center">
-					Login
+					Register
 				</Typography>
 
 				{error && <Alert severity="error">{error}</Alert>}
@@ -90,7 +90,7 @@ const Register = () => {
 					disabled={isLoading}
 					sx={{ mt: 2 }}
 				>
-					{isLoading ? "Logging in..." : "Login"}
+					{isLoading ? "Registering..." : "Register"}
 				</Button>
 			</Box>
 		</Container>
