@@ -98,6 +98,13 @@ router.post("/login", (req, res, next) => {
 	})(req, res, next);
 });
 
+router.get("/user", (req, res) => {
+	if (req.isAuthenticated()) {
+		return res.json(req.user);
+	}
+	return res.status(401).json({ message: "Unauthorized" });
+});
+
 passport.serializeUser(function (user, cb) {
 	process.nextTick(function () {
 		cb(null, { id: user.id, username: user.username });
