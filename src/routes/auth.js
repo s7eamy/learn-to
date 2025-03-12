@@ -105,6 +105,15 @@ router.get("/user", (req, res) => {
 	return res.status(401).json({ message: "Unauthorized" });
 });
 
+router.get("/logout", function (req, res, next) {
+	req.logout(function (err) {
+		if (err) {
+			return next(err);
+		}
+		res.redirect("/");
+	});
+});
+
 passport.serializeUser(function (user, cb) {
 	process.nextTick(function () {
 		cb(null, { id: user.id, username: user.username });
