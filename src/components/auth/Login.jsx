@@ -7,8 +7,10 @@ import {
 	Box,
 	Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
@@ -30,8 +32,8 @@ const Login = () => {
 
 			if (!response.ok) throw new Error("Login failed");
 
-			const data = await response.json();
 			// Handle successful login (e.g., save token, redirect)
+			navigate("/");
 		} catch (err) {
 			setError(err.message);
 		} finally {
