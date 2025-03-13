@@ -3,8 +3,8 @@ import sqlite3 from "sqlite3";
 const db = new sqlite3.Database("./app.db");
 
 db.serialize(() => {
-  // Flashcard Sets table
-  db.run(`
+	// Flashcard Sets table
+	db.run(`
     CREATE TABLE IF NOT EXISTS flashcard_sets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
@@ -12,8 +12,8 @@ db.serialize(() => {
     )
   `);
 
-  // Flashcards table
-  db.run(`
+	// Flashcards table
+	db.run(`
     CREATE TABLE IF NOT EXISTS flashcards (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       set_id INTEGER,
@@ -23,13 +23,20 @@ db.serialize(() => {
     )
   `);
 
-  // Quizzes table
-  db.run(`
+	// Quizzes table
+	db.run(`
     CREATE TABLE IF NOT EXISTS quizzes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL
     )
   `);
+
+	db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      username TEXT NOT NULL PRIMARY KEY,
+      salt TEXT NOT NULL,
+      hashed_password TEXT NOT NULL
+    )`);
 });
 
 export default db;
