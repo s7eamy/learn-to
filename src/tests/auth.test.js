@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { createServer } from '../server.js';
+import { createServer, sessionStore } from '../server.js';
 import db from '../db/database.js';
 
 let server;
@@ -11,15 +11,14 @@ beforeAll(async () => {
 
 afterEach(async () => {
   await db.exec('DELETE FROM users');
+	sessionStore.clear();
 });
 
 afterAll(async () => {
   return new Promise((resolve) => {
-    db.exec('DROP TABLE users', () => {
       db.close(() => {
         server.close(() => resolve());
       });
-    });
   });
 });
 

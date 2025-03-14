@@ -12,12 +12,15 @@ const app = express();
 app.use(express.json()); // Parse JSON request bodies
 import connectSqlite3 from "connect-sqlite3";
 const SQLiteStore = connectSqlite3(session);
+const sessionStore = process.env.NODE_ENV === 'test'
+	? new session.MemoryStore()
+	: new SQLiteStore({ db: "sessions.db", dir: "./" })
 app.use(
 	session({
 		secret: "hush hush",
 		resave: false,
 		saveUninitialized: false,
-		store: new SQLiteStore({ db: "sessions.db", dir: "./" }),
+		store: sessionStore,
 	})
 );
 app.use(passport.authenticate("session"));
@@ -43,4 +46,4 @@ if (process.env.NODE_ENV !== 'test') {
 	createServer(3000, serverLogging(3000));
 }
 
-export { createServer };
+export { createServer, sessionStore };
