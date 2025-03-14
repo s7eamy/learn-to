@@ -24,44 +24,129 @@ afterAll(async () => {
 });
 
 describe('Authentication', () => {
-  test('Register with valid credentials', async () => {
-    // Test registration success
+  test.each([
+	  ['testuser', 'testpass'],
+	  ['UPPERCASE', 'testpass'],
+	  ['numb3rs123', 'testpass'],
+	  ['sy!mb0ls#?', 'testpass']
+  ])('Register with valid credentials', async (user, passw) => {
+    	// Test registration success
 	const res = await request(server)
 	  .post('/auth/register')
 	  .send({
-		  username: 'testuser',
-		  password: 'testpass'
+		  username: user,
+		  password: passw
 	  });
 	expect(res.statusCode).toBe(200);
   });
 
   test('Register with existing username', async () => {
-    // Test 409 conflict
-	  throw new Error('Need to implement');
+	// Test 409 conflict
+	await request(server)
+	  .post('/auth/register')
+	  .send({
+		  username: 'existinguser',
+		  password: 'uniquepass'
+	  });
+
+	const res = await request(server)
+	  .post('/auth/register')
+	  .send({
+		  username: 'existinguser',
+		  password: 'different'
+	  });
+
+	expect(res.statusCode).toBe(409);
   });
 
   test('Login with valid credentials', async () => {
     // Test login success
-	  throw new Error('Need to implement');
+	await request(server)
+	  .post('/auth/register')
+	  .send({
+		  username: 'testuser',
+		  password: 'testpass'
+	  });
+	const res = await request(server)
+	  .post('/auth/login')
+	  .send({
+		  username: 'testuser',
+		  password: 'testpass'
+	  });
+
+	expect(res.statusCode).toBe(200);
+	expect(res.body.message).toBe('Login successful');
   });
 
   test('Login with invalid credentials', async () => {
     // Test 401 unauthorized
-	  throw new Error('Need to implement');
+	const res = await request(server)
+	  .post('/auth/login')
+	  .send({
+		  username: 'testuser',
+		  password: 'testpass'
+	  });
+	expect(res.statusCode).toBe(401);
+	expect(res.body.message).toBe('Incorrect username or password.');
   });
 
   test('Get user when authenticated', async () => {
-    // Test user info retrieval
-	  throw new Error('Need to implement');
+	// Test user info retrieval
+	// Register and login first
+	await request(server)
+		.post('/auth/register')
+		.send({
+			username: 'testuser',
+			password: 'testpass'
+	});
+
+	const agent = request.agent(server);
+	await agent
+		.post('/auth/login')
+		.send({
+			username: 'testuser',
+			password: 'testpass'
+	});
+
+	// Test user info endpoint
+	const res = await agent.get('/auth/user');
+	expect(res.statusCode).toBe(200);
+	expect(res.body.username).toBe('testuser');
   });
 
   test('Get user when not authenticated', async () => {
-    // Test 401 unauthorized
-	  throw new Error('Need to implement');
+	// Test 401 unauthorized
+	const res = await request(server)
+	  .get('/auth/user');
+	
+	expect(res.statusCode).toBe(401);
+	expect(res.body.message).toBe('Unauthorized');
   });
 
   test('Logout success', async () => {
     // Test session cleared
-	  throw new Error('Need to implement');
+	// Register and login first
+	await request(server)
+		.post('/auth/register')
+		.send({
+			username: 'testuser',
+			password: 'testpass'
+	});
+
+	const agent = request.agent(server);
+	await agent
+		.post('/auth/login')
+		.send({
+			username: 'testuser',
+			password: 'testpass'
+	});
+
+	// Test logout
+	const res = await agent.get('/auth/logout');
+	expect(res.statusCode).toBe(302); // Redirect status
+
+	// Verify logged out by checking user endpoint
+	const userRes = await agent.get('/auth/user');
+	expect(userRes.statusCode).toBe(401);
   });
 });
