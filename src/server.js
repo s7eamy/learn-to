@@ -35,3 +35,5 @@ app.listen(PORT, () => {
 		`[${date.getHours()}:${date.getMinutes()}] Server running at http://localhost:${PORT}`
 	);
 });
+
+export { app };
