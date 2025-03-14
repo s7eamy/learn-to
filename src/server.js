@@ -12,9 +12,10 @@ const app = express();
 app.use(express.json()); // Parse JSON request bodies
 import connectSqlite3 from "connect-sqlite3";
 const SQLiteStore = connectSqlite3(session);
-const sessionStore = process.env.NODE_ENV === 'test'
-	? new session.MemoryStore()
-	: new SQLiteStore({ db: "sessions.db", dir: "./" })
+const sessionStore =
+	process.env.NODE_ENV === "test"
+		? new session.MemoryStore()
+		: new SQLiteStore({ db: "sessions.db", dir: "./" });
 app.use(
 	session({
 		secret: "hush hush",
@@ -36,13 +37,13 @@ const serverLogging = (port) => {
 	);
 };
 
-const createServer = (port, logFunc=() => {}) => {
+const createServer = (port, logFunc = () => {}) => {
 	const server = app.listen(port, logFunc);
 	return server;
 };
 
 // Deploy server in prod environment
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
 	createServer(3000, serverLogging(3000));
 }
 
