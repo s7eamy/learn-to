@@ -1,8 +1,11 @@
 import request from 'supertest';
-import { app } from '../server.js';
+import { createServer } from '../server.js';
 import db from '../db/database.js';
 
+let server;
+
 beforeAll(async () => {
+	server = createServer(3001);
   await db.exec('CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL PRIMARY KEY, salt TEXT NOT NULL, hashed_password TEXT NOT NULL)');
 });
 
@@ -11,18 +14,19 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
-  await db.exec('DROP TABLE users');
-	await new Promise((resolve) => {
-		db.close(() => {
-			resolve();
-		});
-	});
+  return new Promise((resolve) => {
+    db.exec('DROP TABLE users', () => {
+      db.close(() => {
+        server.close(() => resolve());
+      });
+    });
+  });
 });
 
 describe('Authentication', () => {
   test('Register with valid credentials', async () => {
     // Test registration success
-	const res = await request(app)
+	const res = await request(server)
 	  .post('/auth/register')
 	  .send({
 		  username: 'testuser',
