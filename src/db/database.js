@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 
-const db = new sqlite3.Database("./app.db");
+const db = process.env.NODE_ENV === 'test' ? new sqlite3.Database(":memory:") : new sqlite3.Database("./app.db");
 
 db.serialize(() => {
 	// Flashcard Sets table
