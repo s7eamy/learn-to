@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import TopBar from "../common/TopBar.jsx";
+
 
 const Dashboard = () => {
   const [username, setUsername] = useState(null);
@@ -27,6 +29,7 @@ const Dashboard = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <TopBar />
       {/*
       <Container>
         <Typography variant="h2">Learn2</Typography>
