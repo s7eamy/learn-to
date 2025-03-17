@@ -1,178 +1,124 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  InputBase,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-// import HomeIcon from "public/icons/home_icon.svg";
-// import SearchIcon from "public/icons/search_icon.svg";
-// import ProfileIcon from "public/icons/profile_icon.svg";
-// import SettingsIcon from "public/icons/settings_icon.svg";
-// import LogoutIcon from "public/icons/logout_icon.svg";
+const iconStyle = {width: 40, height: 40};
 
-export default function TopBar() {
+// Styled search component
+const SearchContainer = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius * 4,
+  backgroundColor: "#373737",
+  width: "100%",
+  height: 64,
+  boxShadow: "inset -3px -2px 11.1px 2px rgba(0,0,0,0.25)",
+  display: "flex",
+  alignItems: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  width: "100%",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    fontSize: "1.5rem"
+  },
+}));
+
+// Styled app bar
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  backgroundColor: "#353535",
+  boxShadow: "none",
+  borderRadius: 20,
+  border: "4px solid rgba(103, 103, 103, 0.07)",
+  height: 83,
+  position: "relative",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    width: "calc(100% - 21px)",
+    height: 90,
+    top: 11,
+    left: 0,
+    backgroundColor: "black",
+    borderRadius: 24,
+    filter: "blur(30px)",
+    opacity: 0.7,
+    zIndex: -1,
+  },
+}));
+
+const TopBar = () => {
+    const [searchOpen, setSearchOpen] = React.useState(false);
+    const toggleSearch = () => setSearchOpen((prev) => !prev);
+
   return (
-    // 1) Parent container to hold everything
     <Box
       sx={{
-        position: "relative", // So children can be absolutely positioned within
-        width: "1836px",      // From Figma
-        height: "83px",
-        marginLeft: "40px",   // If you want it exactly at left: 40px
-        marginTop: "37px",    // and top: 37px from Figma
+        height: 100,
+        position: "fixed",
+        top: 20,
+        left: 20,
+        right: 20,
+        zIndex: 1100,
       }}
     >
-      {/* 2) Blurred background (Rectangle 37) */}
-      <Box
-        sx={{
-          position: "absolute",
-          width: "1838px",
-          height: "90px",
-          left: "-23px",
-          top: "11px",
-          background: "#000000",
-          opacity: 0.7,
-          filter: "blur(30px)",
-          borderRadius: "24px",
-          zIndex: 0,
-        }}
-      />
+      <StyledAppBar>
+        <Toolbar sx={{ height: "100%"}}>
 
-      {/* 3) Main bar (Rectangle 38) */}
-      <Box
-        sx={{
-          boxSizing: "border-box",
-          position: "absolute",
-          width: "1836px",
-          height: "83px",
-          background: "#353535",
-          border: "4px solid rgba(103, 103, 103, 0.07)",
-          borderRadius: "20px",
-          zIndex: 1,
-          // No 'left' or 'top' here because it matches the parent container's size
-        }}
-      />
+            {/*Search Icon */}
+          <IconButton edge="start" color="inherit" aria-label="home" sx={{ mr: 1 }}>
+            <img src="/icons/home_icon.svg" alt="Home Icon" style={iconStyle} />
+          </IconButton>
 
-      {/* 4) "Learn2" gray box (Group 69) */}
-      <Box
-        sx={{
-          position: "absolute",
-          width: "160px",
-          height: "60px",
-          left: "1591px",
-          top: "11px",
-          background: "#8A8A8A",
-          borderRadius: "10px",
-          zIndex: 2,
-        }}
-      />
-      <Typography
-        sx={{
-          position: "absolute",
-          width: "149px",
-          height: "55px",
-          left: "1612px",
-          top: "13px",
-          fontFamily: "Poppins, sans-serif",
-          fontStyle: "normal",
-          fontWeight: 500,
-          fontSize: "36px",
-          lineHeight: "54px",
-          color: "#FFFFFF",
-          textShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
-          zIndex: 3,
-        }}
-      >
-        Learn2
-      </Typography>
+            {/*Search Icon */}
+          <IconButton color="inherit" aria-label="search" sx={{ mr: 2 }}>
+            <img src="/icons/search_icon.svg" alt="Search Icon" onClick={toggleSearch} style={iconStyle} />
+          </IconButton>
 
-      {/* 5) Icons (Hamburger, Home, Search, Profile, Settings, etc.) */}
-      {/* Example: Hamburger (left: 100px, top: 22px) */}
-      <Box
-        component="img"
-        src={MenuIcon}
-        alt="Menu"
-        sx={{
-          position: "absolute",
-          width: "40px",
-          height: "40px",
-          left: "100px",
-          top: "22px",
-          zIndex: 4,
-        }}
-      />
+            {/*SearchContainer Box */}
+          <SearchContainer>
+              {searchOpen && (
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />)}
+          </SearchContainer>
 
-      {/* Home icon (left: 28px, top: 22px) */}
-      <Box
-        component="img"
-        src={HomeIcon}
-        alt="Home"
-        sx={{
-          position: "absolute",
-          width: "40px",
-          height: "40px",
-          left: "28px",
-          top: "22px",
-          zIndex: 5,
-        }}
-      />
+            {/*Settings Icon */}
+          <IconButton color="inherit" aria-label="settings" sx={{ ml: 2}}>
+            <img src="/icons/settings_icon.svg" alt="Settings Icon" style={iconStyle} />
+          </IconButton>
 
-      {/* Search icon (left: 242px, top: 22px) */}
-      <Box
-        component="img"
-        src={SearchIcon}
-        alt="Search"
-        sx={{
-          position: "absolute",
-          width: "40px",
-          height: "40px",
-          left: "242px",
-          top: "22px",
-          zIndex: 6,
-        }}
-      />
+            {/*Profile Icon */}
+          <IconButton color="inherit" aria-label="profile" sx={{ mx: 1 }}>
+            <img src="/icons/profile_icon.svg" alt="Profile Icon" style={iconStyle} />
+          </IconButton>
 
-      {/* Profile icon (left: 1526px, top: 21px) */}
-      <Box
-        component="img"
-        src={ProfileIcon}
-        alt="Profile"
-        sx={{
-          position: "absolute",
-          width: "40px",
-          height: "40px",
-          left: "1526px",
-          top: "21px",
-          zIndex: 7,
-        }}
-      />
+            {/*Learn2 Icon */}
+          <IconButton color="inherit" aria-label="learn2" sx={{ mx: 1 }}>
+            <img src="/icons/Learn2_icon.svg" alt="Learn2 Icon" style={{ width: 160, height: 60 }} />
+          </IconButton>
 
-      {/* Settings icon (left: 1461px, top: 23px) */}
-      <Box
-        component="img"
-        src={SettingsIcon}
-        alt="Settings"
-        sx={{
-          position: "absolute",
-          width: "40px",
-          height: "40px",
-          left: "1461px",
-          top: "23px",
-          zIndex: 8,
-        }}
-      />
+            {/*Logout Icon */}
+          <IconButton color="inherit" aria-label="logout" sx={{ ml: 1, pr:0}}>
+            <img src="/icons/logout_icon.svg" alt="Logout Icon" style={iconStyle} />
+          </IconButton>
 
-      {/* 6) Big dark rectangle in the middle (Rectangle 65) */}
-      <Box
-        sx={{
-          position: "absolute",
-          width: "1092px",
-          height: "64px",
-          left: "332px",
-          top: "10px",
-          background: "#373737",
-          boxShadow: "inset -3px -2px 11.1px 2px rgba(0, 0, 0, 0.25)",
-          borderRadius: "20px",
-          zIndex: 10,
-        }}
-      />
+        </Toolbar>
+      </StyledAppBar>
     </Box>
   );
-}
+};
+
+export default TopBar;
