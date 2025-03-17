@@ -16,7 +16,6 @@ const Dashboard = () => {
 			})
 			.catch(() => setUsername(null));
 	}, []);
-
 	return (
 		<Container>
 			<Typography variant="h2">Learn2</Typography>
