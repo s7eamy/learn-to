@@ -22,6 +22,7 @@ const Dashboard = () => {
   return (
     <Box
       sx={{
+        position: "relative",
         minHeight: "100vh",
         backgroundImage: 'url("/background.png")',
         backgroundSize: "cover",
@@ -30,8 +31,45 @@ const Dashboard = () => {
       }}
     >
       <TopBar />
-
-
+       <Button
+              component={Link}
+              to="/create"
+              sx={{
+                position: "absolute",
+                width: 200,
+                height: 100,
+                left: 25,
+                top: 120,
+                backgroundColor: "rgba(0,0,0,0.4)",
+                borderRadius: "20px",
+                filter: "drop-shadow(10px 10px 5px rgba(0,0,0,0.25))",
+                textTransform: "none",
+                zIndex: 1200,
+              }}
+          >
+           <Typography
+                sx={{
+                  fontFamily: "Poppins, sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 500,
+                  fontSize: "32px",
+                  lineHeight: "48px",
+                  color: "#FFFFFF",
+                  mr: 2,
+                  ml: 0,
+                }}
+            > Create
+            </Typography>
+            <Box
+                      component="img"
+                      src="/icons/add_icon.svg"
+                      alt="Create Icon"
+                      sx={{
+                        width: 35,
+                        height: 35,
+                      }}
+                    />
+          </Button>
 
       {/*
       <Container>
