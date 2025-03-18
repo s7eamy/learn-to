@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, Button, Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Typography, Button, Box, Dialog } from "@mui/material";
 import TopBar from "../common/TopBar.jsx";
-
+import SetCreator from "../common/Set_selection_window.jsx";
 
 const Dashboard = () => {
+  /* Aurimo konstantos */
   const [username, setUsername] = useState(null);
+  const [open, setOpen] = useState(false);
 
+  /* Aurimo kodas dėl prisijungimo errors ig */
   useEffect(() => {
     fetch("/api/auth/user")
       .then((res) => {
@@ -19,6 +21,14 @@ const Dashboard = () => {
       .catch(() => setUsername(null));
   }, []);
 
+  /* Konstantos, kurios atsakingos už set kūrimo lango atidarymą / uždarymą */
+  const handleOpen = () => setOpen(true);
+  const handleClose = (event, reason) => {
+    if (reason === "backdropClick") return;
+    setOpen(false);
+  };
+
+
   return (
     <Box
       sx={{
@@ -30,83 +40,64 @@ const Dashboard = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+    {/* Meniu top bar */}
       <TopBar />
-       <Button
-              component={Link}
-              to="/create"
-              sx={{
-                position: "absolute",
-                width: 200,
-                height: 100,
-                left: 25,
-                top: 120,
-                backgroundColor: "rgba(0,0,0,0.4)",
-                borderRadius: "20px",
-                filter: "drop-shadow(10px 10px 5px rgba(0,0,0,0.25))",
-                textTransform: "none",
-                zIndex: 1200,
-              }}
-          >
-           <Typography
-                sx={{
-                  fontFamily: "Poppins, sans-serif",
-                  fontStyle: "normal",
-                  fontWeight: 500,
-                  fontSize: "32px",
-                  lineHeight: "48px",
-                  color: "#FFFFFF",
-                  mr: 2,
-                  ml: 0,
-                }}
-            > Create
-            </Typography>
-            <Box
-                      component="img"
-                      src="/icons/add_icon.svg"
-                      alt="Create Icon"
-                      sx={{
-                        width: 35,
-                        height: 35,
-                      }}
-                    />
-          </Button>
 
-      {/*
-      <Container>
-        <Typography variant="h2">Learn2</Typography>
-        <Box
+    {/* Set kūrimo mygtukas */}
+      <Button
+        onClick={handleOpen}
+        sx={{
+          position: "absolute",
+          width: 200,
+          height: 100,
+          left: 25,
+          top: 120,
+          backgroundColor: "rgba(0,0,0,0.4)",
+          borderRadius: "20px",
+          filter: "drop-shadow(10px 10px 5px rgba(0,0,0,0.25))",
+          textTransform: "none",
+          zIndex: 1200,
+        }}
+      >
+        <Typography
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 500,
+            fontSize: "32px",
+            lineHeight: "48px",
+            color: "#FFFFFF",
+            mr: 2,
           }}
         >
-          <Typography variant="h3">
-            A platform to reach your studying goals
-          </Typography>
+          Create
+        </Typography>
+
+        <Box
+          component="img"
+          src="/icons/add_icon.svg"
+          alt="Create Icon"
+          sx={{ width: 35, height: 35, }}
+        />
+
+      {/* Rodo vartotojo prisijungimo statusa */}
+      </Button>
           <Typography variant="subtitle1">
             Logged in as: {username ? username : "Guest"}
           </Typography>
-        </Box>
-        <Typography variant="h4">Choose a functionality:</Typography>
-        <Button
-          variant="contained"
-          component={Link}
-          to="/sets"
-          style={{ margin: "10px" }}
-        >
-          Flashcards
-        </Button>
-        <Button
-          variant="contained"
-          component={Link}
-          to="/quizzes"
-          style={{ margin: "10px" }}
-        >
-          Quizzes
-        </Button>
-      </Container>
-      */}
+
+      {/* Langas, kuris atsiranda kuriant nauja set */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          sx: {
+            borderRadius: "15px",
+            backgroundColor: "rgba(0,0,0,0.0)",
+          },
+        }}
+      >
+        <SetCreator open={true} onClose={handleClose}/>
+      </Dialog>
     </Box>
   );
 };
