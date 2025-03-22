@@ -18,7 +18,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.1",
-    "@mui/icons-material": "^6.4.6",
+    "@mui/icons-material": "^6.4.8",
     "@mui/material": "^6.4.5",
     "connect-sqlite3": "^0.9.15",
     "crypto": "^1.0.1",

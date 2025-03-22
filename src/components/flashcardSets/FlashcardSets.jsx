@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Typography, Divider, Button, Container } from "@mui/material";
 import {
+	Typography,
+	Divider,
+	Button,
+	Container,
 	Dialog,
 	DialogTitle,
 	DialogContent,
 	DialogActions,
 	TextField,
-} from "@mui/material";
-import {
 	List,
 	ListItem,
 	ListItemButton,
 	ListItemText,
-	Link,
+	Card,
+	CardContent,
+	Box,
 } from "@mui/material";
 
 const AddFlashcardSetButton = ({ onSetCreated }) => {
@@ -33,6 +36,7 @@ const AddFlashcardSetButton = ({ onSetCreated }) => {
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
+							event.preventDefault();
 							const title = event.target.title.value;
 							fetch("/api/sets", {
 								method: "POST",
@@ -73,18 +77,237 @@ const AddFlashcardSetButton = ({ onSetCreated }) => {
 
 const FlashcardSets = () => {
 	const [flashcardSet, setFlashcardSet] = useState([]);
-	const addNewSet = (newSet) => {
-		setFlashcardSet((prev) => [...prev, newSet]);
-	};
+	const [selectedSetId, setSelectedSetId] = useState(null);
+	const [flashcards, setFlashcards] = useState([]);
+	const [currentCardIndex, setCurrentCardIndex] = useState(0);
+	const [isFlipped, setIsFlipped] = useState(false);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [addCardDialogOpen, setAddCardDialogOpen] = useState(false); // State for "Add Card" dialog
 	const navigate = useNavigate();
 
+	// Fetch all flashcard sets
 	useEffect(() => {
 		fetch("/api/sets")
 			.then((res) => res.json())
-			.then((data) => setFlashcardSet(data))
-			.catch((err) => console.error(err));
+			.then((data) => {
+				console.log("Fetched sets:", data); // Debugging
+				setFlashcardSet(data);
+				setLoading(false);
+			})
+			.catch((err) => {
+				console.error("Error fetching sets:", err); // Debugging
+				setError(err.message);
+				setLoading(false);
+			});
 	}, []);
 
+	// Fetch flashcards for the selected set
+	useEffect(() => {
+		if (selectedSetId) {
+			setLoading(true);
+			fetch(`/api/sets/${selectedSetId}/cards`)
+				.then((res) => {
+					if (!res.ok) {
+						throw new Error("Failed to fetch flashcards");
+					}
+					return res.json();
+				})
+				.then((data) => {
+					console.log("Fetched flashcards:", data); // Debugging
+					setFlashcards(data);
+					setLoading(false);
+				})
+				.catch((err) => {
+					console.error("Error fetching flashcards:", err); // Debugging
+					setError(err.message);
+					setLoading(false);
+				});
+		}
+	}, [selectedSetId]);
+
+	// Handle flipping the card
+	const handleFlip = () => {
+		setIsFlipped(!isFlipped);
+	};
+
+	// Handle moving to the next card
+	const handleNext = () => {
+		setCurrentCardIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
+		setIsFlipped(false);
+	};
+
+	// Handle moving to the previous card
+	const handleBack = () => {
+		setCurrentCardIndex((prevIndex) =>
+			prevIndex === 0 ? flashcards.length - 1 : prevIndex - 1
+		);
+		setIsFlipped(false);
+	};
+
+	// Add a new set to the list
+	const addNewSet = (newSet) => {
+		setFlashcardSet((prev) => [...prev, newSet]);
+	};
+
+	// Handle adding a new card
+	const handleAddCard = (front, back) => {
+		fetch(`/api/sets/${selectedSetId}/cards`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ front, back }),
+		})
+			.then((res) => res.json())
+			.then((newCard) => {
+				setFlashcards((prev) => [...prev, newCard]); // Add the new card to the list
+				setAddCardDialogOpen(false); // Close the dialog
+			})
+			.catch((err) => {
+				console.error("Error adding card:", err);
+			});
+	};
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>Error: {error}</div>;
+	}
+
+	// If a set is selected, show the flashcard viewer
+	if (selectedSetId) {
+		const currentCard = flashcards[currentCardIndex];
+
+		return (
+			<Container>
+				<Typography variant="h4" gutterBottom>
+					Flashcard Viewer (Set {selectedSetId})
+				</Typography>
+				<Button variant="outlined" onClick={() => setSelectedSetId(null)}>
+					Go back to Sets
+				</Button>
+
+				{/* If no cards exist, show a message */}
+				{flashcards.length === 0 && (
+					<Box sx={{ marginTop: 4, textAlign: "center" }}>
+						<Typography variant="body1" gutterBottom>
+							No flashcards found for this set.
+						</Typography>
+					</Box>
+				)}
+
+				{/* If cards exist, show the flashcard viewer */}
+				{flashcards.length > 0 && (
+					<>
+						{/* Card and Navigation Buttons */}
+						<Box
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								gap: 4,
+								marginTop: 4,
+							}}
+						>
+							<Button variant="contained" onClick={handleBack}>
+								Back
+							</Button>
+
+							<Card
+								sx={{
+									width: 400,
+									height: 300,
+									display: "flex",
+									flexDirection: "column",
+									alignItems: "center",
+									justifyContent: "center",
+									textAlign: "center",
+									padding: 2,
+								}}
+							>
+								<CardContent>
+									<Typography variant="h6" gutterBottom>
+										{isFlipped ? "Answer" : "Question"}
+									</Typography>
+									<Typography variant="body1">
+										{isFlipped ? currentCard.answer : currentCard.question}
+									</Typography>
+								</CardContent>
+							</Card>
+
+							<Button variant="contained" onClick={handleNext}>
+								Next
+							</Button>
+						</Box>
+
+						<Button
+							variant="contained"
+							onClick={handleFlip}
+							sx={{ marginTop: 4 }}
+						>
+							{isFlipped ? "Show Question" : "Show Answer"}
+						</Button>
+
+						<Typography variant="body2" sx={{ marginTop: 2 }}>
+							Card {currentCardIndex + 1} of {flashcards.length}
+						</Typography>
+					</>
+				)}
+
+				{/* Always show the "Add Card" button */}
+				<Box sx={{ marginTop: 4, textAlign: "center" }}>
+					<Button
+						variant="contained"
+						onClick={() => setAddCardDialogOpen(true)}
+					>
+						Add Card
+					</Button>
+				</Box>
+
+				{/* "Add Card" Dialog */}
+				<Dialog
+					open={addCardDialogOpen}
+					onClose={() => setAddCardDialogOpen(false)}
+				>
+					<DialogTitle>Add New Card</DialogTitle>
+					<DialogContent>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="front"
+							label="Question"
+							type="text"
+							fullWidth
+						/>
+						<TextField
+							margin="dense"
+							id="back"
+							label="Answer"
+							type="text"
+							fullWidth
+						/>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={() => setAddCardDialogOpen(false)}>Cancel</Button>
+						<Button
+							onClick={() => {
+								const front = document.getElementById("front").value;
+								const back = document.getElementById("back").value;
+								handleAddCard(front, back);
+							}}
+						>
+							Add
+						</Button>
+					</DialogActions>
+				</Dialog>
+			</Container>
+		);
+	}
+
+	// If no set is selected, show the list of sets
 	return (
 		<Container>
 			<Typography variant="h2">Learn2 - Flashcards</Typography>
@@ -101,7 +324,7 @@ const FlashcardSets = () => {
 			<List>
 				{flashcardSet.map((set) => (
 					<ListItem key={set.id}>
-						<ListItemButton component={Link} to={`/sets/${set.id}`}>
+						<ListItemButton onClick={() => setSelectedSetId(set.id)}>
 							<ListItemText primary={set.title} />
 						</ListItemButton>
 					</ListItem>
