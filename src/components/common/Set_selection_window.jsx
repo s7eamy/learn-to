@@ -87,6 +87,7 @@ export default function SetCreator({ open, onClose }) {
           value={setName}
           onChange={(e) => setSetName(e.target.value)}
           InputProps={{ disableUnderline: true }}
+          alt="Set Name"
           sx={{
             display: "block",
             "& .MuiInputBase-input": {
