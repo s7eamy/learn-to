@@ -40,13 +40,11 @@ describe("Quiz API", () => {
   });
 
   test("Create a new question for a quiz", async () => {
-    // First, create a quiz
     const quizRes = await request(server).post("/quizzes").send({
       name: "Sample Quiz",
     });
     const quizId = quizRes.body.id;
 
-    // Then, create a question
     const questionRes = await request(server)
       .post(`/quizzes/${quizId}/questions`)
       .send({
@@ -65,13 +63,11 @@ describe("Quiz API", () => {
   });
 
   test("Modify an existing question", async () => {
-    // First, create a quiz
     const quizRes = await request(server).post("/quizzes").send({
       name: "Sample Quiz",
     });
     const quizId = quizRes.body.id;
 
-    // Then, create a question
     const questionRes = await request(server)
       .post(`/quizzes/${quizId}/questions`)
       .send({
@@ -83,7 +79,6 @@ describe("Quiz API", () => {
       });
     const questionId = questionRes.body.id;
 
-    // Modify the question
     const updateRes = await request(server)
       .put(`/quizzes/${quizId}/questions/${questionId}`)
       .send({
@@ -100,5 +95,11 @@ describe("Quiz API", () => {
     expect(updateRes.body.answers).toHaveLength(2);
     expect(updateRes.body.answers[0]).toHaveProperty("text", "6");
     expect(updateRes.body.answers[0]).toHaveProperty("isCorrect", true);
+  });
+
+  test("Fail to create a quiz with no name", async () => {
+    const res = await request(server).post("/quizzes").send({});
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toHaveProperty("error");
   });
 });
