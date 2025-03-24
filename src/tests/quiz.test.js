@@ -102,7 +102,7 @@ describe("Quiz API", () => {
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty("error");
   });
-  
+
   test("Create a question with no text", async () => {
     const quizRes = await request(server).post("/quizzes").send({
       name: "Sample Quiz",
@@ -122,5 +122,16 @@ describe("Quiz API", () => {
     expect(questionRes.body).toHaveProperty("success", true);
     expect(questionRes.body).toHaveProperty("id");
     expect(questionRes.body.answers).toHaveLength(2);
+  });
+
+  test("Get all quizzes", async () => {
+    await request(server).post("/quizzes").send({ name: "Quiz 1" });
+    await request(server).post("/quizzes").send({ name: "Quiz 2" });
+
+    const res = await request(server).get("/quizzes");
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveLength(2);
+    expect(res.body[0]).toHaveProperty("name", "Quiz 1");
+    expect(res.body[1]).toHaveProperty("name", "Quiz 2");
   });
 });
