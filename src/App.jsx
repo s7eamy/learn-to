@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FlashcardSets from "./components/flashcardSets/FlashcardSets"; // Updated component
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
-import Quizzes from "./components/Quizzes";
+import Quizzes from "./components/Quiz/Quizzes";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register.jsx";
 
