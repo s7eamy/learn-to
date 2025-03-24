@@ -134,6 +134,7 @@ describe("Quiz API", () => {
     expect(res.body[0]).toHaveProperty("name", "Quiz 1");
     expect(res.body[1]).toHaveProperty("name", "Quiz 2");
   });
+
   test("Get all questions for a quiz", async () => {
     const quizRes = await request(server).post("/quizzes").send({
       name: "Sample Quiz",
@@ -152,5 +153,35 @@ describe("Quiz API", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveLength(1);
     expect(res.body[0]).toHaveProperty("text", "What is 2 + 2?");
+  });
+
+  test("Delete a question", async () => {
+    const quizRes = await request(server).post("/quizzes").send({
+      name: "Sample Quiz",
+    });
+    const quizId = quizRes.body.id;
+
+    const questionRes = await request(server)
+      .post(`/quizzes/${quizId}/questions`)
+      .send({
+        text: "What is 2 + 2?",
+        answers: [
+          { text: "4", isCorrect: true },
+          { text: "3", isCorrect: false },
+        ],
+      });
+    const questionId = questionRes.body.id;
+
+    const deleteRes = await request(server).delete(
+      `/quizzes/${quizId}/questions/${questionId}`
+    );
+
+    expect(deleteRes.statusCode).toBe(200);
+    expect(deleteRes.body).toHaveProperty("success", true);
+
+    const questionsRes = await request(server).get(
+      `/quizzes/${quizId}/questions`
+    );
+    expect(questionsRes.body).toHaveLength(0);
   });
 });
