@@ -104,6 +104,11 @@ const QuizQuestions = () => {
     setAnswers([...answers, { text: "", isCorrect: false }]);
   };
 
+  // Handle removing an answer
+  const handleRemoveAnswer = (index) => {
+    setAnswers((prevAnswers) => prevAnswers.filter((_, i) => i !== index));
+  };
+
   // Handle updating an answer's text
   const handleAnswerChange = (index, newText) => {
     const updatedAnswers = [...answers];
@@ -170,8 +175,12 @@ const QuizQuestions = () => {
           </Typography>
           {answers.map((answer, index) => (
             <div
-              key={`answer-${index}`} 
-              style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
+              key={`answer-${index}`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
             >
               <TextField
                 margin="dense"
@@ -189,6 +198,12 @@ const QuizQuestions = () => {
                   />
                 }
               />
+              <IconButton
+                onClick={() => handleRemoveAnswer(index)}
+                style={{ marginLeft: "10px" }}
+              >
+                <DeleteIcon />
+              </IconButton>
             </div>
           ))}
           <Button onClick={handleAddAnswer} variant="outlined">
