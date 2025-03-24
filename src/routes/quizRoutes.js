@@ -29,68 +29,121 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// Get all questions for a specific quiz
+// Get all questions for a specific quiz (with answers)
 router.get("/:quizId/questions", (req, res) => {
   const { quizId } = req.params;
-  db.all("SELECT * FROM questions WHERE quiz_id = ?", [quizId], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+  db.all(
+    `SELECT q.id AS question_id, q.text AS question_text, a.id AS answer_id, a.text AS answer_text, a.is_correct
+     FROM questions q
+     LEFT JOIN answers a ON q.id = a.question_id
+     WHERE q.quiz_id = ?`,
+    [quizId],
+    (err, rows) => {
+      if (err) return res.status(500).json({ error: err.message });
+
+      // Group answers by question
+      const questions = rows.reduce((acc, row) => {
+        const question = acc.find((q) => q.id === row.question_id);
+        if (question) {
+          question.answers.push({
+            id: row.answer_id,
+            text: row.answer_text,
+            isCorrect: !!row.is_correct,
+          });
+        } else {
+          acc.push({
+            id: row.question_id,
+            text: row.question_text,
+            answers: row.answer_id
+              ? [
+                  {
+                    id: row.answer_id,
+                    text: row.answer_text,
+                    isCorrect: !!row.is_correct,
+                  },
+                ]
+              : [],
+          });
+        }
+        return acc;
+      }, []);
+      res.json(questions);
+    }
+  );
 });
 
-// Add a new question to a quiz
+// Add a new question with answers
 router.post("/:quizId/questions", (req, res) => {
   const { quizId } = req.params;
-  const { text, answer } = req.body;
+  const { text, answers } = req.body;
+
   db.run(
-    "INSERT INTO questions (quiz_id, text, answer) VALUES (?, ?, ?)",
-    [quizId, text, answer],
+    "INSERT INTO questions (quiz_id, text) VALUES (?, ?)",
+    [quizId, text],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
-      db.get(
-        "SELECT * FROM questions WHERE id = ?",
-        [this.lastID],
-        (err, row) => {
+
+      const questionId = this.lastID;
+
+      // Insert answers
+      const placeholders = answers.map(() => "(?, ?, ?)").join(", ");
+      const values = answers.flatMap((a) => [questionId, a.text, a.isCorrect ? 1 : 0]);
+
+      db.run(
+        `INSERT INTO answers (question_id, text, is_correct) VALUES ${placeholders}`,
+        values,
+        (err) => {
           if (err) return res.status(500).json({ error: err.message });
-          res.json(row);
+          res.json({ success: true, id: questionId, text, answers });
         }
       );
     }
   );
 });
 
-// Update a question in a quiz
+// Update a question and its answers
 router.put("/:quizId/questions/:questionId", (req, res) => {
-  const { quizId, questionId } = req.params;
-  const { text, answer } = req.body;
-  db.run(
-    "UPDATE questions SET text = ?, answer = ? WHERE id = ? AND quiz_id = ?",
-    [text, answer, questionId, quizId],
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      db.get(
-        "SELECT * FROM questions WHERE id = ?",
-        [questionId],
-        (err, row) => {
-          if (err) return res.status(500).json({ error: err.message });
-          res.json(row);
-        }
-      );
-    }
-  );
-});
+  const { questionId } = req.params;
+  const { text, answers } = req.body;
 
-// Delete a question from a quiz
-router.delete("/:quizId/questions/:questionId", (req, res) => {
-  const { quizId, questionId } = req.params;
   db.run(
-    "DELETE FROM questions WHERE id = ? AND quiz_id = ?",
-    [questionId, quizId],
+    "UPDATE questions SET text = ? WHERE id = ?",
+    [text, questionId],
     (err) => {
       if (err) return res.status(500).json({ error: err.message });
-      res.json({ success: true });
+
+      // Delete existing answers
+      db.run(
+        "DELETE FROM answers WHERE question_id = ?",
+        [questionId],
+        (err) => {
+          if (err) return res.status(500).json({ error: err.message });
+
+          // Insert updated answers
+          const placeholders = answers.map(() => "(?, ?, ?)").join(", ");
+          const values = answers.flatMap((a) => [questionId, a.text, a.isCorrect ? 1 : 0]);
+
+          db.run(
+            `INSERT INTO answers (question_id, text, is_correct) VALUES ${placeholders}`,
+            values,
+            (err) => {
+              if (err) return res.status(500).json({ error: err.message });
+              res.json({ success: true, id: questionId, text, answers });
+            }
+          );
+        }
+      );
     }
   );
+});
+
+// Delete a question and its answers
+router.delete("/:quizId/questions/:questionId", (req, res) => {
+  const { questionId } = req.params;
+  db.run("DELETE FROM questions WHERE id = ?", [questionId], (err) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ success: true });
+  });
 });
 
 export default router;
