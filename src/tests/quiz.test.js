@@ -102,4 +102,25 @@ describe("Quiz API", () => {
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty("error");
   });
+  
+  test("Create a question with no text", async () => {
+    const quizRes = await request(server).post("/quizzes").send({
+      name: "Sample Quiz",
+    });
+    const quizId = quizRes.body.id;
+  
+    const questionRes = await request(server)
+      .post(`/quizzes/${quizId}/questions`)
+      .send({
+        answers: [
+          { text: "4", isCorrect: true },
+          { text: "3", isCorrect: false },
+        ],
+      });
+  
+    expect(questionRes.statusCode).toBe(200);
+    expect(questionRes.body).toHaveProperty("success", true);
+    expect(questionRes.body).toHaveProperty("id");
+    expect(questionRes.body.answers).toHaveLength(2);
+  });
 });
