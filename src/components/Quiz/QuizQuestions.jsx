@@ -69,7 +69,12 @@ const QuizQuestions = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: questionText, answers }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to save question");
+        }
+        return res.json();
+      })
       .then((savedQuestion) => {
         if (editingQuestion) {
           setQuestions((prev) =>
@@ -129,9 +134,9 @@ const QuizQuestions = () => {
           <ListItem key={`question-${question.id || Math.random()}`}>
             <ListItemText
               primary={question.text || "Untitled Question"} // Default text if missing
-              secondary={`Answers: ${
+              secondary={` ${
                 (question.answers || [])
-                  .map((a) => `${a.text || "Untitled Answer"} (${a.isCorrect ? "Correct" : "Wrong"})`)
+                  .map((a) => `${a.text || "Untitled Answer"} ${a.isCorrect ?  "[ANS]" : ""}`)
                   .join(", ")
               }`}
             />

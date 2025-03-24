@@ -79,7 +79,7 @@ router.post("/:quizId/questions", (req, res) => {
 
   db.run(
     "INSERT INTO questions (quiz_id, text) VALUES (?, ?)",
-    [quizId, text || "Untitled Question"], // Default text if missing
+    [quizId, text || "Untitled Question"],
     function (err) {
       if (err) {
         console.error("Error inserting question:", err.message);
@@ -89,9 +89,14 @@ router.post("/:quizId/questions", (req, res) => {
       const questionId = this.lastID;
 
       if (answers && answers.length > 0) {
-        // Insert answers if they exist
-        const placeholders = answers.map(() => "(?, ?, ?)").join(", ");
-        const values = answers.flatMap((a) => [questionId, a.text || "Untitled Answer", a.isCorrect ? 1 : 0]);
+        // Validate answers to ensure no null or undefined values
+        const validAnswers = answers.map((a) => ({
+          text: a.text || "Untitled Answer", // Default to "Untitled Answer" if text is missing
+          isCorrect: !!a.isCorrect, // Ensure isCorrect is a boolean
+        }));
+
+        const placeholders = validAnswers.map(() => "(?, ?, ?)").join(", ");
+        const values = validAnswers.flatMap((a) => [questionId, a.text, a.isCorrect ? 1 : 0]);
 
         db.run(
           `INSERT INTO answers (question_id, text, is_correct) VALUES ${placeholders}`,
@@ -101,11 +106,10 @@ router.post("/:quizId/questions", (req, res) => {
               console.error("Error inserting answers:", err.message);
               return res.status(500).json({ error: err.message });
             }
-            res.json({ success: true, id: questionId, text, answers });
+            res.json({ success: true, id: questionId, text, answers: validAnswers });
           }
         );
       } else {
-        // If no answers, return the question without answers
         res.json({ success: true, id: questionId, text, answers: [] });
       }
     }
