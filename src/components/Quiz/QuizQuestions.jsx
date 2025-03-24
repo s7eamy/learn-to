@@ -126,12 +126,14 @@ const QuizQuestions = () => {
       <Divider style={{ margin: "20px 0" }} />
       <List>
         {questions.map((question) => (
-          <ListItem key={question.id}>
+          <ListItem key={`question-${question.id || Math.random()}`}>
             <ListItemText
-              primary={question.text}
-              secondary={`Answers: ${question.answers
-                .map((a) => `${a.text} (${a.isCorrect ? "Correct" : "Wrong"})`)
-                .join(", ")}`}
+              primary={question.text || "Untitled Question"} // Default text if missing
+              secondary={`Answers: ${
+                (question.answers || [])
+                  .map((a) => `${a.text || "Untitled Answer"} (${a.isCorrect ? "Correct" : "Wrong"})`)
+                  .join(", ")
+              }`}
             />
             <IconButton onClick={() => handleOpenDialog(question)}>
               <EditIcon />
@@ -162,7 +164,10 @@ const QuizQuestions = () => {
             Answers
           </Typography>
           {answers.map((answer, index) => (
-            <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+            <div
+              key={`answer-${index}`} 
+              style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
+            >
               <TextField
                 margin="dense"
                 label={`Answer ${index + 1}`}
@@ -178,7 +183,6 @@ const QuizQuestions = () => {
                     onChange={() => handleToggleCorrect(index)}
                   />
                 }
-                label="Correct"
               />
             </div>
           ))}

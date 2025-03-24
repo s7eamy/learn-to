@@ -47,18 +47,18 @@ router.get("/:quizId/questions", (req, res) => {
         if (question) {
           question.answers.push({
             id: row.answer_id,
-            text: row.answer_text,
+            text: row.answer_text || "", // Ensure text is not null
             isCorrect: !!row.is_correct,
           });
         } else {
           acc.push({
-            id: row.question_id,
-            text: row.question_text,
+            id: row.question_id, // Ensure question_id is used as id
+            text: row.question_text || "Untitled Question", // Default text if null
             answers: row.answer_id
               ? [
                   {
                     id: row.answer_id,
-                    text: row.answer_text,
+                    text: row.answer_text || "", // Ensure text is not null
                     isCorrect: !!row.is_correct,
                   },
                 ]
@@ -79,24 +79,35 @@ router.post("/:quizId/questions", (req, res) => {
 
   db.run(
     "INSERT INTO questions (quiz_id, text) VALUES (?, ?)",
-    [quizId, text],
+    [quizId, text || "Untitled Question"], // Default text if missing
     function (err) {
-      if (err) return res.status(500).json({ error: err.message });
+      if (err) {
+        console.error("Error inserting question:", err.message);
+        return res.status(500).json({ error: err.message });
+      }
 
       const questionId = this.lastID;
 
-      // Insert answers
-      const placeholders = answers.map(() => "(?, ?, ?)").join(", ");
-      const values = answers.flatMap((a) => [questionId, a.text, a.isCorrect ? 1 : 0]);
+      if (answers && answers.length > 0) {
+        // Insert answers if they exist
+        const placeholders = answers.map(() => "(?, ?, ?)").join(", ");
+        const values = answers.flatMap((a) => [questionId, a.text || "Untitled Answer", a.isCorrect ? 1 : 0]);
 
-      db.run(
-        `INSERT INTO answers (question_id, text, is_correct) VALUES ${placeholders}`,
-        values,
-        (err) => {
-          if (err) return res.status(500).json({ error: err.message });
-          res.json({ success: true, id: questionId, text, answers });
-        }
-      );
+        db.run(
+          `INSERT INTO answers (question_id, text, is_correct) VALUES ${placeholders}`,
+          values,
+          (err) => {
+            if (err) {
+              console.error("Error inserting answers:", err.message);
+              return res.status(500).json({ error: err.message });
+            }
+            res.json({ success: true, id: questionId, text, answers });
+          }
+        );
+      } else {
+        // If no answers, return the question without answers
+        res.json({ success: true, id: questionId, text, answers: [] });
+      }
     }
   );
 });
