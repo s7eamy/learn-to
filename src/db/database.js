@@ -37,8 +37,18 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       quiz_id INTEGER NOT NULL,
       text TEXT NOT NULL,
-      answer TEXT NOT NULL,
       FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
+    )
+  `);
+
+    // Answers table
+    db.run(`
+    CREATE TABLE IF NOT EXISTS answers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question_id INTEGER NOT NULL,
+      text TEXT NOT NULL,
+      is_correct BOOLEAN NOT NULL DEFAULT 0,
+      FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
     )
   `);
 
