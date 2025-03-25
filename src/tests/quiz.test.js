@@ -5,7 +5,7 @@ import db from "../db/database.js";
 let server;
 
 beforeAll(async () => {
-  server = createServer(3001);
+  server = createServer(3002);
   await db.exec(`
     CREATE TABLE IF NOT EXISTS quizzes (id INTEGER PRIMARY KEY, name TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS questions (id INTEGER PRIMARY KEY, quiz_id INTEGER, text TEXT NOT NULL, FOREIGN KEY(quiz_id) REFERENCES quizzes(id));
