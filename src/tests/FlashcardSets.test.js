@@ -5,7 +5,7 @@ import db from "../db/database.js";
 let server;
 
 beforeAll(async () => {
-    server = createServer(3002);
+    server = createServer(3003);
     await db.exec(`
     CREATE TABLE IF NOT EXISTS sets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
