@@ -58,6 +58,31 @@ router.post("/:setId/cards", (req, res) => {
 	);
 });
 
+router.put("/:setId", (req, res) => {
+    const { name } = req.body;
+    const { setId } = req.params;
+    db.run(
+        "UPDATE flashcard_sets SET title = ? WHERE id = ?",
+        [name, setId],
+        (err) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ success: true });
+        }
+    );
+});
+
+router.delete("/:setId", (req, res) => {
+    const { setId } = req.params;
+    db.run(
+        "DELETE FROM flashcard_sets WHERE id = ?",
+        [setId],
+        (err) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ success: true });
+        }
+    );
+});
+
 router.delete("/:setId/cards/:cardId", (req, res) => {
 	const { setId, cardId } = req.params;
 	db.run(
