@@ -153,6 +153,19 @@ const FlashcardSets = () => {
 		setFlashcardSet((prev) => [...prev, newSet]);
 	};
 
+    const handleSetDelete = (setId) => {
+        fetch(`/api/sets/${setId}`, {
+            method: "DELETE",
+        })
+        .then((res) => {
+            if (!res.ok) throw new Error("Delete failed");
+            setFlashcardSet((sets) =>
+                sets.filter((set) => set.id !== setId)
+            );
+        })
+        .catch((err) => console.error("Error deleting card:", err));
+    };
+
 	// Handle adding a new card
 	const handleAddCard = (front, back) => {
 		fetch(`/api/sets/${selectedSetId}/cards`, {
@@ -338,7 +351,7 @@ const FlashcardSets = () => {
                         <IconButton
                             edge="end"
                             aria-label="delete"
-                            // add on delete handler
+                            onClick={() => handleSetDelete(set.id)}
                         >
                         <DeleteIcon />
                         </IconButton>
