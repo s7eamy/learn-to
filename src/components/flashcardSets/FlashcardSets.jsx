@@ -17,7 +17,10 @@ import {
 	Card,
 	CardContent,
 	Box,
+    IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CreateIcon from "@mui/icons-material/Create";
 
 const AddFlashcardSetButton = ({ onSetCreated }) => {
 	const [open, setOpen] = React.useState(false);
@@ -323,7 +326,24 @@ const FlashcardSets = () => {
 			<Typography variant="h4">Current flashcard sets:</Typography>
 			<List>
 				{flashcardSet.map((set) => (
-					<ListItem key={set.id}>
+					<ListItem key={set.id} secondaryAction={
+                        <>
+                        <IconButton
+                            edge="end"
+                            aria-label="edit"
+                            // add on edit handler
+                        >
+                        <CreateIcon />
+                        </IconButton>
+                        <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            // add on delete handler
+                        >
+                        <DeleteIcon />
+                        </IconButton>
+                        </>
+                    }>
 						<ListItemButton onClick={() => setSelectedSetId(set.id)}>
 							<ListItemText primary={set.title} />
 						</ListItemButton>
