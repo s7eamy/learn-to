@@ -59,28 +59,38 @@ router.post("/:setId/cards", (req, res) => {
 });
 
 router.put("/:setId", (req, res) => {
-    const { name } = req.body;
-    const { setId } = req.params;
-    db.run(
-        "UPDATE flashcard_sets SET title = ? WHERE id = ?",
-        [name, setId],
-        (err) => {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ success: true });
-        }
-    );
+	const { title } = req.body;
+	const { setId } = req.params;
+
+	// Validate input
+	if (!title) {
+		return res.status(400).json({ error: "Name is required" });
+	}
+
+	// First check if set exists
+	db.get("SELECT * FROM flashcard_sets WHERE id = ?", [setId], (err, row) => {
+		if (err) return res.status(500).json({ error: err.message });
+		if (!row) return res.status(404).json({ error: "Set not found" });
+
+		// Then update if exists
+		db.run(
+			"UPDATE flashcard_sets SET title = ? WHERE id = ?",
+			[title, setId],
+			(updateErr) => {
+				if (updateErr)
+					return res.status(500).json({ error: updateErr.message });
+				res.json({ success: true, id: setId, title: title });
+			}
+		);
+	});
 });
 
 router.delete("/:setId", (req, res) => {
-    const { setId } = req.params;
-    db.run(
-        "DELETE FROM flashcard_sets WHERE id = ?",
-        [setId],
-        (err) => {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ success: true });
-        }
-    );
+	const { setId } = req.params;
+	db.run("DELETE FROM flashcard_sets WHERE id = ?", [setId], (err) => {
+		if (err) return res.status(500).json({ error: err.message });
+		res.json({ success: true });
+	});
 });
 
 router.delete("/:setId/cards/:cardId", (req, res) => {
