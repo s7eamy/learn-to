@@ -159,6 +159,17 @@ const Quizzes = () => {
             <ListItemButton onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}>
               <ListItemText primary={quiz.name} />
             </ListItemButton>
+            {/* Display public/private status */}
+            <Typography
+              variant="body2"
+              style={{
+                color: "gray",
+                marginRight: "10px",
+                fontWeight: "bold",
+              }}
+            >
+              {quiz.is_public ? "PUBLIC" : "PRIVATE"}
+            </Typography>
             <IconButton onClick={() => handleOpenEditDialog(quiz)}>
               <EditIcon />
             </IconButton>
