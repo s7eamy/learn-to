@@ -184,6 +184,7 @@ describe("Quiz API", () => {
     );
     expect(questionsRes.body).toHaveLength(0);
   });
+
   // A test for editing a quiz name
   // This test will create a quiz, edit its name, and then verify the change
   test("Edit a quiz name", async () => {
