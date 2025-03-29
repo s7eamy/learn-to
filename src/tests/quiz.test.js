@@ -226,7 +226,7 @@ describe("Quiz API", () => {
       .put(`/quizzes/${quizId}`)
       .send({
         name: "Sample Quiz",
-        isPublic: true, // Set to private
+        isPublic: false, // Set to private
       });
   
     //  veryfying
