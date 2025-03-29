@@ -25,13 +25,17 @@ jest.unstable_mockModule('react-router-dom', () => {
 // Mock MUI TextField to simplify it into a plain HTML input element for testing
 // This avoids potential complexity from the real Material UI component.
 await jest.unstable_mockModule('@mui/material/TextField', () => ({
-  default: (props) => (
-    <input
-      type="text"
-      placeholder={props.placeholder || "Name your set"}
-      {...props}
-    />
-  ),
+  default: (props) => {
+    // Remove InputProps so that it is not passed to the native input element
+    const { InputProps, ...rest } = props;
+    return (
+        <input
+            type="text"
+            placeholder={props.placeholder || "Name your set"}
+            {...rest}
+        />
+    );
+  },
 }));
 
 // Mock the MUI Close icon component to simply return a text string.
@@ -95,9 +99,7 @@ describe('Dashboard', () => {
     await renderDashboard();
 
     const createButton = screen.getByRole('button', { name: /create/i });
-    await act(async () => {
       await user.click(createButton);
-    });
 
     // Wait for the dialog to open by checking for the input field with the placeholder.
     await waitFor(() => {
@@ -155,9 +157,7 @@ describe('Dashboard', () => {
 
     // Open the dialog by clicking the "Create" button.
     const createButton = screen.getByRole('button', { name: /create/i });
-    await act(async () => {
-      await user.click(createButton);
-    });
+    await user.click(createButton);
 
     // Wait for the dialog to open (check for the input field).
     await waitFor(() => {
@@ -182,9 +182,7 @@ describe('Dashboard', () => {
 
     // Open the set creator dialog by clicking the "Create" button on the Dashboard.
     const dashboardCreateButton = screen.getByRole('button', { name: /create/i });
-    await act(async () => {
-      await user.click(dashboardCreateButton);
-    });
+    await user.click(dashboardCreateButton);
 
     // Retrieve the mocked text field from the dialog.
     const textField = screen.getByPlaceholderText(/Name your set/i);
@@ -198,30 +196,22 @@ describe('Dashboard', () => {
     expect(createButtonInDialog).toBeDisabled();
 
     // Type a set name into the text field.
-    await act(async () => {
-      await user.type(textField, 'TestSet');
-    });
+    await user.type(textField, 'TestSet');
 
     // The Create button should still be disabled because no type has been selected.
     expect(createButtonInDialog).toBeDisabled();
 
     // Select a type option by clicking on the card labeled "Flashcard".
-    await act(async () => {
-      await user.click(screen.getByText('Flashcard'));
-    });
+    await user.click(screen.getByText('Flashcard'));
 
     // Now that both prerequisites are met (name and type), the Create button should be enabled.
     expect(createButtonInDialog).not.toBeDisabled();
 
     // Click the Create button to trigger navigation.
-    await act(async () => {
-      await user.click(createButtonInDialog);
-    });
+    await user.click(createButtonInDialog);
 
     // Verify that navigation was triggered with the correct route.
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/sets");
-    });
+    expect(mockNavigate).toHaveBeenCalledWith("/sets");
   });
 
   // Test that toggles the search input when the search icon is clicked.
