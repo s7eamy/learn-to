@@ -15,7 +15,10 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  IconButton,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const AddQuizButton = ({ onQuizCreated }) => {
   const [open, setOpen] = useState(false);
@@ -156,8 +159,12 @@ const Quizzes = () => {
             <ListItemButton onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}>
               <ListItemText primary={quiz.name} />
             </ListItemButton>
-            <Button onClick={() => handleOpenEditDialog(quiz)}>Edit</Button>
-            <Button onClick={() => handleOpenDeleteDialog(quiz)}>Delete</Button>
+            <IconButton onClick={() => handleOpenEditDialog(quiz)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => handleOpenDeleteDialog(quiz)}>
+              <DeleteIcon />
+            </IconButton>
           </ListItem>
         ))}
       </List>
