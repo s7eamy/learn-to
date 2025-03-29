@@ -2,15 +2,11 @@ import express from "express";
 import db from "../db/database.js";
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-	res.json({ message: "Hello from the flashcard routes!" });
-});
-
 router.post("/", (req, res) => {
 	const { title } = req.body;
-	db.run("INSERT INTO flashcard_sets (title) VALUES (?)", [title], (err) => {
+	db.run("INSERT INTO flashcard_sets (title) VALUES (?)", [title], function(err) {
 		if (err) return res.status(500).json({ error: err.message });
-		res.json({ success: true, title });
+		res.json({ success: true, title, id: this.lastID });
 	});
 });
 
@@ -25,6 +21,7 @@ router.get("/:id", (req, res) => {
 	const { id } = req.params;
 	db.get("SELECT * FROM flashcard_sets WHERE id = ?", [id], (err, row) => {
 		if (err) return res.status(500).json({ error: err.message });
+		if (!row) return res.status(404).json({ error: "Set not found" });
 		res.json(row);
 	});
 });
@@ -49,8 +46,7 @@ router.post("/:setId/cards", (req, res) => {
 				"SELECT * FROM flashcards WHERE id = ?",
 				[this.lastID],
 				(err, row) => {
-					if (err)
-						return res.status(500).json({ error: err.message });
+					if (err) return res.status(500).json({ error: err.message });
 					res.json(row);
 				}
 			);
