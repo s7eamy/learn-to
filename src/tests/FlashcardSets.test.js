@@ -66,6 +66,24 @@ describe("Flashcard API", () => {
             expect(res.statusCode).toBe(200);
             expect(Array.isArray(res.body)).toBe(true);
         });
+
+        test("Retrieve a single set", async () => {
+            const setRes = await request(server)
+                .post("/sets")
+                .send({ title: "Test Set" });
+
+            const res = await request(server).get(`/sets/${setRes.body.id}`);
+
+            expect(res.statusCode).toBe(200);
+            expect(res.body).toMatchObject({ title: "Test Set" });
+        });
+
+        test("Retrieve non-existent set", async () => {
+            const res = await request(server).get("/sets/999");
+
+            expect(res.statusCode).toBe(404);
+            expect(res.body).toMatchObject({ error: "Set not found" });
+        });
     });
 
     describe("Card Operations", () => {
