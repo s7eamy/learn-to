@@ -206,7 +206,7 @@ const FlashcardSets = () => {
 				body: JSON.stringify({ title: editingSetTitle }),
 			});
 
-			if (!response.ok) throw new Error("Failed to update set"); // TODO: fix error thrown here
+			if (!response.ok) throw new Error("Failed to update set"); 
 
 			setFlashcardSet((sets) =>
 				sets.map((set) =>
@@ -231,6 +231,7 @@ const FlashcardSets = () => {
 	}
 
 	// If a set is selected, show the flashcard viewer
+	// TODO: maybe refactor this later (eg. move the viewer to a separate component)
 	if (selectedSetId) {
 		const currentCard = flashcards[currentCardIndex];
 
