@@ -1,33 +1,54 @@
 import request from "supertest";
 import { createServer } from "../server.js";
 import db from "../db/database.js";
-import jest from "jest";
+
+// Remove the jest import - it's globally available in test files
 
 let server;
+let originalRun;
+let originalAll;
+let originalGet;
 
 beforeAll(async () => {
+    // Save original db functions before any tests run
+    originalRun = db.run;
+    originalAll = db.all;
+    originalGet = db.get;
+    
     server = createServer(3003);
     await db.exec(`
-    CREATE TABLE IF NOT EXISTS sets (
+    CREATE TABLE IF NOT EXISTS flashcard_sets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL
     );
-    CREATE TABLE IF NOT EXISTS cards (
+    CREATE TABLE IF NOT EXISTS flashcards (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       set_id INTEGER NOT NULL,
       question TEXT NOT NULL,
       answer TEXT NOT NULL,
-      FOREIGN KEY(set_id) REFERENCES sets(id)
+      FOREIGN KEY(set_id) REFERENCES flashcard_sets(id)
     );
   `);
 });
 
+beforeEach(() => {
+    // Reset the mocks before each test
+    if (db.run.mockRestore) db.run.mockRestore();
+    if (db.all.mockRestore) db.all.mockRestore(); 
+    if (db.get.mockRestore) db.get.mockRestore();
+});
+
 afterEach(async () => {
-    await db.exec("DELETE FROM cards");
-    await db.exec("DELETE FROM sets");
+    await db.exec("DELETE FROM flashcards");
+    await db.exec("DELETE FROM flashcard_sets");
 });
 
 afterAll(async () => {
+    // Restore original functions
+    db.run = originalRun;
+    db.all = originalAll;
+    db.get = originalGet;
+    
     return new Promise((resolve) => {
         db.close(() => {
             server.close(() => resolve());
