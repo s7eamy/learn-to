@@ -184,4 +184,93 @@ describe("Quiz API", () => {
     );
     expect(questionsRes.body).toHaveLength(0);
   });
+
+  // A test for editing a quiz name
+  // This test will create a quiz, edit its name, and then verify the change
+  test("Edit a quiz name", async () => {
+    // creating a quiz
+    const quizRes = await request(server).post("/quizzes").send({
+      name: "Original Quiz Name",
+    });
+    const quizId = quizRes.body.id;
+  
+    // editing the quiz name
+    const updateRes = await request(server)
+      .put(`/quizzes/${quizId}`)
+      .send({
+        name: "Updated Quiz Name",
+        isPublic: true, // Keep it public
+      });
+  
+    // verifying
+    expect(updateRes.statusCode).toBe(200);
+    expect(updateRes.body).toHaveProperty("success", true);
+    expect(updateRes.body).toHaveProperty("name", "Updated Quiz Name");
+  
+    // fetching
+    const fetchRes = await request(server).get("/quizzes");
+    expect(fetchRes.statusCode).toBe(200);
+    expect(fetchRes.body[0]).toHaveProperty("name", "Updated Quiz Name");
+  });
+
+  // A test for setting a quiz to private
+  // This test will create a quiz, set it to private, and then verify the change
+  test("Set a quiz to private", async () => {
+    // creating once again
+    const quizRes = await request(server).post("/quizzes").send({
+      name: "Sample Quiz",
+    });
+    const quizId = quizRes.body.id;
+  
+    // setting it to private
+    const updateRes = await request(server)
+      .put(`/quizzes/${quizId}`)
+      .send({
+        name: "Sample Quiz",
+        isPublic: false, // Set to private
+      });
+  
+    //  veryfying
+    expect(updateRes.statusCode).toBe(200);
+    expect(updateRes.body).toHaveProperty("success", true);
+    expect(updateRes.body).toHaveProperty("isPublic", false);
+  
+    // checking the response/fetching
+    const fetchRes = await request(server).get("/quizzes");
+    expect(fetchRes.statusCode).toBe(200);
+    expect(fetchRes.body[0]).toHaveProperty("is_public", 0); // Stored as 0 for false
+  });
+
+  // A test for deleting a quiz and its associsted questios
+  test("Delete a quiz and its associated questions", async () => {
+    // creating
+    const quizRes = await request(server).post("/quizzes").send({
+      name: "Sample Quiz",
+    });
+    const quizId = quizRes.body.id;
+  
+    // add a question
+    await request(server).post(`/quizzes/${quizId}/questions`).send({
+      text: "What is 2 + 2?",
+      answers: [
+        { text: "4", isCorrect: true },
+        { text: "3", isCorrect: false },
+      ],
+    });
+  
+    // delete the quiz
+    const deleteRes = await request(server).delete(`/quizzes/${quizId}`);
+    expect(deleteRes.statusCode).toBe(200);
+    expect(deleteRes.body).toHaveProperty("success", true);
+  
+    // verify if the quiz and its questions are deleted
+    const fetchQuizzesRes = await request(server).get("/quizzes");
+    expect(fetchQuizzesRes.body).toHaveLength(0);
+  
+    const fetchQuestionsRes = await request(server).get(
+      `/quizzes/${quizId}/questions`
+    );
+    expect(fetchQuestionsRes.statusCode).toBe(200);
+    expect(fetchQuestionsRes.body).toHaveLength(0);
+  });
 });
