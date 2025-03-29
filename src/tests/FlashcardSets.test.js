@@ -1,6 +1,7 @@
 import request from "supertest";
 import { createServer } from "../server.js";
 import db from "../db/database.js";
+import jest from "jest";
 
 let server;
 
@@ -84,6 +85,68 @@ describe("Flashcard API", () => {
             expect(res.statusCode).toBe(404);
             expect(res.body).toMatchObject({ error: "Set not found" });
         });
+
+        describe("Error handling", () => {
+            test("Error when creating set causes 500 status", async () => {
+                // Mock db.run to simulate a database error
+                const originalRun = db.run;
+                db.run = jest.fn((query, params, callback) => {
+                    if (query.includes("INSERT INTO flashcard_sets")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalRun(query, params, callback);
+                    }
+                });
+
+                const res = await request(server)
+                    .post("/sets")
+                    .send({ title: "Test Set" });
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+                db.run = originalRun;
+            });
+
+            test("Error when fetching all sets causes 500 status", async () => {
+                const originalAll = db.all;
+                db.all = jest.fn((query, params, callback) => {
+                    if (query.includes("SELECT * FROM flashcard_sets")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalAll(query, params, callback);
+                    }
+                });
+
+                const res = await request(server).get("/sets");
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+                db.all = originalAll;
+            });
+
+            test("Error when fetching a single set causes 500 status", async () => {
+                // First create a set
+                const setRes = await request(server)
+                    .post("/sets")
+                    .send({ title: "Test Set" });
+
+                // Then mock an error for the get request
+                const originalGet = db.get;
+                db.get = jest.fn((query, params, callback) => {
+                    if (query.includes("SELECT * FROM flashcard_sets WHERE id")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalGet(query, params, callback);
+                    }
+                });
+
+                const res = await request(server).get(`/sets/${setRes.body.id}`);
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+                db.get = originalGet;
+            });
+        });
     });
 
     describe("Card Operations", () => {
@@ -137,6 +200,101 @@ describe("Flashcard API", () => {
 
             expect(deleteRes.statusCode).toBe(200);
             expect(deleteRes.body).toEqual({ success: true });
+        });
+
+        describe("Error handling", () => {
+            test("Error when fetching cards causes 500 status", async () => {
+                const originalAll = db.all;
+                db.all = jest.fn((query, params, callback) => {
+                    if (query.includes("SELECT * FROM flashcards")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalAll(query, params, callback);
+                    }
+                });
+
+                const res = await request(server).get(`/sets/${testSetId}/cards`);
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+                db.all = originalAll;
+            });
+
+            test("Error when adding card causes 500 status", async () => {
+                const originalRun = db.run;
+                db.run = jest.fn((query, params, callback) => {
+                    if (query.includes("INSERT INTO flashcards")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalRun(query, params, callback);
+                    }
+                });
+
+                const res = await request(server)
+                    .post(`/sets/${testSetId}/cards`)
+                    .send({ front: "Question", back: "Answer" });
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+                db.run = originalRun;
+            });
+
+            test("Error when fetching newly created card causes 500 status", async () => {
+                // Create a spy that allows the insert to succeed but fails on the select
+                const originalRun = db.run;
+                const originalGet = db.get;
+
+                db.run = jest.fn((query, params, callback) => {
+                    if (query.includes("INSERT INTO flashcards")) {
+                        // Call the callback with the context that has lastID
+                        callback.call({ lastID: 999 });
+                    } else {
+                        originalRun(query, params, callback);
+                    }
+                });
+
+                db.get = jest.fn((query, params, callback) => {
+                    if (query.includes("SELECT * FROM flashcards WHERE id")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalGet(query, params, callback);
+                    }
+                });
+
+                const res = await request(server)
+                    .post(`/sets/${testSetId}/cards`)
+                    .send({ front: "Question", back: "Answer" });
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+
+                db.run = originalRun;
+                db.get = originalGet;
+            });
+
+            test("Error when deleting card causes 500 status", async () => {
+                // First create a card
+                const cardRes = await request(server)
+                    .post(`/sets/${testSetId}/cards`)
+                    .send({ front: "Delete Test", back: "Answer" });
+
+                // Then mock an error for delete
+                const originalRun = db.run;
+                db.run = jest.fn((query, params, callback) => {
+                    if (query.includes("DELETE FROM flashcards")) {
+                        callback(new Error("Database error"));
+                    } else {
+                        originalRun(query, params, callback);
+                    }
+                });
+
+                const res = await request(server)
+                    .delete(`/sets/${testSetId}/cards/${cardRes.body.id}`);
+
+                expect(res.statusCode).toBe(500);
+                expect(res.body).toHaveProperty("error");
+                db.run = originalRun;
+            });
         });
     });
 });

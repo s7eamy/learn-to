@@ -46,8 +46,7 @@ router.post("/:setId/cards", (req, res) => {
 				"SELECT * FROM flashcards WHERE id = ?",
 				[this.lastID],
 				(err, row) => {
-					if (err)
-						return res.status(500).json({ error: err.message });
+					if (err) return res.status(500).json({ error: err.message });
 					res.json(row);
 				}
 			);
