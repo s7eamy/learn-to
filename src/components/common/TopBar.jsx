@@ -72,6 +72,7 @@ const TopBar = () => {
         right: 20,
         zIndex: 1100,
       }}
+    data-testid="topbar"
     >
       <StyledAppBar>
         <Toolbar sx={{ height: "100%"}}>
