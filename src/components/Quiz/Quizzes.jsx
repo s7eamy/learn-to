@@ -100,7 +100,7 @@ const Quizzes = () => {
       <List>
         {quizzes.map((quiz) => (
           <ListItem key={quiz.id}>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}>
               <ListItemText primary={quiz.name} />
             </ListItemButton>
           </ListItem>
