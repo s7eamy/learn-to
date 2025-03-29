@@ -27,8 +27,9 @@ db.serialize(() => {
     db.run(`
     CREATE TABLE IF NOT EXISTS quizzes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL
-    )
+      name TEXT NOT NULL,
+      is_public BOOLEAN NOT NULL DEFAULT 0
+      )
   `);
 
     // Questions table
