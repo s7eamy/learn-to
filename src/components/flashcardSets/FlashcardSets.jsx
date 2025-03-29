@@ -17,7 +17,10 @@ import {
 	Card,
 	CardContent,
 	Box,
+	IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CreateIcon from "@mui/icons-material/Create";
 
 const AddFlashcardSetButton = ({ onSetCreated }) => {
 	const [open, setOpen] = React.useState(false);
@@ -84,6 +87,13 @@ const FlashcardSets = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [addCardDialogOpen, setAddCardDialogOpen] = useState(false); // State for "Add Card" dialog
+	const [editSetDialogOpen, setEditSetDialogOpen] = useState(false);
+	const [editingSetTitle, setEditingSetTitle] = useState("");
+	const [editingSetId, setEditingSetId] = useState(null);
+	const [editCardDialogOpen, setEditCardDialogOpen] = useState(false);
+	const [editingQuestion, setEditingQuestion] = useState("");
+	const [editingAnswer, setEditingAnswer] = useState("");
+	const [editingCard, setEditingCard] = useState(null);
 	const navigate = useNavigate();
 
 	// Fetch all flashcard sets
@@ -150,6 +160,19 @@ const FlashcardSets = () => {
 		setFlashcardSet((prev) => [...prev, newSet]);
 	};
 
+	const handleSetDelete = (setId) => {
+		fetch(`/api/sets/${setId}`, {
+			method: "DELETE",
+		})
+			.then((res) => {
+				if (!res.ok) throw new Error("Delete failed");
+				setFlashcardSet((sets) =>
+					sets.filter((set) => set.id !== setId)
+				);
+			})
+			.catch((err) => console.error("Error deleting set:", err));
+	};
+
 	// Handle adding a new card
 	const handleAddCard = (front, back) => {
 		fetch(`/api/sets/${selectedSetId}/cards`, {
@@ -169,6 +192,90 @@ const FlashcardSets = () => {
 			});
 	};
 
+	const handleEditSet = (set) => {
+		setEditingSetId(set.id);
+		setEditingSetTitle(set.title);
+		setEditSetDialogOpen(true);
+	};
+
+	const handleSaveEdit = async () => {
+		if (!editingSetTitle.trim()) return;
+
+		try {
+			const response = await fetch(`/api/sets/${editingSetId}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ title: editingSetTitle }),
+			});
+
+			if (!response.ok) throw new Error("Failed to update set"); 
+
+			setFlashcardSet((sets) =>
+				sets.map((set) =>
+					set.id === editingSetId
+						? { ...set, title: editingSetTitle }
+						: set
+				)
+			);
+
+			setEditSetDialogOpen(false);
+		} catch (error) {
+			console.error("Failed to update set:", error);
+		}
+	};
+
+	const handleOpenEditCardDialog = (card) => {
+		setEditingCard(card);
+		setEditingQuestion(card.question);
+		setEditingAnswer(card.answer);
+		setEditCardDialogOpen(true);
+	};
+
+	const handleCloseEditCardDialog = () => {
+		setEditCardDialogOpen(false);
+		setEditingCard(null);
+		setEditingQuestion("");
+		setEditingAnswer("");
+	};
+
+	const handleSaveCardEdit = async () => {
+		if (!editingQuestion.trim() || !editingAnswer.trim()) return;
+		try {
+			const response = await fetch(
+				`/api/sets/${selectedSetId}/cards/${editingCard.id}`,
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						question: editingQuestion,
+						answer: editingAnswer,
+					}),
+				}
+			);
+
+			if (!response.ok) throw new Error("Failed to update card");
+
+			const updatedCard = await response.json();
+
+			setFlashcards((cards) =>
+				cards.map((card) =>
+					card.id === editingCard.id
+						? { ...card, question: editingQuestion, answer: editingAnswer }
+						: card
+				)
+			);
+
+			handleCloseEditCardDialog();
+		}
+		catch (error) {
+			console.error("Failed to update card:", error);
+		}
+	};
+
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -178,6 +285,7 @@ const FlashcardSets = () => {
 	}
 
 	// If a set is selected, show the flashcard viewer
+	// TODO: maybe refactor this later (eg. move the viewer to a separate component)
 	if (selectedSetId) {
 		const currentCard = flashcards[currentCardIndex];
 
@@ -186,7 +294,10 @@ const FlashcardSets = () => {
 				<Typography variant="h4" gutterBottom>
 					Flashcard Viewer (Set {selectedSetId})
 				</Typography>
-				<Button variant="outlined" onClick={() => setSelectedSetId(null)}>
+				<Button
+					variant="outlined"
+					onClick={() => setSelectedSetId(null)}
+				>
 					Go back to Sets
 				</Button>
 
@@ -233,7 +344,9 @@ const FlashcardSets = () => {
 										{isFlipped ? "Answer" : "Question"}
 									</Typography>
 									<Typography variant="body1">
-										{isFlipped ? currentCard.answer : currentCard.question}
+										{isFlipped
+											? currentCard.answer
+											: currentCard.question}
 									</Typography>
 								</CardContent>
 							</Card>
@@ -258,12 +371,20 @@ const FlashcardSets = () => {
 				)}
 
 				{/* Always show the "Add Card" button */}
-				<Box sx={{ marginTop: 4, textAlign: "center" }}>
+				<Box sx={{ marginTop: 4, textAlign: "center", display: "flex", justifyContent: "center", gap: 2 }}>
 					<Button
 						variant="contained"
 						onClick={() => setAddCardDialogOpen(true)}
 					>
 						Add Card
+					</Button>
+
+					<Button
+						variant="contained"
+						onClick={() => handleOpenEditCardDialog(currentCard)}
+						sx={{ marginLeft: 2 }}  // Additional spacing
+					>
+						Edit current card
 					</Button>
 				</Box>
 
@@ -291,15 +412,56 @@ const FlashcardSets = () => {
 						/>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={() => setAddCardDialogOpen(false)}>Cancel</Button>
+						<Button onClick={() => setAddCardDialogOpen(false)}>
+							Cancel
+						</Button>
 						<Button
 							onClick={() => {
-								const front = document.getElementById("front").value;
-								const back = document.getElementById("back").value;
+								const front =
+									document.getElementById("front").value;
+								const back =
+									document.getElementById("back").value;
 								handleAddCard(front, back);
 							}}
 						>
 							Add
+						</Button>
+					</DialogActions>
+				</Dialog>
+
+				{/* "Edit Card" Dialog */}
+				<Dialog
+					open={editCardDialogOpen}
+					onClose={() => setEditCardDialogOpen(false)}
+				>
+					<DialogTitle>Edit card</DialogTitle>
+					<DialogContent>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="front"
+							label="Question"
+							type="text"
+							fullWidth
+							value={editingQuestion}
+							onChange={(e) => setEditingQuestion(e.target.value)}
+						/>
+						<TextField
+							margin="dense"
+							id="back"
+							label="Answer"
+							type="text"
+							fullWidth
+							value={editingAnswer}
+							onChange={(e) => setEditingAnswer(e.target.value)}
+						/>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={() => setEditCardDialogOpen(false)}>
+							Cancel
+						</Button>
+						<Button onClick={handleSaveCardEdit} color="primary">
+							Save
 						</Button>
 					</DialogActions>
 				</Dialog>
@@ -319,12 +481,60 @@ const FlashcardSets = () => {
 				Go back
 			</Button>
 			<AddFlashcardSetButton onSetCreated={addNewSet} />
+			<Dialog
+				open={editSetDialogOpen}
+				onClose={() => setEditSetDialogOpen(false)}
+			>
+				<DialogTitle>Edit set</DialogTitle>
+				<DialogContent>
+					<TextField
+						autoFocus
+						margin="dense"
+						id="title"
+						label="Title"
+						type="text"
+						fullWidth
+						value={editingSetTitle}
+						onChange={(e) => setEditingSetTitle(e.target.value)}
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setEditSetDialogOpen(false)}>
+						Cancel
+					</Button>
+					<Button onClick={handleSaveEdit} color="primary">
+						Save
+					</Button>
+				</DialogActions>
+			</Dialog>
 			<Divider style={{ margin: "20px 0" }} />
 			<Typography variant="h4">Current flashcard sets:</Typography>
 			<List>
 				{flashcardSet.map((set) => (
-					<ListItem key={set.id}>
-						<ListItemButton onClick={() => setSelectedSetId(set.id)}>
+					<ListItem
+						key={set.id}
+						secondaryAction={
+							<>
+								<IconButton
+									edge="end"
+									aria-label="edit"
+									onClick={() => handleEditSet(set)}
+								>
+									<CreateIcon />
+								</IconButton>
+								<IconButton
+									edge="end"
+									aria-label="delete"
+									onClick={() => handleSetDelete(set.id)}
+								>
+									<DeleteIcon />
+								</IconButton>
+							</>
+						}
+					>
+						<ListItemButton
+							onClick={() => setSelectedSetId(set.id)}
+						>
 							<ListItemText primary={set.title} />
 						</ListItemButton>
 					</ListItem>
