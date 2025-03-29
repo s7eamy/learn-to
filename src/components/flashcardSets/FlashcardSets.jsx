@@ -90,6 +90,10 @@ const FlashcardSets = () => {
 	const [editSetDialogOpen, setEditSetDialogOpen] = useState(false);
 	const [editingSetTitle, setEditingSetTitle] = useState("");
 	const [editingSetId, setEditingSetId] = useState(null);
+	const [editCardDialogOpen, setEditCardDialogOpen] = useState(false);
+	const [editingQuestion, setEditingQuestion] = useState("");
+	const [editingAnswer, setEditingAnswer] = useState("");
+	const [editingCard, setEditingCard] = useState(null);
 	const navigate = useNavigate();
 
 	// Fetch all flashcard sets
@@ -222,6 +226,56 @@ const FlashcardSets = () => {
 		}
 	};
 
+	const handleOpenEditCardDialog = (card) => {
+		setEditingCard(card);
+		setEditingQuestion(card.question);
+		setEditingAnswer(card.answer);
+		setEditCardDialogOpen(true);
+	};
+
+	const handleCloseEditCardDialog = () => {
+		setEditCardDialogOpen(false);
+		setEditingCard(null);
+		setEditingQuestion("");
+		setEditingAnswer("");
+	};
+
+	const handleSaveCardEdit = async () => {
+		if (!editingQuestion.trim() || !editingAnswer.trim()) return;
+		try {
+			const response = await fetch(
+				`/api/sets/${selectedSetId}/cards/${editingCard.id}`,
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						question: editingQuestion,
+						answer: editingAnswer,
+					}),
+				}
+			);
+
+			if (!response.ok) throw new Error("Failed to update card");
+
+			const updatedCard = await response.json();
+
+			setFlashcards((cards) =>
+				cards.map((card) =>
+					card.id === editingCard.id
+						? { ...card, question: editingQuestion, answer: editingAnswer }
+						: card
+				)
+			);
+
+			handleCloseEditCardDialog();
+		}
+		catch (error) {
+			console.error("Failed to update card:", error);
+		}
+	};
+
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -317,12 +371,20 @@ const FlashcardSets = () => {
 				)}
 
 				{/* Always show the "Add Card" button */}
-				<Box sx={{ marginTop: 4, textAlign: "center" }}>
+				<Box sx={{ marginTop: 4, textAlign: "center", display: "flex", justifyContent: "center", gap: 2 }}>
 					<Button
 						variant="contained"
 						onClick={() => setAddCardDialogOpen(true)}
 					>
 						Add Card
+					</Button>
+
+					<Button
+						variant="contained"
+						onClick={() => handleOpenEditCardDialog(currentCard)}
+						sx={{ marginLeft: 2 }}  // Additional spacing
+					>
+						Edit current card
 					</Button>
 				</Box>
 
@@ -363,6 +425,43 @@ const FlashcardSets = () => {
 							}}
 						>
 							Add
+						</Button>
+					</DialogActions>
+				</Dialog>
+
+				{/* "Edit Card" Dialog */}
+				<Dialog
+					open={editCardDialogOpen}
+					onClose={() => setEditCardDialogOpen(false)}
+				>
+					<DialogTitle>Edit card</DialogTitle>
+					<DialogContent>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="front"
+							label="Question"
+							type="text"
+							fullWidth
+							value={editingQuestion}
+							onChange={(e) => setEditingQuestion(e.target.value)}
+						/>
+						<TextField
+							margin="dense"
+							id="back"
+							label="Answer"
+							type="text"
+							fullWidth
+							value={editingAnswer}
+							onChange={(e) => setEditingAnswer(e.target.value)}
+						/>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={() => setEditCardDialogOpen(false)}>
+							Cancel
+						</Button>
+						<Button onClick={handleSaveCardEdit} color="primary">
+							Save
 						</Button>
 					</DialogActions>
 				</Dialog>
