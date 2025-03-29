@@ -161,16 +161,24 @@ router.delete("/:quizId/questions/:questionId", (req, res) => {
   });
 });
 
-
-// Updare a quiz's name and public/private status
+// Update a quiz's name and public/private status
 router.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
-  db.run("UPDATE quizzes SET name = ? is_public = ? WHERE id = ?", [name, isPublic ? 1 : 0, id], 
+  const { name, isPublic } = req.body;
+
+  console.log("Updating quiz:", { id, name, isPublic }); // Debug log
+
+  db.run(
+    "UPDATE quizzes SET name = ?, is_public = ? WHERE id = ?",
+    [name, isPublic ? 1 : 0, id],
     function (err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ success: true, id, name });
-  });
+      if (err) {
+        console.error("Error updating quiz:", err.message); // Debug log
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ success: true, id, name, isPublic });
+    }
+  );
 });
 
 // Delete a quiz and its associated questions
