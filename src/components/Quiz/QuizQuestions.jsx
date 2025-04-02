@@ -128,7 +128,14 @@ const QuizQuestions = () => {
       <Typography variant="h3">Quiz Questions</Typography>
       <Button variant="outlined" onClick={() => navigate("/quizzes")}>
         Go back to Quizzes
-      </Button>
+          </Button>
+          <Button
+              variant="contained"
+              onClick={() => navigate(`/quizzes/${quizId}/view`)}
+              sx={{ marginLeft: '10px' }}
+          >
+              Take Quiz
+          </Button>
       <Divider style={{ margin: "20px 0" }} />
       <Button variant="contained" onClick={() => handleOpenDialog()}>
         Add Question

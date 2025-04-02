@@ -6,6 +6,7 @@ import Quizzes from "./components/Quiz/Quizzes";
 import QuizQuestions from "./components/Quiz/QuizQuestions";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register.jsx";
+import QuizViewer from "./components/Quiz/QuizViewer";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/sets" element={<FlashcardSets />} /> {/* Combined list and viewer */}
                 <Route path="/quizzes" element={<Quizzes />} />
                 <Route path="/quizzes/:quizId/questions" element={<QuizQuestions />} />
+                <Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
             </Routes>
         </Router>
     );
