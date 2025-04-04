@@ -33,7 +33,7 @@ describe("Quiz API", () => {
       name: "Sample Quiz",
     });
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("success", true);
     expect(res.body).toHaveProperty("id");
     expect(res.body).toHaveProperty("name", "Sample Quiz");
@@ -55,7 +55,7 @@ describe("Quiz API", () => {
         ],
       });
 
-    expect(questionRes.statusCode).toBe(200);
+    expect(questionRes.statusCode).toBe(201);
     expect(questionRes.body).toHaveProperty("success", true);
     expect(questionRes.body).toHaveProperty("id");
     expect(questionRes.body).toHaveProperty("text", "What is 2 + 2?");
@@ -99,7 +99,7 @@ describe("Quiz API", () => {
 
   test("Fail to create a quiz with no name", async () => {
     const res = await request(server).post("/quizzes").send({});
-    expect(res.statusCode).toBe(500);
+    expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty("error");
   });
 
@@ -118,10 +118,8 @@ describe("Quiz API", () => {
         ],
       });
   
-    expect(questionRes.statusCode).toBe(200);
-    expect(questionRes.body).toHaveProperty("success", true);
-    expect(questionRes.body).toHaveProperty("id");
-    expect(questionRes.body.answers).toHaveLength(2);
+    expect(questionRes.statusCode).toBe(400);
+    expect(questionRes.body).toHaveProperty("error");
   });
 
   test("Get all quizzes", async () => {
@@ -270,7 +268,7 @@ describe("Quiz API", () => {
     const fetchQuestionsRes = await request(server).get(
       `/quizzes/${quizId}/questions`
     );
-    expect(fetchQuestionsRes.statusCode).toBe(200);
-    expect(fetchQuestionsRes.body).toHaveLength(0);
+    expect(fetchQuestionsRes.statusCode).toBe(404);
+    expect(fetchQuestionsRes.body).toHaveProperty("error", "Quiz not found");
   });
 });
