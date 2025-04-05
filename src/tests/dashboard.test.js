@@ -50,12 +50,25 @@ const { default: Dashboard } = await import('../components/Dashboard/Dashboard.j
 
 // Global fetch mock to simulate API response for user authentication data.
 // The fetch call in the Dashboard's useEffect will use this mock.
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    json: () => Promise.resolve({ username: 'TestUser' }),
-  })
-);
+global.fetch = jest.fn((url) => {
+  if (url === '/api/sets') {  //flashcardam
+    return Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ success: true })
+    });
+  } else if (url === '/api/quizzes') {  //klausimam
+    return Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ success: true })
+    });
+  } else if (url === '/api/auth/user') { //tam vienam autentifikavimo testui
+    return Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ username: 'TestUser' })
+    });
+  }
+});
+
 
 /**
  * ------------------------------------------------------------
