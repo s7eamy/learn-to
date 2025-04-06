@@ -22,62 +22,6 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
 
-const AddFlashcardSetButton = ({ onSetCreated }) => {
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
-
-	return (
-		<div>
-			<Button variant="contained" onClick={handleOpen}>
-				Create new flashcard set
-			</Button>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				slotProps={{
-					paper: {
-						component: "form",
-						onSubmit: (event) => {
-							event.preventDefault();
-							const title = event.target.title.value;
-							fetch("/api/sets", {
-								method: "POST",
-								headers: {
-									"Content-Type": "application/json",
-								},
-								body: JSON.stringify({ title }),
-							})
-								.then((res) => res.json())
-								.then((newSet) => {
-									onSetCreated(newSet);
-									handleClose();
-								});
-						},
-					},
-				}}
-			>
-				<DialogTitle>Create new flashcard set</DialogTitle>
-				<DialogContent>
-					<TextField
-						autoFocus
-						required
-						margin="dense"
-						id="title"
-						label="Title"
-						type="text"
-						fullWidth
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose}>Cancel</Button>
-					<Button type="submit">Submit</Button>
-				</DialogActions>
-			</Dialog>
-		</div>
-	);
-};
-
 const FlashcardSets = () => {
 	const [flashcardSet, setFlashcardSet] = useState([]);
 	const [selectedSetId, setSelectedSetId] = useState(null);
@@ -480,7 +424,6 @@ const FlashcardSets = () => {
 			<Button variant="outlined" onClick={() => navigate("/")}>
 				Go back
 			</Button>
-			<AddFlashcardSetButton onSetCreated={addNewSet} />
 			<Dialog
 				open={editSetDialogOpen}
 				onClose={() => setEditSetDialogOpen(false)}

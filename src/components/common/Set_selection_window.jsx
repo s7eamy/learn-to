@@ -46,11 +46,40 @@ export default function SetCreator({ open, onClose }) {
     if (!canCreate) return;
 
     if (selectedType === "flashcard") {
-      navigate("/sets");
+      fetch("/api/sets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: setName }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            navigate(`/sets`);
+          } else {
+            console.error("Failed to create set");
+          }
+        })
     } else if (selectedType === "questionare") {
-      navigate("/quizzes");
+      fetch("/api/quizzes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: setName }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            navigate(`/quizzes/${data.id}/questions`);
+          }
+          else {
+            console.error("Failed to create quiz");
+          }
+    });
+      }
     }
-  };
 
   return (
     <Box
