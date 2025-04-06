@@ -67,8 +67,7 @@ global.fetch = jest.fn((url) => {
       json: () => Promise.resolve({ username: 'TestUser' })
     });
   }
-});
-
+}); 
 
 /**
  * ------------------------------------------------------------
