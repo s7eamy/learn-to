@@ -79,7 +79,6 @@ export default function SetCreator({ open, onClose }) {
           }
     });
       }
-      navigate("/quizzes");
     }
 
   return (
