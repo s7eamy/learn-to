@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, Button, Box, Dialog } from "@mui/material";
 import TopBar from "../common/TopBar.jsx";
 import SetCreator from "../common/Set_selection_window.jsx";
+import DocumentList from "./DocumentList.jsx";
 
 const Dashboard = () => {
   /* Aurimo konstantos */
@@ -40,10 +41,10 @@ const Dashboard = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-    {/* Meniu top bar */}
+      {/* Meniu top bar */}
       <TopBar />
 
-    {/* Set kūrimo mygtukas */}
+      {/* Set kūrimo mygtukas */}
       <Button
         onClick={handleOpen}
         sx={{
@@ -76,14 +77,14 @@ const Dashboard = () => {
           component="img"
           src="/icons/add_icon.svg"
           alt="Create Icon"
-          sx={{ width: 35, height: 35, }}
+          sx={{ width: 35, height: 35 }}
         />
+      </Button>
 
       {/* Rodo vartotojo prisijungimo statusa */}
-      </Button>
-          <Typography variant="subtitle1">
-            Logged in as: {username ? username : "Guest"}
-          </Typography>
+      <Typography variant="subtitle1">
+        Logged in as: {username ? username : "Guest"}
+      </Typography>
 
       {/* Langas, kuris atsiranda kuriant nauja set */}
       <Dialog
@@ -96,8 +97,22 @@ const Dashboard = () => {
           },
         }}
       >
-        <SetCreator open={true} onClose={handleClose}/>
+        <SetCreator open={true} onClose={handleClose} />
       </Dialog>
+
+      {/* Dokumentu sarasas */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 20, // distancija nuo apacios
+          left: 20, // distancija is kaires
+          width: "50%",
+          height: "40%", 
+          overflow: "hidden", 
+        }}
+      >
+        <DocumentList />
+      </Box>
     </Box>
   );
 };
