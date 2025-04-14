@@ -79,7 +79,7 @@ export default function SetCreator({ open, onClose }) {
           }
     });
       }
-  }
+    }
 
   return (
     <Box
