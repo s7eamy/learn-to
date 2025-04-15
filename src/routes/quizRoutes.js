@@ -4,6 +4,7 @@ import db from "../db/database.js";
 const router = express.Router();
 
 // Validation Helpers
+// Validates whether value is a string, not empty, and within max length
 const validateString = (value, fieldName, maxLength = 100) => {
     if (!value || typeof value !== 'string') return `${fieldName} must be a string`;
     const trimmed = value.trim();
@@ -12,12 +13,14 @@ const validateString = (value, fieldName, maxLength = 100) => {
     return null;
 };
 
+// Validates whether value is a positive integer
 const validateId = (id) => {
     if (!Number.isInteger(Number(id))) return "ID must be an integer";
     if (Number(id) <= 0) return "ID must be positive";
     return null;
 };
 
+// Validates whether answers are an array of minimum two objects, validates answers' texts and checks if at least one is set as correct
 const validateAnswers = (answers) => {
     if (!Array.isArray(answers)) return "Answers must be an array";
     if (answers.length < 2) return "At least 2 answers required";
@@ -93,6 +96,7 @@ router.get("/:quizId/questions", (req, res) => {
         if (err) return res.status(500).json({ error: err.message });
         if (!quiz) return res.status(404).json({ error: "Quiz not found" });
 
+        // Make common table for questions and answers
         db.all(
             `SELECT q.id AS question_id, q.text AS question_text, 
        a.id AS answer_id, a.text AS answer_text, a.is_correct
@@ -103,6 +107,7 @@ router.get("/:quizId/questions", (req, res) => {
             (err, rows) => {
                 if (err) return res.status(500).json({ error: err.message });
 
+                // Convert rows to questions with answers
                 const questions = rows.reduce((acc, row) => {
                     const question = acc.find(q => q.id === row.question_id);
                     const answer = row.answer_id ? {
@@ -149,6 +154,7 @@ router.post("/:quizId/questions", (req, res) => {
         isCorrect: !!a.isCorrect
     }));
 
+    // Insert question and answers
     db.serialize(() => {
         db.run(
             "INSERT INTO questions (quiz_id, text) VALUES (?, ?)",
