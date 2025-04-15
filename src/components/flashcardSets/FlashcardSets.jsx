@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CreateIcon from "@mui/icons-material/Create";
+import EmptyFlashcardDeck from "./EmptyFlashCardSet.jsx";
 
 const FlashcardSets = () => {
 	const [flashcardSet, setFlashcardSet] = useState([]);
@@ -231,6 +232,14 @@ const FlashcardSets = () => {
 	// If a set is selected, show the flashcard viewer
 	// TODO: maybe refactor this later (eg. move the viewer to a separate component)
 	if (selectedSetId) {
+		if (flashcards.length === 0) {
+			const selectedSet = flashcardSet.find(
+				set => set.id === selectedSetId
+			);
+			return (
+				<EmptyFlashcardDeck setName={selectedSet.title}></EmptyFlashcardDeck>
+			)
+		}
 		const currentCard = flashcards[currentCardIndex];
 
 		return (
