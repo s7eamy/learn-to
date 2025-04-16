@@ -8,6 +8,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register.jsx";
 import QuizViewer from "./components/Quiz/QuizViewer";
 import FlashcardViewer from "./components/flashcardSets/FlashcardViewer";
+import Flashcards from "./components/flashcardSets/Flashcards.jsx";
 
 function App() {
 	return (
@@ -18,8 +19,10 @@ function App() {
 				<Route path="/register" element={<Register />} />
 				<Route path="/sets" element={<FlashcardSets />} />{" "}
 				{/* Combined list and viewer */}
-				<Route path="/sets/:setId" element={<FlashcardViewer />} />{" "}
+				<Route path="/sets/:setId" element={<Flashcards />} />{" "}
 				{/* Flashcard viewer */}
+				<Route path="/sets/:setId/view" element={<FlashcardViewer />} />{" "}
+				{/* Study cards viewer */}
 				<Route path="/quizzes" element={<Quizzes />} />
 				<Route
 					path="/quizzes/:quizId/questions"
