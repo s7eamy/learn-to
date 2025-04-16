@@ -1,22 +1,30 @@
+// EmptyFlashCardSet.jsx
 import React from "react";
-import { Box, Button, Divider, IconButton, Paper, Typography } from "@mui/material";
+import {
+    Box,
+    Divider,
+    IconButton,
+    Paper,
+    Typography,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import TopBar from "../common/TopBar.jsx";
+import AddFlashcardButton from "./AddFlashcardButton"; // Import the add button
 import { useNavigate } from "react-router-dom";
 
-
-const EmptyFlashCardSet = (props) => {
+const EmptyFlashCardSet = ({ setName, setId, onCardCreated }) => {
     const navigate = useNavigate();
     const handleClose = () => {
         navigate("/");
     };
+
     return (
         <Box
             sx={{
                 width: "100%",
                 height: "100vh",
-                backgroundImage: 'url("/background.png")',
                 backgroundSize: "cover",
+                backgroundImage: 'url("/background.png")',
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 display: "flex",
@@ -65,26 +73,26 @@ const EmptyFlashCardSet = (props) => {
                                 fontFamily: "'Poppins-Medium', Helvetica",
                                 fontWeight: 500,
                                 fontSize: "2.1rem",
-                                mb: '1vh',
-                                mt: '-1vh',
-
+                                mb: "1vh",
+                                mt: "-1vh",
                             }}
                         >
-                            {props.setName}
+                            {setName}
                         </Typography>
 
-                        <IconButton sx={{
-                            color: "white",
-                            fontSize: "2rem", // increase the font size to make the icon bigger
-                            '& svg': { // target the SVG icon inside the IconButton
-                                width: "1.5em", // set the width to a relative unit (em) for scalability
-                                height: "1.5em", // set the height to a relative unit (em) for scalability
-                            },
-                            position: 'relative',
-                            left: '1vh',// adjust the value to move the icon to the right
-                            mt: '-2vh',
-                        }}
-                        onClick={handleClose}
+                        <IconButton
+                            sx={{
+                                color: "white",
+                                fontSize: "2rem",
+                                "& svg": {
+                                    width: "1.5em",
+                                    height: "1.5em",
+                                },
+                                position: "relative",
+                                left: "1vh",
+                                mt: "-2vh",
+                            }}
+                            onClick={handleClose}
                         >
                             <CloseIcon />
                         </IconButton>
@@ -97,11 +105,11 @@ const EmptyFlashCardSet = (props) => {
                             height: "5px",
                             borderRadius: "3.5px",
                             mb: 4,
-                            mt: '0.5vh',
+                            mt: "0.5vh",
                         }}
                     />
 
-                    {/* Empty deck content */}
+                    {/* Empty deck content with Add cards button */}
                     <Box
                         sx={{
                             display: "flex",
@@ -109,10 +117,14 @@ const EmptyFlashCardSet = (props) => {
                             alignItems: "center",
                             justifyContent: "center",
                             textAlign: "center",
-                            mt: '23vh',
+                            mt: "23vh",
                         }}
                     >
-                        <img src="/icons/flashcard_icon.svg" alt="Settings Icon" style={{marginLeft: '2vh'}} />
+                        <img
+                            src="/icons/flashcard_icon.svg"
+                            alt="Settings Icon"
+                            style={{ marginLeft: "2vh" }}
+                        />
                         <Typography
                             variant="h5"
                             sx={{
@@ -121,35 +133,18 @@ const EmptyFlashCardSet = (props) => {
                                 fontFamily: "'Poppins-Medium', Helvetica",
                                 fontWeight: 500,
                                 mb: 4,
-                                mt: '1vh',
+                                mt: "1vh",
                             }}
                         >
                             This set has no cards
                         </Typography>
 
-                        <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "white",
-                                color: "black",
-                                borderRadius: "27px",
-                                width: 345,
-                                height: 61,
-                                textTransform: "none",
-                                mb: 2,
-                                mt: '-1vh',
-                            }}
-                        >
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    fontFamily: "'Poppins-Medium', Helvetica",
-                                    fontWeight: 500,
-                                }}
-                            >
-                                Add cards
-                            </Typography>
-                        </Button>
+                        {/* Render the AddFlashcardButton with custom text */}
+                        <AddFlashcardButton
+                            id={setId}
+                            onCardCreated={onCardCreated}
+                            buttonText="Add card"
+                        />
                     </Box>
                 </Paper>
             </Box>
