@@ -29,7 +29,6 @@ const Dashboard = () => {
     setOpen(false);
   };
 
-
   return (
     <Box
       sx={{
@@ -107,8 +106,8 @@ const Dashboard = () => {
           bottom: 20, // distancija nuo apacios
           left: 20, // distancija is kaires
           width: "50%",
-          height: "40%", 
-          overflow: "hidden", 
+          height: "40%",
+          overflow: "hidden",
         }}
       >
         <DocumentList />

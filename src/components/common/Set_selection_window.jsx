@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import { Box, Button, Card, Divider, IconButton, Stack, Typography, } from "@mui/material";
-
+import {
+  Box,
+  Button,
+  Card,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 const setTypes = [
   {
@@ -60,7 +67,7 @@ export default function SetCreator({ open, onClose }) {
           } else {
             console.error("Failed to create set");
           }
-        })
+        });
     } else if (selectedType === "questionare") {
       fetch("/api/quizzes", {
         method: "POST",
@@ -73,13 +80,12 @@ export default function SetCreator({ open, onClose }) {
         .then((data) => {
           if (data.success) {
             navigate(`/quizzes/${data.id}/questions`);
-          }
-          else {
+          } else {
             console.error("Failed to create quiz");
           }
-    });
-      }
+        });
     }
+  };
 
   return (
     <Box

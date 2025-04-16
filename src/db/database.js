@@ -1,13 +1,13 @@
 import sqlite3 from "sqlite3";
 
 const db =
-	process.env.NODE_ENV === "test"
-		? new sqlite3.Database(":memory:")
-		: new sqlite3.Database("./app.db");
+  process.env.NODE_ENV === "test"
+    ? new sqlite3.Database(":memory:")
+    : new sqlite3.Database("./app.db");
 
 db.serialize(() => {
-	// Flashcard Sets table
-	db.run(`
+  // Flashcard Sets table
+  db.run(`
     CREATE TABLE IF NOT EXISTS flashcard_sets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
@@ -15,8 +15,8 @@ db.serialize(() => {
     )
   `);
 
-	// Flashcards table
-	db.run(`
+  // Flashcards table
+  db.run(`
     CREATE TABLE IF NOT EXISTS flashcards (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       set_id INTEGER,
@@ -28,8 +28,8 @@ db.serialize(() => {
     )
   `);
 
-	// Quizzes table
-	db.run(`
+  // Quizzes table
+  db.run(`
     CREATE TABLE IF NOT EXISTS quizzes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -37,8 +37,8 @@ db.serialize(() => {
       )
   `);
 
-	// Questions table
-	db.run(`
+  // Questions table
+  db.run(`
     CREATE TABLE IF NOT EXISTS questions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       quiz_id INTEGER NOT NULL,
@@ -47,8 +47,8 @@ db.serialize(() => {
     )
   `);
 
-	// Answers table
-	db.run(`
+  // Answers table
+  db.run(`
     CREATE TABLE IF NOT EXISTS answers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       question_id INTEGER NOT NULL,
@@ -58,8 +58,8 @@ db.serialize(() => {
     )
   `);
 
-	// Users table
-	db.run(`
+  // Users table
+  db.run(`
     CREATE TABLE IF NOT EXISTS users (
       username TEXT NOT NULL PRIMARY KEY,
       salt TEXT NOT NULL,

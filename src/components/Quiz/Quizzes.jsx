@@ -99,7 +99,9 @@ const Quizzes = () => {
       <List>
         {quizzes.map((quiz) => (
           <ListItem key={quiz.id}>
-            <ListItemButton onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}>
+            <ListItemButton
+              onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}
+            >
               <ListItemText primary={quiz.name} />
             </ListItemButton>
             {/* Display public/private status */}
