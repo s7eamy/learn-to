@@ -7,21 +7,28 @@ import QuizQuestions from "./components/Quiz/QuizQuestions";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register.jsx";
 import QuizViewer from "./components/Quiz/QuizViewer";
+import FlashcardViewer from "./components/flashcardSets/FlashcardViewer";
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/sets" element={<FlashcardSets />} /> {/* Combined list and viewer */}
-                <Route path="/quizzes" element={<Quizzes />} />
-                <Route path="/quizzes/:quizId/questions" element={<QuizQuestions />} />
-                <Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
-            </Routes>
-        </Router>
-    );
+	return (
+		<Router>
+			<Routes>
+				<Route path="/" element={<Dashboard />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/sets" element={<FlashcardSets />} />{" "}
+				{/* Combined list and viewer */}
+				<Route path="/sets/:setId" element={<FlashcardViewer />} />{" "}
+				{/* Flashcard viewer */}
+				<Route path="/quizzes" element={<Quizzes />} />
+				<Route
+					path="/quizzes/:quizId/questions"
+					element={<QuizQuestions />}
+				/>
+				<Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
+			</Routes>
+		</Router>
+	);
 }
 
 export default App;

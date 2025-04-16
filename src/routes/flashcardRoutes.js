@@ -4,6 +4,7 @@ import db from "../db/database.js";
 const router = express.Router();
 
 // Validation Helpers
+// Validates whether field is a string, not empty, and within max length
 const validateString = (value, fieldName, maxLength = 100) => {
     if (!value || typeof value !== 'string') return `${fieldName} must be a string`;
     const trimmed = value.trim();
@@ -12,12 +13,14 @@ const validateString = (value, fieldName, maxLength = 100) => {
     return null;
 };
 
+// Validates whether ID is a positive integer
 const validateId = (id) => {
     if (!Number.isInteger(Number(id))) return "ID must be an integer";
     if (Number(id) <= 0) return "ID must be positive";
     return null;
 };
 
+// Routes 
 // Create Flashcard Set
 router.post("/", (req, res) => {
     const { title } = req.body;
@@ -30,6 +33,7 @@ router.post("/", (req, res) => {
     db.run("INSERT INTO flashcard_sets (title) VALUES (?)",
         [trimmedTitle],
         function (err) {
+            // If database encounters error, return it as response
             if (err) return res.status(500).json({ error: err.message });
             res.status(201).json({
                 success: true,
@@ -43,6 +47,7 @@ router.post("/", (req, res) => {
 // Get All Sets
 router.get("/", (req, res) => {
     db.all("SELECT * FROM flashcard_sets", [], (err, rows) => {
+        // If database encounters error, return it as response
         if (err) return res.status(500).json({ error: err.message });
         res.json(rows);
     });
