@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
-  Divider,
   Button,
   Card,
   CardContent,
@@ -118,7 +117,13 @@ const QuizViewer = () => {
             {currentQuestion.text}
           </Typography>
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
             {currentQuestion.answers.map((answer) => (
               <Button
                 key={answer.id}
@@ -135,7 +140,10 @@ const QuizViewer = () => {
                     : "primary"
                 }
                 onClick={() => handleAnswerSelect(answer.id)}
-                sx={{ textAlign: "left", justifyContent: "flex-start" }}
+                sx={{
+                  textAlign: "left",
+                  justifyContent: "flex-start",
+                }}
               >
                 {answer.text}
               </Button>

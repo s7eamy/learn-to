@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  InputBase,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, IconButton, InputBase, Toolbar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const iconStyle = { width: 40, height: 40 };

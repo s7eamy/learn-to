@@ -158,8 +158,9 @@ const Quizzes = () => {
       <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
         <DialogTitle>Delete Quiz</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete the quiz "{editingQuiz?.name}"? This
-          will also delete all associated questions.
+          Are you sure you want to delete the quiz &ldquo;
+          {editingQuiz?.name}&rdquo;? This will also delete all associated
+          questions.
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
