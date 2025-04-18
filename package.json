@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "check-format": "prettier --check .",
-    "format": "prettier --write .",
+    "format": "prettier --check .",
     "preview": "vite preview",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose"
   },
