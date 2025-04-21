@@ -254,4 +254,57 @@ router.delete("/:setId/cards/:cardId", (req, res) => {
     );
 });
 
+// Save Flashcard Rating
+router.post("/:setId/cards/:cardId/attempts", (req, res) => {
+    const { setId, cardId } = req.params;
+    const { rating } = req.body;
+
+    const validRatings = ["know", "dont_know", "fifty_fifty"];
+    if (!validRatings.includes(rating)) {
+        return res.status(400).json({ error: "Invalid rating" });
+    }
+
+    db.run(
+        `
+        INSERT INTO flashcard_attempts (set_id, flashcard_id, rating)
+        VALUES (?, ?, ?)
+        `,
+        [setId, cardId, rating],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.status(201).json({ success: true, id: this.lastID });
+        }
+    );
+});
+
+// Get Flashcard Statistics for a Set
+router.get("/:setId/statistics", (req, res) => {
+    const { setId } = req.params;
+
+    db.all(
+        `
+        SELECT rating, COUNT(*) AS count
+        FROM flashcard_attempts
+        WHERE set_id = ?
+        GROUP BY rating
+        `,
+        [setId],
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: err.message });
+
+            const statistics = {
+                know: 0,
+                dont_know: 0,
+                fifty_fifty: 0,
+            };
+
+            rows.forEach((row) => {
+                statistics[row.rating] = row.count;
+            });
+
+            res.json(statistics);
+        }
+    );
+});
+
 export default router;
