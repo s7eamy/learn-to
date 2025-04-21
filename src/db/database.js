@@ -66,6 +66,17 @@ db.serialize(() => {
       hashed_password TEXT NOT NULL
     )
   `);
+
+	// Quiz Statistics table
+	db.run(`
+    CREATE TABLE IF NOT EXISTS quiz_statistics (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quiz_id INTEGER NOT NULL,
+      correct_count INTEGER NOT NULL DEFAULT 0,
+      incorrect_count INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
+    )
+  `);
 });
 
 export default db;
