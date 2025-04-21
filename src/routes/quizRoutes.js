@@ -345,4 +345,29 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Save Quiz Performance
+router.post("/:quizId/statistics", (req, res) => {
+    const { quizId } = req.params;
+    const { correctCount, incorrectCount } = req.body;
+
+    const quizIdError = validateId(quizId);
+    if (quizIdError) return res.status(400).json({ error: quizIdError });
+
+    if (typeof correctCount !== "number" || typeof incorrectCount !== "number") {
+        return res.status(400).json({ error: "Counts must be numbers" });
+    }
+
+    db.run(
+        `
+        INSERT INTO quiz_statistics (quiz_id, correct_count, incorrect_count)
+        VALUES (?, ?, ?)
+        `,
+        [quizId, correctCount, incorrectCount],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.status(201).json({ success: true, id: this.lastID });
+        }
+    );
+});
+
 export default router;
