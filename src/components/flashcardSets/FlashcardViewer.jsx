@@ -21,6 +21,10 @@ const FlashcardViewer = () => {
 	const [flashcards, setFlashcards] = useState([]);
 	const [currentCardIndex, setCurrentCardIndex] = useState(0);
 	const [isFlipped, setIsFlipped] = useState(false);
+	const [ratingDialogOpen, setRatingDialogOpen] = useState(false);
+	const [currentRating, setCurrentRating] = useState(null);
+	const [statistics, setStatistics] = useState({ know: 0, dont_know: 0, fifty_fifty: 0 });
+	const [previousAttempts, setPreviousAttempts] = useState([]);
 
 	// Handlers
 	// Handle flipping the card
@@ -42,6 +46,57 @@ const FlashcardViewer = () => {
 		setIsFlipped(false);
 	};
 
+	// Open the rating dialog before moving to the next card
+	const handleRateCard = () => {
+		setRatingDialogOpen(true);
+	};
+
+	// Submit the rating and move to the next card
+	const handleSubmitRating = (rating) => {
+		setCurrentRating(rating);
+
+		fetch(`/api/sets/${setId}/cards/${currentCard.id}/attempts`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ rating }),
+		})
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error("Failed to save rating");
+				}
+				return res.json();
+			})
+			.then(() => {
+				setRatingDialogOpen(false);
+				handleNext(); // Move to the next card
+			})
+			.catch((err) => console.error(err));
+	};
+
+	const handleRate = (rating) => {
+		const currentCard = flashcards[currentCardIndex];
+
+		fetch(`/api/sets/${setId}/cards/${currentCard.id}/attempts`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ rating }),
+		})
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error("Failed to save rating");
+				}
+				return res.json();
+			})
+			.then(() => {
+				// Update the statistics after saving the rating
+				fetch(`/api/sets/${setId}/statistics`)
+					.then((res) => res.json())
+					.then((data) => setStatistics(data))
+					.catch((err) => console.error("Error fetching statistics:", err));
+			})
+			.catch((err) => console.error("Error saving rating:", err));
+	};
+
 	// Fetch flashcards for the selected set
 	useEffect(() => {
 		fetch(`/api/sets/${setId}/cards`)
@@ -59,6 +114,20 @@ const FlashcardViewer = () => {
 				console.error("Error fetching flashcards:", err); // Debugging
 				setError(err.message);
 			});
+	}, [setId]);
+
+	useEffect(() => {
+		fetch(`/api/sets/${setId}/statistics`)
+			.then((res) => res.json())
+			.then((data) => setStatistics(data))
+			.catch((err) => console.error(err));
+	}, [setId]);
+
+	useEffect(() => {
+		fetch(`/api/sets/${setId}/attempts`)
+			.then((res) => res.json())
+			.then((data) => setPreviousAttempts(data))
+			.catch((err) => console.error("Error fetching previous attempts:", err));
 	}, [setId]);
 
 	const currentCard = flashcards[currentCardIndex];
@@ -122,7 +191,7 @@ const FlashcardViewer = () => {
 							</CardContent>
 						</Card>
 
-						<Button variant="contained" onClick={handleNext}>
+						<Button variant="contained" onClick={handleRateCard}>
 							Next
 						</Button>
 					</Box>
@@ -138,8 +207,45 @@ const FlashcardViewer = () => {
 					<Typography variant="body2" sx={{ marginTop: 2 }}>
 						Card {currentCardIndex + 1} of {flashcards.length}
 					</Typography>
+
+					<Typography variant="body2" sx={{ mt: 2 }}>
+						Progress: I Know: {statistics.know}, 50/50: {statistics.fifty_fifty}, I Don't Know: {statistics.dont_know}
+					</Typography>
 				</>
 			)}
+
+			{/* Rating Dialog */}
+			<Dialog open={ratingDialogOpen} onClose={() => setRatingDialogOpen(false)}>
+				<DialogTitle>Rate Your Knowledge</DialogTitle>
+				<DialogContent>
+					<Typography variant="body1">
+						How well do you know this flashcard?
+					</Typography>
+					<Box sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}>
+						<Button
+							variant="contained"
+							color="success"
+							onClick={() => handleSubmitRating("know")}
+						>
+							I Know
+						</Button>
+						<Button
+							variant="contained"
+							color="warning"
+							onClick={() => handleSubmitRating("fifty_fifty")}
+						>
+							50/50
+						</Button>
+						<Button
+							variant="contained"
+							color="error"
+							onClick={() => handleSubmitRating("dont_know")}
+						>
+							I Don't Know
+						</Button>
+					</Box>
+				</DialogContent>
+			</Dialog>
 		</Container>
 	);
 };

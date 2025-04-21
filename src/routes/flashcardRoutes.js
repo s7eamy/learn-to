@@ -254,7 +254,7 @@ router.delete("/:setId/cards/:cardId", (req, res) => {
     );
 });
 
-// Save Flashcard Rating
+// Save or Update Flashcard Rating
 router.post("/:setId/cards/:cardId/attempts", (req, res) => {
     const { setId, cardId } = req.params;
     const { rating } = req.body;
@@ -266,13 +266,16 @@ router.post("/:setId/cards/:cardId/attempts", (req, res) => {
 
     db.run(
         `
-        INSERT INTO flashcard_attempts (set_id, flashcard_id, rating)
-        VALUES (?, ?, ?)
+        INSERT OR REPLACE INTO flashcard_attempts (id, set_id, flashcard_id, rating, attempt_date)
+        VALUES (
+            (SELECT id FROM flashcard_attempts WHERE set_id = ? AND flashcard_id = ?),
+            ?, ?, ?, CURRENT_TIMESTAMP
+        )
         `,
-        [setId, cardId, rating],
+        [setId, cardId, setId, cardId, rating],
         function (err) {
             if (err) return res.status(500).json({ error: err.message });
-            res.status(201).json({ success: true, id: this.lastID });
+            res.status(201).json({ success: true });
         }
     );
 });
@@ -303,6 +306,26 @@ router.get("/:setId/statistics", (req, res) => {
             });
 
             res.json(statistics);
+        }
+    );
+});
+
+// Get Previous Attempts for a Set
+router.get("/:setId/attempts", (req, res) => {
+    const { setId } = req.params;
+
+    db.all(
+        `
+        SELECT attempt_date, rating, COUNT(*) AS count
+        FROM flashcard_attempts
+        WHERE set_id = ?
+        GROUP BY attempt_date, rating
+        ORDER BY attempt_date DESC
+        `,
+        [setId],
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(rows);
         }
     );
 });
