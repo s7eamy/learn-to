@@ -76,14 +76,14 @@ const QuizViewer = () => {
     };
 
     const handleCompleteQuiz = () => {
-        fetch(`/api/quizzes/${quizId}/statistics`, {
+        fetch(`/api/quizzes/${quizId}/attempts`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ correctCount: score, incorrectCount: questions.length - score }),
         })
             .then((res) => {
                 if (!res.ok) {
-                    throw new Error("Failed to save quiz performance");
+                    throw new Error("Failed to save quiz attempt");
                 }
                 return res.json();
             })

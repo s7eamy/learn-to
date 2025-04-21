@@ -77,6 +77,18 @@ db.serialize(() => {
       FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
     )
   `);
+
+	// Quiz Attempts table
+	db.run(`
+    CREATE TABLE IF NOT EXISTS quiz_attempts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quiz_id INTEGER NOT NULL,
+      correct_count INTEGER NOT NULL,
+      incorrect_count INTEGER NOT NULL,
+      attempt_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
+    )
+  `);
 });
 
 export default db;

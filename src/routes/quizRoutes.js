@@ -370,4 +370,76 @@ router.post("/:quizId/statistics", (req, res) => {
     );
 });
 
+// Save Quiz Attempt
+router.post("/:quizId/attempts", (req, res) => {
+    const { quizId } = req.params;
+    const { correctCount, incorrectCount } = req.body;
+
+    const quizIdError = validateId(quizId);
+    if (quizIdError) return res.status(400).json({ error: quizIdError });
+
+    if (typeof correctCount !== "number" || typeof incorrectCount !== "number") {
+        return res.status(400).json({ error: "Counts must be numbers" });
+    }
+
+    db.run(
+        `
+        INSERT INTO quiz_attempts (quiz_id, correct_count, incorrect_count)
+        VALUES (?, ?, ?)
+        `,
+        [quizId, correctCount, incorrectCount],
+        function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.status(201).json({ success: true, id: this.lastID });
+        }
+    );
+});
+
+// Get Quiz Attempts
+router.get("/:quizId/attempts", (req, res) => {
+    const { quizId } = req.params;
+
+    const quizIdError = validateId(quizId);
+    if (quizIdError) return res.status(400).json({ error: quizIdError });
+
+    db.all(
+        `
+        SELECT correct_count, incorrect_count, attempt_date
+        FROM quiz_attempts
+        WHERE quiz_id = ?
+        ORDER BY attempt_date DESC
+        `,
+        [quizId],
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(rows);
+        }
+    );
+});
+
+// Get Quiz Statistics
+router.get("/statistics", (req, res) => {
+    db.all(
+        `
+        SELECT quiz_id, SUM(correct_count) AS correctCount, SUM(incorrect_count) AS incorrectCount
+        FROM quiz_attempts
+        GROUP BY quiz_id
+        `,
+        [],
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: err.message });
+
+            const statistics = {};
+            rows.forEach((row) => {
+                statistics[row.quiz_id] = {
+                    correctCount: row.correctCount,
+                    incorrectCount: row.incorrectCount,
+                };
+            });
+
+            res.json(statistics);
+        }
+    );
+});
+
 export default router;
