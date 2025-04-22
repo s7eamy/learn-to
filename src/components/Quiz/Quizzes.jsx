@@ -99,7 +99,9 @@ const Quizzes = () => {
       <List>
         {quizzes.map((quiz) => (
           <ListItem key={quiz.id}>
-            <ListItemButton onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}>
+            <ListItemButton
+              onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}
+            >
               <ListItemText primary={quiz.name} />
             </ListItemButton>
             {/* Display public/private status */}
@@ -156,8 +158,9 @@ const Quizzes = () => {
       <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
         <DialogTitle>Delete Quiz</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete the quiz "{editingQuiz?.name}"? This
-          will also delete all associated questions.
+          Are you sure you want to delete the quiz &ldquo;
+          {editingQuiz?.name}&rdquo;? This will also delete all associated
+          questions.
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog}>Cancel</Button>

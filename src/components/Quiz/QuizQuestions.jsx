@@ -42,9 +42,7 @@ const QuizQuestions = () => {
     setEditingQuestion(question);
     setQuestionText(question ? question.text : "");
     setAnswers(
-      question
-        ? question.answers
-        : [{ text: "", isCorrect: false }] // Default to one empty answer
+      question ? question.answers : [{ text: "", isCorrect: false }], // Default to one empty answer
     );
     setDialogOpen(true);
   };
@@ -78,7 +76,7 @@ const QuizQuestions = () => {
       .then((savedQuestion) => {
         if (editingQuestion) {
           setQuestions((prev) =>
-            prev.map((q) => (q.id === savedQuestion.id ? savedQuestion : q))
+            prev.map((q) => (q.id === savedQuestion.id ? savedQuestion : q)),
           );
         } else {
           setQuestions((prev) => [...prev, savedQuestion]);
@@ -128,14 +126,14 @@ const QuizQuestions = () => {
       <Typography variant="h3">Quiz Questions</Typography>
       <Button variant="outlined" onClick={() => navigate("/quizzes")}>
         Go back to Quizzes
-          </Button>
-          <Button
-              variant="contained"
-              onClick={() => navigate(`/quizzes/${quizId}/view`)}
-              sx={{ marginLeft: '10px' }}
-          >
-              Take Quiz
-          </Button>
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => navigate(`/quizzes/${quizId}/view`)}
+        sx={{ marginLeft: "10px" }}
+      >
+        Take Quiz
+      </Button>
       <Divider style={{ margin: "20px 0" }} />
       <Button variant="contained" onClick={() => handleOpenDialog()}>
         Add Question
@@ -146,11 +144,12 @@ const QuizQuestions = () => {
           <ListItem key={`question-${question.id || Math.random()}`}>
             <ListItemText
               primary={question.text || "Untitled Question"} // Default text if missing
-              secondary={` ${
-                (question.answers || [])
-                  .map((a) => `${a.text || "Untitled Answer"} ${a.isCorrect ?  "[ANS]" : ""}`)
-                  .join(", ")
-              }`}
+              secondary={` ${(question.answers || [])
+                .map(
+                  (a) =>
+                    `${a.text || "Untitled Answer"} ${a.isCorrect ? "[ANS]" : ""}`,
+                )
+                .join(", ")}`}
             />
             <IconButton onClick={() => handleOpenDialog(question)}>
               <EditIcon />
