@@ -3,7 +3,7 @@ import globals from "globals";
 import pluginReact from "eslint-plugin-react";
 import pluginJest from "eslint-plugin-jest";
 import { defineConfig } from "eslint/config";
-import noConsoleLog from "./eslint-rules/no-console-log.js"; // Import the custom rule
+import noConsoleLog from "./eslint-rules/no-console-log.js";
 
 export default defineConfig([
   {
@@ -15,7 +15,7 @@ export default defineConfig([
     extends: ["js/recommended"],
     rules: {
       "react/prop-types": "off",
-      "no-console-log": "error", // Enable the custom rule
+      "no-console-log": "error", // custom rule <-
     },
   },
   {
@@ -48,7 +48,7 @@ export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     rules: {
-      "no-console-log": noConsoleLog, // Register the custom rule
+      "no-console-log": noConsoleLog, // registering the custom rule <-
     },
   },
 ]);
