@@ -1,19 +1,21 @@
 import js from "@eslint/js";
 import globals from "globals";
 import pluginReact from "eslint-plugin-react";
-import { defineConfig } from "eslint/config";
 import pluginJest from "eslint-plugin-jest";
+import { defineConfig } from "eslint/config";
+import noConsoleLog from "./eslint-rules/no-console-log.js"; // Import the custom rule
 
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     plugins: {
       js,
-      react: pluginReact, // Add React plugin here
+      react: pluginReact,
     },
     extends: ["js/recommended"],
     rules: {
-      "react/prop-types": "off", // Now this will work
+      "react/prop-types": "off",
+      "no-console-log": "error", // Enable the custom rule
     },
   },
   {
@@ -36,12 +38,17 @@ export default defineConfig([
       "jest/valid-expect": "error",
     },
   },
-  // Modify the React config to include the rule override
   {
     ...pluginReact.configs.flat.recommended,
     rules: {
       ...pluginReact.configs.flat.recommended.rules,
       "react/prop-types": "off",
+    },
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,jsx}"],
+    rules: {
+      "no-console-log": noConsoleLog, // Register the custom rule
     },
   },
 ]);
