@@ -33,7 +33,6 @@ const FlashcardSets = () => {
     fetch("/api/sets")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched sets:", data); // Debugging
         setFlashcardSet(data);
         setLoading(false);
       })

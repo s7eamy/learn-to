@@ -203,7 +203,6 @@ const Flashcards = () => {
       const updatedFlashcards = prev.map((card) =>
         card.id === updatedCard.id ? updatedCard : card,
       );
-      console.log("Updated flashcards:", updatedFlashcards); // Debugging
       return updatedFlashcards;
     });
     setEditingCard(null);

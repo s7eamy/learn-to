@@ -46,7 +46,6 @@ const FlashcardViewer = () => {
         return res.json();
       })
       .then((data) => {
-        console.log("Fetched flashcards:", data); // Debugging
         setFlashcards(data);
       })
       .catch((err) => {
