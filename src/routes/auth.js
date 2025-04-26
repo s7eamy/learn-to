@@ -7,7 +7,6 @@ const router = express.Router();
 
 passport.use(
   new LocalStrategy(function verify(username, password, cb) {
-    console.log(`Verifying user ${username} with password ${password}`);
     db.get(
       "SELECT * FROM users WHERE username = ?",
       [username],

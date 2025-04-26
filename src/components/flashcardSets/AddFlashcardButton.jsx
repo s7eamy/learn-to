@@ -204,7 +204,6 @@ const AddFlashcardButton = ({
 
   const handlePreview = () => {
     // Implement preview functionality here
-    console.log("Preview button clicked");
     // You could show a preview of the card in a different format
   };
 
