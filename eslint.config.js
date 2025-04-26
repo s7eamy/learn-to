@@ -11,11 +11,17 @@ export default defineConfig([
     plugins: {
       js,
       react: pluginReact,
+      // Define the plugin correctly with rules property
+      custom: {
+        rules: {
+          "no-console-log": noConsoleLog,
+        },
+      },
     },
     extends: ["js/recommended"],
     rules: {
       "react/prop-types": "off",
-      "no-console-log": "error", // custom rule <-
+      "custom/no-console-log": "error", // Reference correctly with the plugin name
     },
   },
   {
@@ -43,12 +49,6 @@ export default defineConfig([
     rules: {
       ...pluginReact.configs.flat.recommended.rules,
       "react/prop-types": "off",
-    },
-  },
-  {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
-    rules: {
-      "no-console-log": noConsoleLog, // registering the custom rule <-
     },
   },
 ]);
