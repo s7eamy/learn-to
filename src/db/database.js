@@ -11,7 +11,9 @@ db.serialize(() => {
     CREATE TABLE IF NOT EXISTS flashcard_sets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      user_id TEXT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(username)
     )
   `);
 
