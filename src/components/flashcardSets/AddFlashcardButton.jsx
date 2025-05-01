@@ -49,7 +49,7 @@ const StyledTextField = styled(TextField)(() => ({
 	},
 }));
 
-const ActionButton = styled(Button)(({ theme, variant }) => ({
+const ActionButton = styled(Button)(({ variant }) => ({
 	borderRadius: "20px",
 	minWidth: "40px",
 	width: "40px",
@@ -238,17 +238,19 @@ const AddFlashcardButton = ({
 			<Dialog
 				open={state.open}
 				onClose={handleClose}
-				PaperProps={{
-					component: "form",
-					onSubmit: handleSubmit,
-					sx: {
-						borderRadius: "40px",
-						bgcolor: "#151515",
-						width: "800px",
-						maxHeight: "800px",
-						maxWidth: "90vw",
-						p: 3,
-						overflowY: "hidden",
+				slotProps={{
+					paper: {
+						component: "form",
+						onSubmit: handleSubmit,
+						sx: {
+							borderRadius: "40px",
+							bgcolor: "#151515",
+							width: "800px",
+							maxHeight: "800px",
+							maxWidth: "90vw",
+							p: 3,
+							overflowY: "hidden",
+						},
 					},
 				}}
 			>
