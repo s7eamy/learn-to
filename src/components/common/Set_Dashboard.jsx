@@ -79,7 +79,6 @@ const Set_Dashboard = () => {
 			const deltaY = e.clientY - scrollInfo.startY;
 			const trackHeight = 580;
 			const perc = deltaY / trackHeight;
-			const containerH = listRef.current.clientHeight;
 			const contentH = listRef.current.scrollHeight;
 			listRef.current.scrollTop =
 				scrollInfo.scrollStartPosition + perc * contentH;
