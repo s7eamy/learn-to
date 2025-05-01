@@ -35,7 +35,7 @@ const AddQuestionButton = ({
 
     useEffect(() => {
         if (isControlled) setOpen(controlledOpen);
-    }, [controlledOpen]);
+    }, [controlledOpen, isControlled]); // Add isControlled to the dependency array
 
     useEffect(() => {
         if (open) {
