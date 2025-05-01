@@ -9,11 +9,12 @@ import {
     Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
+import checkIcon from "/icons/check_icon.svg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
+import previewIcon from "/icons/preview_icon.svg";
 
-// Custom styled text field to match the dark design
+// Styled components
 const StyledTextField = styled(TextField)(() => ({
     "& .MuiInputBase-root": {
         backgroundColor: "#292929",
@@ -21,182 +22,180 @@ const StyledTextField = styled(TextField)(() => ({
         fontSize: "16px",
         color: "#FFFFFF",
         height: "300px",
-        alignItems: "flex-start", // Ensure content starts from top
+        alignItems: "flex-start",
     },
-    "& .MuiInputLabel-root": {
-        color: "#FFFFFF",
-        opacity: 0.75,
+    "& .MuiInputBase-input": {
+        padding: "10px 15px",
+        height: "100%",
+        verticalAlign: "top",
+        alignSelf: "flex-start",
+        "&::placeholder": {
+            color: "#FFFFFF",
+            opacity: 0.75,
+            position: "absolute",
+            top: "10px",
+            left: "15px",
+        },
     },
     "& .MuiOutlinedInput-notchedOutline": {
         borderColor: "transparent",
-    },
-    "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: "transparent",
+        "&:hover": {
+            borderColor: "transparent",
+        },
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
         borderColor: "rgba(255, 255, 255, 0.5)",
         borderWidth: "1px",
     },
-    "& .MuiInputBase-input": {
-        verticalAlign: "top", // Ensure text starts from top
-        alignSelf: "flex-start",
-    },
-    "& .MuiInputBase-input::placeholder": {
-        color: "#FFFFFF",
-        opacity: 0.75,
-        position: "absolute",
-        top: "10px", // Position placeholder at the top
-        left: "15px",
-    },
 }));
 
-// Custom icons for header buttons
-const PreviewIcon = () => (
-    <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="2" width="14" height="14" stroke="white" strokeWidth="2" rx="1" />
-        <rect x="0" y="4" width="2" height="10" fill="white" rx="1" />
-        <rect x="18" y="4" width="2" height="10" fill="white" rx="1" />
-    </svg>
-);
+const ActionButton = styled(Button)(({ theme, variant }) => ({
+    borderRadius: "20px",
+    minWidth: "40px",
+    width: "40px",
+    height: "40px",
+    padding: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    ...(variant === "preview" && {
+        background: `url('data:image/svg+xml,<svg width="64" height="42" viewBox="0 0 64 42" fill="none" xmlns="http://www.w3.org/2000/svg"><rect y="0.249878" width="64" height="40.85" rx="20" fill="%23151515"/><rect x="1.5" y="1.74988" width="61" height="37.85" rx="18.5" stroke="white" stroke-opacity="0.5" stroke-width="3"/></svg>')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        width: "64px",
+        height: "42px",
+        minWidth: 'unset',
+        border: "none",
+        "&:hover": {
+            background: `url('data:image/svg+xml,<svg width="64" height="42" viewBox="0 0 64 42" fill="none" xmlns="http://www.w3.org/2000/svg"><rect y="0.249878" width="64" height="40.85" rx="20" fill="%23151515"/><rect x="1.5" y="1.74988" width="61" height="37.85" rx="18.5" stroke="white" stroke-opacity="0.5" stroke-width="3"/></svg>')`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+        },
+    }),
+    ...(variant === "submit" && {
+        background: `url('data:image/svg+xml,<svg width="64" height="42" viewBox="0 0 64 42" fill="none" xmlns="http://www.w3.org/2000/svg"><rect y="0.249878" width="64" height="40.85" rx="20" fill="%23B85454"/></svg>')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        width: "64px",
+        height: "42px",
+        minWidth: 'unset',
+        "&:hover": {
+            background: `url('data:image/svg+xml,<svg width="64" height="42" viewBox="0 0 64 42" fill="none" xmlns="http://www.w3.org/2000/svg"><rect y="0.249878" width="64" height="40.85" rx="20" fill="%23B85454"/></svg>')`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+        },
+    }),
+}));
 
-const AddFlashcardButton = ({
-                                id,
-                                onCardCreated,
-                                buttonText,
-                                isOpen,
-                                onClose,
-                                editCard,
-                                onCardUpdated
-                            }) => {
-    const [open, setOpen] = useState(false);
-    const [frontText, setFrontText] = useState("");
-    const [backText, setBackText] = useState("");
-    const [formError, setFormError] = useState(false);
-    const [isEditMode, setIsEditMode] = useState(false);
+const AddFlashcardButton = ({ id, onCardCreated, buttonText, isOpen, onClose, editCard, onCardUpdated }) => {
+    const [state, setState] = useState({
+        open: false,
+        frontText: "",
+        backText: "",
+        formError: false,
+        isEditMode: false,
+    });
 
-    // Handle external control of dialog
     useEffect(() => {
-        if (isOpen !== undefined) {
-            setOpen(isOpen);
-        }
+        if (isOpen !== undefined) setState(prev => ({ ...prev, open: isOpen }));
     }, [isOpen]);
 
-    // Handle editing card data
     useEffect(() => {
         if (editCard) {
-            setIsEditMode(true);
-            setFrontText(editCard.question || editCard.front || "");
-            setBackText(editCard.answer || editCard.back || "");
-        } else {
-            setIsEditMode(false);
+            setState(prev => ({
+                ...prev,
+                isEditMode: true,
+                frontText: editCard.question || editCard.front || "",
+                backText: editCard.answer || editCard.back || "",
+            }));
         }
     }, [editCard]);
 
+    const resetState = () => {
+        setState({
+            open: false,
+            frontText: "",
+            backText: "",
+            formError: false,
+            isEditMode: false,
+        });
+    };
+
     const handleOpen = () => {
-        setIsEditMode(false);
-        setFrontText("");
-        setBackText("");
-        setFormError(false);
-        setOpen(true);
+        setState(prev => ({ ...prev, open: true }));
     };
 
     const handleClose = () => {
-        setOpen(false);
-        setFrontText("");
-        setBackText("");
-        setFormError(false);
-        setIsEditMode(false);
-
-        // Call external onClose if provided
-        if (onClose) {
-            onClose();
-        }
+        resetState();
+        if (onClose) onClose();
     };
 
-    // Handle front text change
-    const handleFrontTextChange = (event) => {
-        setFrontText(event.target.value);
-        if (formError && event.target.value) setFormError(false);
+    const handleTextChange = (field) => (event) => {
+        setState(prev => ({
+            ...prev,
+            [field]: event.target.value,
+            formError: false,
+        }));
     };
 
-    // Handle back text change
-    const handleBackTextChange = (event) => {
-        setBackText(event.target.value);
-        if (formError && event.target.value) setFormError(false);
-    };
-
-    // Function to handle "submit" for the check icon
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const { frontText, backText, isEditMode } = state;
 
-        // Validate form - both fields must have content
         if (!frontText.trim() || !backText.trim()) {
-            setFormError(true);
+            setState(prev => ({ ...prev, formError: true }));
             return;
         }
 
-        if (isEditMode && editCard) {
-            // Update existing card
-            // Update existing card
-            const res = await fetch(`/api/sets/${id}/cards/${editCard.id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    front: frontText,
-                    back: backText,
-                    question: frontText,
-                    answer: backText
-                }),
-            });
-            const updatedCard = await res.json();
-            if (onCardUpdated) {
-                onCardUpdated(updatedCard);
-            }
-        } else {
-            // Create new card
-            const res = await fetch(`/api/sets/${id}/cards`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    front: frontText,
-                    back: backText,
-                    question: frontText, // Include both naming conventions for compatibility
-                    answer: backText
-                }),
-            });
-            const newCard = await res.json();
-            onCardCreated(newCard);
-        }
+        const cardData = {
+            front: frontText,
+            back: backText,
+            question: frontText,
+            answer: backText,
+        };
 
-        handleClose();
+        try {
+            if (isEditMode && editCard) {
+                const res = await fetch(`/api/sets/${id}/cards/${editCard.id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(cardData),
+                });
+                const updatedCard = await res.json();
+                if (onCardUpdated) onCardUpdated(updatedCard);
+            } else {
+                const res = await fetch(`/api/sets/${id}/cards`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(cardData),
+                });
+                const newCard = await res.json();
+                onCardCreated(newCard);
+            }
+            handleClose();
+        } catch (error) {
+            console.error("Error saving card:", error);
+        }
     };
 
-    // Function to handle delete card
     const handleDeleteCard = async () => {
-        if (isEditMode && editCard) {
-            const res = await fetch(`/api/sets/${id}/cards/${editCard.id}`, {
-                method: "DELETE",
-            });
-
-            if (res.ok) {
-                // Card deleted successfully
-                handleClose();
-                // Refresh the card list by calling a callback or using context
-                // This would require additional handling in the parent component
-                window.location.reload(); // Fallback approach - refresh the page
+        if (state.isEditMode && editCard) {
+            try {
+                const res = await fetch(`/api/sets/${id}/cards/${editCard.id}`, {
+                    method: "DELETE",
+                });
+                if (res.ok) {
+                    handleClose();
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error("Error deleting card:", error);
             }
         }
-    };
-
-    const handlePreview = () => {
-        // Implement preview functionality here
-        console.log("Preview button clicked");
-        // You could show a preview of the card in a different format
     };
 
     return (
         <div>
-            {/* Button that opens the dialog - only show if not controlled externally */}
             {isOpen === undefined && (
                 <Button
                     variant="contained"
@@ -221,9 +220,8 @@ const AddFlashcardButton = ({
                 </Button>
             )}
 
-            {/* Custom Dialog */}
             <Dialog
-                open={open}
+                open={state.open}
                 onClose={handleClose}
                 PaperProps={{
                     component: "form",
@@ -232,208 +230,75 @@ const AddFlashcardButton = ({
                         borderRadius: "40px",
                         bgcolor: "#151515",
                         width: "800px",
-                        maxHeight: "800px", // Set max height to prevent scrolling
+                        maxHeight: "800px",
                         maxWidth: "90vw",
                         p: 3,
-                        overflowY: "hidden", // Prevent scrolling of the dialog
+                        overflowY: "hidden",
                     },
                 }}
             >
-                {/* Top bar: Title + buttons */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center", // Centers horizontally
-                        alignItems: "center", // Centers vertically
-                        mb: 1,
-                    }}
-                >
-                    {/* Close button on the left */}
-                    <IconButton
-                        onClick={handleClose}
-                        sx={{
-                            color: "#FFFFFF",
-                            p: 1,
-                            position: "absolute", // Keeps it on the left
-                            left: "16px",
-                        }}
-                    >
-                        <CloseIcon />
+                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: 1}}>
+                    <IconButton onClick={handleClose} sx={{ color: "#FFFFFF", p: 1, position: "absolute", left: "18px" }}>
+                        <CloseIcon sx={{ fontSize: 30 }}/>
                     </IconButton>
 
-                    {/* Title in the center */}
-                    <Typography
-                        variant="h6"
-                        sx={{
-                            color: "#FFFFFF",
-                            fontFamily: "Poppins, sans-serif",
-                            fontWeight: 500,
-                            fontSize: "24px",
-                            lineHeight: "36px",
-                        }}
-                    >
-                        {isEditMode ? "Edit card" : "Add new card"}
+                    <Typography variant="h6" sx={{ color: "#FFFFFF", fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "24px" }}>
+                        {state.isEditMode ? "Edit card" : "Add new card"}
                     </Typography>
 
-                    {/* Right-side buttons */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            gap: 1,
-                            position: "absolute", // Keeps it on the right
-                            right: "16px",
-                        }}
-                    >
-                        {/* Delete button - only show in edit mode */}
-                        {isEditMode && (
-                            <Button
-                                onClick={handleDeleteCard}
-                                sx={{
-                                    borderRadius: "20px",
-                                    backgroundColor: "#B85454",
-                                    minWidth: "40px",
-                                    width: "40px",
-                                    height: "40px",
-                                    padding: 0,
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginRight: "8px",
-                                    "&:hover": {
-                                        backgroundColor: "#A04545",
-                                    },
-                                }}
-                            >
+                    <Box sx={{ display: "flex", gap: 1, position: "absolute", right: "20px" }}>
+                        {state.isEditMode && (
+                            <ActionButton variant="preview" onClick={handleDeleteCard}>
                                 <DeleteIcon sx={{ color: "#FFFFFF" }} />
-                            </Button>
+                            </ActionButton>
                         )}
-
-                        <Button
-                            onClick={handlePreview}
-                            sx={{
-                                borderRadius: "20px",
-                                border: "1px solid rgba(255, 255, 255, 0.5)",
-                                minWidth: "40px",
-                                width: "40px",
-                                height: "40px",
-                                padding: 0,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                "&:hover": {
-                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                },
-                            }}
-                        >
-                            <PreviewIcon />
-                        </Button>
-
-                        <Button
-                            type="submit"
-                            sx={{
-                                borderRadius: "20px",
-                                backgroundColor: "#B85454",
-                                minWidth: "40px",
-                                width: "40px",
-                                height: "40px",
-                                padding: 0,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                "&:hover": {
-                                    backgroundColor: "#A04545",
-                                },
-                            }}
-                        >
-                            <CheckIcon sx={{ color: "#FFFFFF" }} />
-                        </Button>
+                        <ActionButton variant="preview">
+                            <Box
+                                component="img"
+                                src={previewIcon}
+                                sx={{ width: 20, height: 18}}
+                             />
+                        </ActionButton>
+                        <ActionButton variant="submit" type="submit">
+                            <Box
+                                component="img"
+                                src={checkIcon}
+                                sx={{ width: 20, height: 18 }}
+                                />
+                        </ActionButton>
                     </Box>
                 </Box>
 
-                {/* Divider */}
-                <Divider
-                    sx={{
-                        backgroundColor: "#FFFFFF",
-                        opacity: 0.5,
-                        height: "3px",
-                        my: 2,
-                    }}
-                />
+                <Divider sx={{ backgroundColor: "#FFFFFF", opacity: 0.5, height: "3px", my: 2, mt: 1.6 }} />
 
-                {/* Content container - fixed height, no scroll */}
                 <Box sx={{ height: "calc(100% - 80px)", display: "flex", flexDirection: "column" }}>
-                    {/* Front side area */}
-                    <Typography
-                        variant="body1"
-                        sx={{
-                            color: "#FFFFFF",
-                            fontFamily: "Poppins, sans-serif",
-                            fontWeight: 500,
-                            fontSize: "14px",
-                            lineHeight: "21px",
-                            opacity: 0.75,
-                            ml: 1,
-                            mb: 1,
-                        }}
-                    >
-                        Frontside
-                    </Typography>
-                    <StyledTextField
-                        id="front"
-                        multiline
-                        placeholder="Enter text here"
-                        fullWidth
-                        value={frontText}
-                        onChange={handleFrontTextChange}
-                        error={formError && !frontText.trim()}
-                        sx={{ mb: 3 }}
-                        InputProps={{
-                            sx: {
-                                padding: "0", // Remove default padding
-                                "& .MuiInputBase-input": {
-                                    padding: "10px 15px",
-                                    height: "100%", // Make the input take full height
-                                    alignItems: "flex-start",
-                                }
-                            }
-                        }}
-                    />
-
-                    {/* Back side area */}
-                    <Typography
-                        variant="body1"
-                        sx={{
-                            color: "#FFFFFF",
-                            fontFamily: "Poppins, sans-serif",
-                            fontWeight: 500,
-                            fontSize: "14px",
-                            lineHeight: "21px",
-                            opacity: 0.75,
-                            ml: 1,
-                            mb: 1,
-                        }}
-                    >
-                        Back side
-                    </Typography>
-                    <StyledTextField
-                        id="back"
-                        multiline
-                        placeholder="Enter text here"
-                        fullWidth
-                        value={backText}
-                        onChange={handleBackTextChange}
-                        error={formError && !backText.trim()}
-                        InputProps={{
-                            sx: {
-                                padding: "0", // Remove default padding
-                                "& .MuiInputBase-input": {
-                                    padding: "10px 15px",
-                                    height: "100%", // Make the input take full height
-                                    alignItems: "flex-start",
-                                }
-                            }
-                        }}
-                    />
+                    {["front", "back"].map((side) => (
+                        <React.Fragment key={side}>
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    color: "#FFFFFF",
+                                    fontFamily: "Poppins, sans-serif",
+                                    fontWeight: 500,
+                                    fontSize: "14px",
+                                    opacity: 0.75,
+                                    ml: 1,
+                                    mb: 1,
+                                }}
+                            >
+                                {side === "front" ? "Frontside" : "Back side"}
+                            </Typography>
+                            <StyledTextField
+                                multiline
+                                placeholder="Enter text here"
+                                fullWidth
+                                value={state[`${side}Text`]}
+                                onChange={handleTextChange(`${side}Text`)}
+                                error={state.formError && !state[`${side}Text`].trim()}
+                                sx={{ mb: side === "front" ? 2 : 0 }}
+                            />
+                        </React.Fragment>
+                    ))}
                 </Box>
             </Dialog>
         </div>
