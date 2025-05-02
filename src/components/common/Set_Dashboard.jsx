@@ -15,7 +15,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import UploadIcon from "@mui/icons-material/Upload";
 
 import TopBar from "../common/TopBar.jsx";
-import EmptySet from "./Empty_set.jsx";
+import EmptySet from "./Empty_Set.jsx";
 import AddFlashcardButton from "../flashcardSets/AddFlashcardButton.jsx";
 import AddQuestionButton from "../Quiz/AddQuestionButton.jsx";
 
