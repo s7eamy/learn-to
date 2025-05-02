@@ -82,7 +82,7 @@ const ActionButton = styled(Button)(({ variant }) => ({
   }),
 }));
 
-const OptionCheckbox = styled(Box)(({ theme }) => ({
+const OptionCheckbox = styled(Box)(({}) => ({
   boxSizing: "border-box",
   width: 35,
   height: 35,
