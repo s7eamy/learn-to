@@ -15,7 +15,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import UploadIcon from "@mui/icons-material/Upload";
 
 import TopBar from "../common/TopBar.jsx";
-import EmptySet from "./Empty_set.jsx";
+import EmptySet from "./Empty_Set.jsx";
 import AddFlashcardButton from "../flashcardSets/AddFlashcardButton.jsx";
 import AddQuestionButton from "../Quiz/AddQuestionButton.jsx";
 
@@ -212,7 +212,13 @@ const Set_Dashboard = () => {
       }}
     >
       <TopBar />
-      <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
         <Box sx={{ width: "100%", maxWidth: "1920px" }}>
           <Box
             sx={{
@@ -353,7 +359,9 @@ const Set_Dashboard = () => {
                     pt: "20px",
                     height: "calc(100% - 22px)",
                     overflowY: "auto",
-                    "&::-webkit-scrollbar": { display: "none" },
+                    "&::-webkit-scrollbar": {
+                      display: "none",
+                    },
                   }}
                 >
                   {items.map((item) => (
@@ -373,7 +381,12 @@ const Set_Dashboard = () => {
                       }}
                     >
                       {/* Question & Answers Side */}
-                      <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
                         <Typography
                           sx={{
                             fontFamily: "Poppins-Medium, Helvetica",
@@ -416,7 +429,9 @@ const Set_Dashboard = () => {
                             py: "1.5px",
                             minWidth: "140px",
                             height: "44px",
-                            "&:hover": { bgcolor: "#a04848" },
+                            "&:hover": {
+                              bgcolor: "#a04848",
+                            },
                           }}
                         >
                           <Typography
@@ -555,7 +570,12 @@ const Set_Dashboard = () => {
                       borderRadius: "35px",
                     }}
                   >
-                    <MoreVertIcon sx={{ fontSize: "45px", color: "#d9d9d9" }} />
+                    <MoreVertIcon
+                      sx={{
+                        fontSize: "45px",
+                        color: "#d9d9d9",
+                      }}
+                    />
                   </IconButton>
                   <Button
                     variant="contained"
