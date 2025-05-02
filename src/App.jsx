@@ -19,10 +19,16 @@ function App() {
 				{/* Flashcard routes */}
 				<Route path="/sets/:setId" element={<Set_Dashboard />} />{" "}
 				{/* Flashcard viewer */}
-				<Route path="/sets/:setId/view" element={<FlashcardViewer />} />{" "}
+				<Route
+					path="/sets/:setId/view"
+					element={<FlashcardViewer />}
+				/>{" "}
 				{/* Study cards viewer */}
-				<Route path="/quizzes" element={<Quizzes  />} />
-				<Route path="/quizzes/:quizId/questions" element={<Set_Dashboard />}/>
+				<Route path="/quizzes" element={<Quizzes />} />
+				<Route
+					path="/quizzes/:quizId/questions"
+					element={<Set_Dashboard />}
+				/>
 				<Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
 			</Routes>
 		</Router>
