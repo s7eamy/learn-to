@@ -237,7 +237,11 @@ const AddQuestionButton = ({
           body: JSON.stringify(questionData),
         });
 
-        if (!res.ok) throw new Error("Failed to update question");
+        if (!res.ok) {
+          const error = new Error("Failed to update question");
+          console.error(error);
+          return;
+        }
         const updatedQuestion = await res.json();
         if (onQuestionUpdated) onQuestionUpdated(updatedQuestion);
       } else {
@@ -247,7 +251,11 @@ const AddQuestionButton = ({
           body: JSON.stringify(questionData),
         });
 
-        if (!res.ok) throw new Error("Failed to create question");
+        if (!res.ok) {
+          const error = new Error("Failed to create question");
+          console.error(error);
+          return;
+        }
         const newQuestion = await res.json();
         if (onQuestionCreated) onQuestionCreated(newQuestion);
       }
@@ -263,7 +271,11 @@ const AddQuestionButton = ({
         const res = await fetch(`/api/quizzes/${quizId}/questions/${editQuestion.id}`, {
           method: "DELETE",
         });
-        if (!res.ok) throw new Error("Failed to delete question");
+        if (!res.ok) {
+          const error = new Error("Failed to delete question");
+          console.error(error);
+          return;
+        }
         if (onQuestionDeleted) onQuestionDeleted(editQuestion.id);
         handleClose();
       } catch (error) {
@@ -289,7 +301,7 @@ const AddQuestionButton = ({
                   lineHeight: "36px",
                   color: "#000000",
                   textTransform: "none",
-                  mb: 4,
+                  marginBottom: 4,
                   "&:hover": { backgroundColor: "#f0f0f0" },
                 }}
             >
