@@ -11,30 +11,24 @@ import Quizzes from "./components/Quiz/Quizzes";
 import Set_Dashboard from "./components/common/Set_Dashboard.jsx";
 import Quizzes from "./components/Quiz/Quizzes";
 function App() {
-	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Dashboard />} />
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/sets" element={<FlashcardSets />} />{" "}
-				{/* Flashcard routes */}
-				<Route path="/sets/:setId" element={<Set_Dashboard />} />{" "}
-				{/* Flashcard viewer */}
-				<Route
-					path="/sets/:setId/view"
-					element={<FlashcardViewer />}
-				/>{" "}
-				{/* Study cards viewer */}
-				<Route path="/quizzes" element={<Quizzes />} />
-				<Route
-					path="/quizzes/:quizId/questions"
-					element={<Set_Dashboard />}
-				/>
-				<Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
-			</Routes>
-		</Router>
-	);
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/sets" element={<FlashcardSets />} />{" "}
+        {/* Flashcard routes */}
+        <Route path="/sets/:setId" element={<Set_Dashboard />} />{" "}
+        {/* Flashcard viewer */}
+        <Route path="/sets/:setId/view" element={<FlashcardViewer />} />{" "}
+        {/* Study cards viewer */}
+        <Route path="/quizzes" element={<Quizzes />} />
+        <Route path="/quizzes/:quizId/questions" element={<Set_Dashboard />} />
+        <Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
