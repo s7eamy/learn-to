@@ -277,6 +277,7 @@ const FlashcardViewer = () => {
               {/* Left arrow character */}
               <img
                   src={"/icons/next_icon.svg"}
+                  alt={"Left arrow."}
                   style={{
                     width: "30px",
                     height: "30px",
@@ -334,6 +335,7 @@ const FlashcardViewer = () => {
               {/* Right arrow character */}
               <img
                   src={"/icons/next_icon.svg"}
+                  alt={"Right arrow"}
                   style={{
                     width: "30px",
                     height: "30px",
