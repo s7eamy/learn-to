@@ -36,6 +36,8 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       is_public BOOLEAN NOT NULL DEFAULT 0
+      user_id TEXT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(username)
       )
   `);
 
