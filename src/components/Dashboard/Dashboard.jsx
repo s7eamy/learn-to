@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Typography, Button, Box, Dialog } from "@mui/material";
 import TopBar from "../common/TopBar.jsx";
 import SetCreator from "../common/Set_selection_window.jsx";
@@ -8,12 +9,16 @@ const Dashboard = () => {
   /* Aurimo konstantos */
   const [username, setUsername] = useState(null);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   /* Aurimo kodas dėl prisijungimo errors ig */
   useEffect(() => {
     fetch("/api/auth/user")
       .then((res) => {
-        if (!res.ok) throw new Error("Not logged in");
+        if (!res.ok) {
+          navigate("/login");
+          throw new Error("Not logged in");
+        }
         return res.json();
       })
       .then((data) => {
