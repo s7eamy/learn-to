@@ -16,7 +16,6 @@ const Dashboard = () => {
     fetch("/api/auth/user")
       .then((res) => {
         if (!res.ok) {
-          navigate("/login");
           throw new Error("Not logged in");
         }
         return res.json();
@@ -24,7 +23,10 @@ const Dashboard = () => {
       .then((data) => {
         setUsername(data.username);
       })
-      .catch(() => setUsername(null));
+      .catch(() => {
+        setUsername(null);
+        navigate("/login");
+      });
   }, []);
 
   /* Konstantos, kurios atsakingos už set kūrimo lango atidarymą / uždarymą */
