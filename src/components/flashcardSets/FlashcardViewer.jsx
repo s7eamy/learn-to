@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  Typography,
-  Button,
-  Container,
-  Card,
-  CardContent,
-  Box,
-} from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import TopBar from "../common/TopBar"; // Import the TopBar component
 
 const FlashcardViewer = () => {
   const { setId } = useParams();
@@ -15,6 +10,8 @@ const FlashcardViewer = () => {
   const [flashcards, setFlashcards] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [setName, setSetName] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Handlers
   // Handle flipping the card
@@ -36,8 +33,26 @@ const FlashcardViewer = () => {
     setIsFlipped(false);
   };
 
+  // Fetch set info to get the name
+  useEffect(() => {
+    fetch(`/api/sets/${setId}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch set info");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setSetName(data.title);
+      })
+      .catch((err) => {
+        console.error("Error fetching set info:", err);
+      });
+  }, [setId]);
+
   // Fetch flashcards for the selected set
   useEffect(() => {
+    setLoading(true);
     fetch(`/api/sets/${setId}/cards`)
       .then((res) => {
         if (!res.ok) {
@@ -47,90 +62,296 @@ const FlashcardViewer = () => {
       })
       .then((data) => {
         setFlashcards(data);
+        setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching flashcards:", err); // Debugging
+        console.error("Error fetching flashcards:", err);
+        setLoading(false);
       });
   }, [setId]);
 
-  const currentCard = flashcards[currentCardIndex];
+  // Navigate back to the flashcard set dashboard
+  const handleClose = () => {
+    navigate(`/sets/${setId}`);
+  };
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#FFFFFF",
+          backgroundImage: 'url("/background.png")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          fontFamily: "Poppins, sans-serif",
+        }}
+      >
+        <Typography variant="h4" sx={{ fontFamily: "Poppins, sans-serif" }}>
+          Loading...
+        </Typography>
+      </Box>
+    );
+  }
+
+  const currentCard = flashcards[currentCardIndex] || {
+    question: "Front side of card",
+    answer: "Back side of card",
+  };
+  const totalCards = flashcards.length;
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Flashcard Viewer (Set {setId})
-      </Typography>
-      <Button variant="outlined" onClick={() => navigate("/sets")}>
-        Go back to Sets
-      </Button>
+    <Box
+      sx={{
+        height: "100vh",
+        width: "100%",
+        backgroundImage: 'url("/background.png")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        display: "flex",
+        flexDirection: "column",
+        color: "#FFFFFF",
+        position: "relative",
+        overflow: "hidden",
+        fontFamily: "Poppins, sans-serif",
+      }}
+    >
+      {/* TopBar Component */}
+      <TopBar />
 
-      {/* If no cards exist, show a message */}
-      {flashcards.length === 0 && (
-        <Box sx={{ marginTop: 4, textAlign: "center" }}>
-          <Typography variant="body1" gutterBottom>
-            No flashcards found for this set.
+      {/* Main Content Container - adjusted with padding-top to account for TopBar */}
+      <Box
+        sx={{
+          maxWidth: "1000px",
+          width: "100%",
+          margin: "0 auto",
+          padding: "120px 20px 20px", // Added top padding to clear the TopBar
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh", // Full height viewport
+          position: "relative",
+          zIndex: 1, // Ensure this appears below the TopBar (z-index 1100)
+        }}
+      >
+        {/* Header Area with Set Name */}
+        <Box sx={{ marginBottom: "20px" }}>
+          <Typography
+            sx={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 600,
+              fontSize: "32px",
+              lineHeight: "48px",
+              color: "#FFFFFF",
+            }}
+          >
+            {setName || "Name_of_your_set"}
           </Typography>
         </Box>
-      )}
 
-      {/* If cards exist, show the flashcard viewer */}
-      {flashcards.length > 0 && (
-        <>
-          {/* Card and Navigation Buttons */}
+        {/* Progress Bar Group with Close Button */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            marginBottom: "20px",
+          }}
+        >
+          {/* Card Counter */}
+          {/* Card Counter */}
+          <Box
+            sx={{
+              width: "84px",
+              height: "46px",
+              background: "rgba(255, 255, 255, 0.5)",
+              borderRadius: "17px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 700,
+                fontSize: "18px",
+                lineHeight: "27px",
+              }}
+            >
+              <span style={{ color: "#FFFFFF" }}>{currentCardIndex + 1}</span>
+              <span style={{ color: "#8C8C8C" }}>/{totalCards}</span>
+            </Typography>
+          </Box>
+
+          {/* Background Bar */}
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              height: "24px",
+              background: "rgba(255, 255, 255, 0.5)",
+              borderRadius: "10px",
+              overflow: "hidden",
+            }}
+          >
+            {/* Progress Bar */}
+            <Box
+              sx={{
+                position: "absolute",
+                width: `${((currentCardIndex + 1) / totalCards) * 100}%`,
+                height: "24px",
+                background: "#B85454",
+                borderRadius: "10px",
+              }}
+            />
+          </Box>
+
+          {/* Close Button */}
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              color: "#FFFFFF",
+              bgcolor: "rgba(57, 57, 57, 0.5)",
+              "&:hover": {
+                bgcolor: "rgba(57, 57, 57, 0.7)",
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        {/* Flashcard Container */}
+        <Box
+          sx={{
+            width: "100%",
+            flex: 1,
+            background: "#393939",
+            boxShadow: "5px 3px 5.4px rgba(0, 0, 0, 0.25)",
+            borderRadius: "40px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "20px",
+            padding: "30px",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "Poppins, sans-serif",
+              fontSize: "30px",
+              fontWeight: 500,
+              textAlign: "center",
+              color: "#FFFFFF",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {isFlipped
+              ? currentCard.answer || currentCard.back || "Back side of card"
+              : currentCard.question ||
+                currentCard.front ||
+                "Front side of card"}
+          </Typography>
+        </Box>
+
+        {/* Bottom Controls */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "40px",
+          }}
+        >
+          {/* Previous Button (Left Arrow) */}
+          <Box
+            sx={{
+              width: "75px",
+              height: "75px",
+              background: "#393939",
+              borderRadius: "50%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={handleBack}
+          >
+            {/* Left arrow character */}
+            <img
+              src={"/icons/next_icon.svg"}
+              alt={"Left arrow."}
+              style={{
+                width: "30px",
+                height: "30px",
+                transform: "rotate(180deg)",
+              }}
+            />
+          </Box>
+
+          {/* Tap to Show Answer/Question Button */}
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
+              flexDirection: "row",
               justifyContent: "center",
-              gap: 4,
-              marginTop: 4,
+              alignItems: "center",
+              padding: "6px 19px",
+              width: "307px",
+              height: "82px",
+              background: "#B85454",
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              borderRadius: "25px",
+              cursor: "pointer",
             }}
+            onClick={handleFlip}
           >
-            <Button variant="contained" onClick={handleBack}>
-              Back
-            </Button>
-
-            <Card
+            <Typography
               sx={{
-                width: 400,
-                height: 300,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 700,
+                fontSize: "24px",
+                lineHeight: "36px",
+                color: "#FFFFFF",
                 textAlign: "center",
-                padding: 2,
+                userSelect: "none", // Add this line to prevent text selection
               }}
             >
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {isFlipped ? "Answer" : "Question"}
-                </Typography>
-                <Typography variant="body1">
-                  {isFlipped ? currentCard.answer : currentCard.question}
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Button variant="contained" onClick={handleNext}>
-              Next
-            </Button>
+              {isFlipped ? "Show Question" : "Tap to show answer"}
+            </Typography>
           </Box>
 
-          <Button
-            variant="contained"
-            onClick={handleFlip}
-            sx={{ marginTop: 4 }}
+          {/* Next Button (Right Arrow) */}
+          <Box
+            sx={{
+              width: "75px",
+              height: "75px",
+              background: "#393939",
+              borderRadius: "50%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={handleNext}
           >
-            {isFlipped ? "Show Question" : "Show Answer"}
-          </Button>
-
-          <Typography variant="body2" sx={{ marginTop: 2 }}>
-            Card {currentCardIndex + 1} of {flashcards.length}
-          </Typography>
-        </>
-      )}
-    </Container>
+            {/* Right arrow character */}
+            <img
+              src={"/icons/next_icon.svg"}
+              alt={"Right arrow"}
+              style={{
+                width: "30px",
+                height: "30px",
+              }}
+            />
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
