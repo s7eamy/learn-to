@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
-  Button, Dialog, IconButton, TextField, Typography, Box, Divider
+  Button,
+  Dialog,
+  IconButton,
+  TextField,
+  Typography,
+  Box,
+  Divider,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
@@ -118,15 +124,15 @@ const SubtleAddOptionRow = styled(Box)(({ theme }) => ({
 }));
 
 const AddQuestionButton = ({
-                             quizId,
-                             isOpen: controlledOpen,
-                             onClose: controlledClose,
-                             editQuestion,
-                             onQuestionCreated,
-                             onQuestionUpdated,
-                             onQuestionDeleted,
-                             buttonText = "Add questions",
-                           }) => {
+  quizId,
+  isOpen: controlledOpen,
+  onClose: controlledClose,
+  editQuestion,
+  onQuestionCreated,
+  onQuestionUpdated,
+  onQuestionDeleted,
+  buttonText = "Add questions",
+}) => {
   const [state, setState] = useState({
     open: false,
     questionText: "",
@@ -139,24 +145,24 @@ const AddQuestionButton = ({
 
   useEffect(() => {
     if (isControlled) {
-      setState(prev => ({ ...prev, open: controlledOpen }));
+      setState((prev) => ({ ...prev, open: controlledOpen }));
     }
   }, [controlledOpen, isControlled]);
 
   useEffect(() => {
     if (state.open && editQuestion) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isEditMode: true,
         questionText: editQuestion.text || "",
-        options: editQuestion.answers?.map(a => ({
+        options: editQuestion.answers?.map((a) => ({
           text: a.text || "",
           isCorrect: !!a.isCorrect,
           id: a.id,
         })) || [{ text: "", isCorrect: false }],
       }));
     } else if (state.open && !editQuestion) {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isEditMode: false,
         questionText: "",
@@ -166,30 +172,30 @@ const AddQuestionButton = ({
   }, [state.open, editQuestion]);
 
   const handleStateChange = (updates) => {
-    setState(prev => ({ ...prev, ...updates }));
+    setState((prev) => ({ ...prev, ...updates }));
   };
 
   const handleOptionChange = (index, value) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       options: prev.options.map((option, i) =>
-          i === index ? { ...option, text: value } : option
+        i === index ? { ...option, text: value } : option,
       ),
       formError: false,
     }));
   };
 
   const handleToggleCorrect = (index) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       options: prev.options.map((option, i) =>
-          i === index ? { ...option, isCorrect: !option.isCorrect } : option
+        i === index ? { ...option, isCorrect: !option.isCorrect } : option,
       ),
     }));
   };
 
   const handleAddOption = () => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       options: [...prev.options, { text: "", isCorrect: false }],
     }));
@@ -199,7 +205,7 @@ const AddQuestionButton = ({
     if (isControlled) {
       controlledClose();
     } else {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         open: false,
         questionText: "",
@@ -214,14 +220,14 @@ const AddQuestionButton = ({
     if (event) event.preventDefault();
     const { questionText, options, isEditMode } = state;
 
-    if (!questionText.trim() || options.some(opt => !opt.text.trim())) {
-      setState(prev => ({ ...prev, formError: true }));
+    if (!questionText.trim() || options.some((opt) => !opt.text.trim())) {
+      setState((prev) => ({ ...prev, formError: true }));
       return;
     }
 
     const questionData = {
       text: questionText,
-      answers: options.map(opt => ({
+      answers: options.map((opt) => ({
         text: opt.text,
         isCorrect: opt.isCorrect,
         id: opt.id,
@@ -231,11 +237,14 @@ const AddQuestionButton = ({
     try {
       let res;
       if (isEditMode && editQuestion) {
-        res = await fetch(`/api/quizzes/${quizId}/questions/${editQuestion.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(questionData),
-        });
+        res = await fetch(
+          `/api/quizzes/${quizId}/questions/${editQuestion.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(questionData),
+          },
+        );
 
         if (!res.ok) {
           const error = new Error("Failed to update question");
@@ -268,9 +277,12 @@ const AddQuestionButton = ({
   const handleDelete = async () => {
     if (state.isEditMode && editQuestion?.id) {
       try {
-        const res = await fetch(`/api/quizzes/${quizId}/questions/${editQuestion.id}`, {
-          method: "DELETE",
-        });
+        const res = await fetch(
+          `/api/quizzes/${quizId}/questions/${editQuestion.id}`,
+          {
+            method: "DELETE",
+          },
+        );
         if (!res.ok) {
           const error = new Error("Failed to delete question");
           console.error(error);
@@ -285,164 +297,197 @@ const AddQuestionButton = ({
   };
 
   return (
-      <div>
-        {!isControlled && (
-            <Button
-                variant="contained"
-                onClick={() => handleStateChange({ open: true })}
-                sx={{
-                  width: "310px",
-                  height: "61px",
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: "27px",
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "24px",
-                  lineHeight: "36px",
-                  color: "#000000",
-                  textTransform: "none",
-                  marginBottom: 4,
-                  "&:hover": { backgroundColor: "#f0f0f0" },
-                }}
-            >
-              {buttonText}
-            </Button>
-        )}
-
-        <Dialog
-            open={state.open}
-            onClose={handleClose}
-            PaperProps={{
-              component: "form",
-              onSubmit: handleSubmit,
-              sx: {
-                borderRadius: "40px",
-                bgcolor: "#151515",
-                width: "800px",
-                maxWidth: "90vw",
-                p: 3,
-                overflowY: "auto",
-                maxHeight: "80vh",
-              },
-            }}
+    <div>
+      {!isControlled && (
+        <Button
+          variant="contained"
+          onClick={() => handleStateChange({ open: true })}
+          sx={{
+            width: "310px",
+            height: "61px",
+            backgroundColor: "#FFFFFF",
+            borderRadius: "27px",
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 500,
+            fontSize: "24px",
+            lineHeight: "36px",
+            color: "#000000",
+            textTransform: "none",
+            marginBottom: 4,
+            "&:hover": { backgroundColor: "#f0f0f0" },
+          }}
         >
-          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: 1 }}>
-            <IconButton
-                onClick={handleClose}
-                sx={{ color: "#FFFFFF", p: 1, position: "absolute", left: "18px" }}
-            >
-              <CloseIcon sx={{ fontSize: 30 }} />
-            </IconButton>
+          {buttonText}
+        </Button>
+      )}
 
-            <Typography
-                variant="h6"
-                sx={{
-                  color: "#FFFFFF",
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "24px",
-                }}
-            >
-              {state.isEditMode ? "Edit Question" : "Add new Question"}
-            </Typography>
+      <Dialog
+        open={state.open}
+        onClose={handleClose}
+        PaperProps={{
+          component: "form",
+          onSubmit: handleSubmit,
+          sx: {
+            borderRadius: "40px",
+            bgcolor: "#151515",
+            width: "800px",
+            maxWidth: "90vw",
+            p: 3,
+            overflowY: "auto",
+            maxHeight: "80vh",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            mb: 1,
+          }}
+        >
+          <IconButton
+            onClick={handleClose}
+            sx={{ color: "#FFFFFF", p: 1, position: "absolute", left: "18px" }}
+          >
+            <CloseIcon sx={{ fontSize: 30 }} />
+          </IconButton>
 
-            <Box sx={{ display: "flex", gap: 1, position: "absolute", right: "20px" }}>
-              {state.isEditMode && (
-                  <ActionButton variant="delete" onClick={handleDelete} aria-label="Delete question">
-                    <DeleteIcon sx={{ color: "#FFFFFF" }} />
-                  </ActionButton>
-              )}
-              <ActionButton variant="submit" type="submit" aria-label="Submit">
-                <CheckIcon sx={{ color: "#FFFFFF" }} />
-              </ActionButton>
-            </Box>
-          </Box>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "#FFFFFF",
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 500,
+              fontSize: "24px",
+            }}
+          >
+            {state.isEditMode ? "Edit Question" : "Add new Question"}
+          </Typography>
 
-          <Divider sx={{ backgroundColor: "#FFFFFF", opacity: 0.5, height: "3px", my: 2, mt: 1.6 }} />
-
-          <Box sx={{ display: "flex", flexDirection: "column", p: 1 }}>
-            <Typography
-                variant="subtitle1"
-                sx={{
-                  color: "#FFFFFF",
-                  fontFamily: "Poppins-Medium, Helvetica",
-                  fontWeight: 500,
-                  fontSize: "0.875rem",
-                  opacity: 0.75,
-                  mb: 0.75,
-                  ml: 0.25,
-                }}
-            >
-              Question
-            </Typography>
-
-            <QuestionTextField
-                fullWidth
-                placeholder="Enter text here"
-                variant="outlined"
-                value={state.questionText}
-                onChange={(e) => handleStateChange({ questionText: e.target.value, formError: false })}
-                error={state.formError && !state.questionText.trim()}
-                sx={{ mb: 3 }}
-                inputProps={{ style: { height: "auto" } }}
-            />
-
-            {state.options.map((option, index) => (
-                <OptionRow key={index}>
-                  <OptionCheckbox onClick={() => handleToggleCorrect(index)}>
-                    {option.isCorrect && (
-                        <CheckIcon sx={{ color: "#B85454", fontSize: 20 }} />
-                    )}
-                  </OptionCheckbox>
-
-                  <StyledTextField
-                      fullWidth
-                      placeholder={`Choice ${index + 1}`}
-                      variant="outlined"
-                      value={option.text}
-                      onChange={(e) => handleOptionChange(index, e.target.value)}
-                      error={state.formError && !option.text.trim()}
-                      sx={{ ml: 1, mr: 5 }}
-                  />
-
-                  {state.options.length > 1 && (
-                      <IconButton
-                          onClick={() => setState(prev => ({
-                            ...prev,
-                            options: prev.options.filter((_, i) => i !== index)
-                          }))}
-                          sx={{
-                            color: "#FFFFFF",
-                            position: "absolute",
-                            right: -5, // Position at the rightmost point
-                            top: "50%",
-                            transform: "translateY(-50%)"
-                          }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                  )}
-                </OptionRow>
-            ))}
-
-            <SubtleAddOptionRow onClick={handleAddOption}>
-              <OptionCheckbox sx={{ opacity: 0.5 }} />
-              <Typography
-                  sx={{
-                    ml: 1.5,
-                    color: "#FFFFFF",
-                    fontFamily: "Poppins, sans-serif",
-                    fontWeight: 400,
-                    fontSize: "14px",
-                    lineHeight: "21px",
-                  }}
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+              position: "absolute",
+              right: "20px",
+            }}
+          >
+            {state.isEditMode && (
+              <ActionButton
+                variant="delete"
+                onClick={handleDelete}
+                aria-label="Delete question"
               >
-                Add option...
-              </Typography>
-            </SubtleAddOptionRow>
+                <DeleteIcon sx={{ color: "#FFFFFF" }} />
+              </ActionButton>
+            )}
+            <ActionButton variant="submit" type="submit" aria-label="Submit">
+              <CheckIcon sx={{ color: "#FFFFFF" }} />
+            </ActionButton>
           </Box>
-        </Dialog>
-      </div>
+        </Box>
+
+        <Divider
+          sx={{
+            backgroundColor: "#FFFFFF",
+            opacity: 0.5,
+            height: "3px",
+            my: 2,
+            mt: 1.6,
+          }}
+        />
+
+        <Box sx={{ display: "flex", flexDirection: "column", p: 1 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: "#FFFFFF",
+              fontFamily: "Poppins-Medium, Helvetica",
+              fontWeight: 500,
+              fontSize: "0.875rem",
+              opacity: 0.75,
+              mb: 0.75,
+              ml: 0.25,
+            }}
+          >
+            Question
+          </Typography>
+
+          <QuestionTextField
+            fullWidth
+            placeholder="Enter text here"
+            variant="outlined"
+            value={state.questionText}
+            onChange={(e) =>
+              handleStateChange({
+                questionText: e.target.value,
+                formError: false,
+              })
+            }
+            error={state.formError && !state.questionText.trim()}
+            sx={{ mb: 3 }}
+            inputProps={{ style: { height: "auto" } }}
+          />
+
+          {state.options.map((option, index) => (
+            <OptionRow key={index}>
+              <OptionCheckbox onClick={() => handleToggleCorrect(index)}>
+                {option.isCorrect && (
+                  <CheckIcon sx={{ color: "#B85454", fontSize: 20 }} />
+                )}
+              </OptionCheckbox>
+
+              <StyledTextField
+                fullWidth
+                placeholder={`Choice ${index + 1}`}
+                variant="outlined"
+                value={option.text}
+                onChange={(e) => handleOptionChange(index, e.target.value)}
+                error={state.formError && !option.text.trim()}
+                sx={{ ml: 1, mr: 5 }}
+              />
+
+              {state.options.length > 1 && (
+                <IconButton
+                  onClick={() =>
+                    setState((prev) => ({
+                      ...prev,
+                      options: prev.options.filter((_, i) => i !== index),
+                    }))
+                  }
+                  sx={{
+                    color: "#FFFFFF",
+                    position: "absolute",
+                    right: -5, // Position at the rightmost point
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )}
+            </OptionRow>
+          ))}
+
+          <SubtleAddOptionRow onClick={handleAddOption}>
+            <OptionCheckbox sx={{ opacity: 0.5 }} />
+            <Typography
+              sx={{
+                ml: 1.5,
+                color: "#FFFFFF",
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 400,
+                fontSize: "14px",
+                lineHeight: "21px",
+              }}
+            >
+              Add option...
+            </Typography>
+          </SubtleAddOptionRow>
+        </Box>
+      </Dialog>
+    </div>
   );
 };
 
