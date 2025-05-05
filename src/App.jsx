@@ -9,6 +9,7 @@ import Register from "./components/auth/Register.jsx";
 import QuizViewer from "./components/Quiz/QuizViewer";
 import FlashcardViewer from "./components/flashcardSets/FlashcardViewer";
 import Flashcards from "./components/flashcardSets/Flashcards.jsx";
+import Statistics from './components/statistics/Statistics.jsx';
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 					element={<QuizQuestions />}
 				/>
 				<Route path="/quizzes/:quizId/view" element={<QuizViewer />} />
+				<Route path="/statistics" element={<Statistics />} />
 			</Routes>
 		</Router>
 	);
