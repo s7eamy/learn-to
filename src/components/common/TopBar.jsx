@@ -6,8 +6,10 @@ import {
   InputBase,
   Toolbar,
   Typography,
+  Button
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const iconStyle = {width: 40, height: 40};
 
@@ -61,6 +63,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 const TopBar = () => {
     const [searchOpen, setSearchOpen] = React.useState(false);
     const toggleSearch = () => setSearchOpen((prev) => !prev);
+    const navigate = useNavigate();
 
   return (
     <Box
@@ -115,6 +118,18 @@ const TopBar = () => {
           <IconButton color="inherit" aria-label="logout" sx={{ ml: 1, pr:0}}>
             <img src="/icons/logout_icon.svg" alt="Logout Icon" style={iconStyle} />
           </IconButton>
+
+            {/*Statistics Button */}
+          <Button 
+            onClick={() => navigate('/statistics')}
+            sx={{ 
+              color: 'white', 
+              textTransform: 'none',
+              '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+            }}
+          >
+            Statistics
+          </Button>
 
         </Toolbar>
       </StyledAppBar>
