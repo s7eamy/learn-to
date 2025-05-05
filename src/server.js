@@ -5,6 +5,7 @@ import quizRoutes from "./routes/quizRoutes.js"; // Import the quiz routes
 import authRoutes from "./routes/auth.js";
 import passport from "passport";
 import session from "express-session";
+import statRoutes from "./routes/statsRoutes.js"; 
 
 // Create an Express app
 const app = express();
@@ -29,6 +30,7 @@ app.use(passport.authenticate("session"));
 app.use("/sets", flashcardRoutes); // Use the flashcard routes
 app.use("/quizzes", quizRoutes); // Use the quiz routes
 app.use("/auth", authRoutes);
+app.use("/stats", statRoutes); 
 
 const serverLogging = (port) => {
 	var date = new Date();
