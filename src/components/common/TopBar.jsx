@@ -69,7 +69,12 @@ const TopBar = () => {
       <StyledAppBar>
         <Toolbar sx={{ height: "100%" }}>
           {/*Learn2 Icon */}
-          <IconButton color="inherit" aria-label="learn2" sx={{ mx: 1 }}>
+          <IconButton
+            color="inherit"
+            aria-label="learn2"
+            sx={{ mx: 1 }}
+            onClick={() => navigate("/")}
+          >
             <img
               src="/icons/Learn2_icon.svg"
               alt="Learn2 Icon"
