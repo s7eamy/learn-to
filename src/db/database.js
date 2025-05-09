@@ -30,6 +30,19 @@ db.serialize(() => {
     )
   `);
 
+  // Flashcard Attempts table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS flashcard_attempts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      set_id INTEGER NOT NULL,
+      flashcard_id INTEGER NOT NULL,
+      rating TEXT NOT NULL, -- "know", "dont_know", or "fifty_fifty"
+      attempt_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (set_id) REFERENCES flashcard_sets(id) ON DELETE CASCADE,
+      FOREIGN KEY (flashcard_id) REFERENCES flashcards(id) ON DELETE CASCADE
+    )
+  `);
+
   // Quizzes table
   db.run(`
     CREATE TABLE IF NOT EXISTS quizzes (
@@ -68,6 +81,29 @@ db.serialize(() => {
       username TEXT NOT NULL PRIMARY KEY,
       salt TEXT NOT NULL,
       hashed_password TEXT NOT NULL
+    )
+  `);
+
+  // Quiz Statistics table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS quiz_statistics (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quiz_id INTEGER NOT NULL,
+      correct_count INTEGER NOT NULL DEFAULT 0,
+      incorrect_count INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
+    )
+  `);
+
+  // Quiz Attempts table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS quiz_attempts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quiz_id INTEGER NOT NULL,
+      correct_count INTEGER NOT NULL,
+      incorrect_count INTEGER NOT NULL,
+      attempt_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (quiz_id) REFERENCES quizzes(id) ON DELETE CASCADE
     )
   `);
 });

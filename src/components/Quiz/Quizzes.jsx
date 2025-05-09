@@ -27,6 +27,8 @@ const Quizzes = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [quizName, setQuizName] = useState("");
   const [isPublic, setIsPublic] = useState(true);
+  const [statistics, setStatistics] = useState({});
+  const [attempts, setAttempts] = useState({});
 
   const navigate = useNavigate();
 
@@ -37,9 +39,41 @@ const Quizzes = () => {
       .catch((err) => console.error(err));
   };
 
+  const fetchStatistics = () => {
+    fetch("/api/statistics")
+      .then((res) => res.json())
+      .then((data) => setStatistics(data))
+      .catch((err) => console.error(err));
+  };
+
+  const fetchAllAttempts = () => {
+    const promises = quizzes.map((quiz) =>
+      fetch(`/api/quizzes/${quiz.id}/attempts`)
+        .then((res) => res.json())
+        .then((data) => ({ [quiz.id]: data })),
+    );
+
+    Promise.all(promises)
+      .then((results) => {
+        const combined = results.reduce(
+          (acc, curr) => ({ ...acc, ...curr }),
+          {},
+        );
+        setAttempts(combined);
+      })
+      .catch((err) => console.error(err));
+  };
+
   useEffect(() => {
     fetchQuizzes();
+    fetchStatistics();
   }, []);
+
+  useEffect(() => {
+    if (quizzes.length > 0) {
+      fetchAllAttempts();
+    }
+  }, [quizzes]);
 
   const handleOpenEditDialog = (quiz) => {
     setEditingQuiz(quiz);
@@ -98,29 +132,46 @@ const Quizzes = () => {
       <Divider style={{ margin: "20px 0" }} />
       <List>
         {quizzes.map((quiz) => (
-          <ListItem key={quiz.id}>
-            <ListItemButton
-              onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}
-            >
-              <ListItemText primary={quiz.name} />
-            </ListItemButton>
-            {/* Display public/private status */}
-            <Typography
-              variant="body2"
-              style={{
-                color: "gray",
-                marginRight: "10px",
-                fontWeight: "bold",
-              }}
-            >
-              {quiz.is_public ? "PUBLIC" : "PRIVATE"}
-            </Typography>
-            <IconButton onClick={() => handleOpenEditDialog(quiz)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => handleOpenDeleteDialog(quiz)}>
-              <DeleteIcon />
-            </IconButton>
+          <ListItem
+            key={quiz.id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <ListItemButton
+                onClick={() => navigate(`/quizzes/${quiz.id}/questions`)}
+              >
+                <ListItemText primary={quiz.name} />
+              </ListItemButton>
+              <Typography
+                variant="body2"
+                style={{
+                  color: "gray",
+                  marginRight: "10px",
+                  fontWeight: "bold",
+                }}
+              >
+                {quiz.is_public ? "PUBLIC" : "PRIVATE"}
+              </Typography>
+              <IconButton onClick={() => handleOpenEditDialog(quiz)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => handleOpenDeleteDialog(quiz)}>
+                <DeleteIcon />
+              </IconButton>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <Typography variant="body2" style={{ fontWeight: "bold" }}>
+                Previous Attempts:
+              </Typography>
+              {attempts[quiz.id]?.map((attempt, index) => (
+                <Typography key={index} variant="body2">
+                  {`Correct: ${attempt.correct_count}, Incorrect: ${attempt.incorrect_count} (${new Date(attempt.attempt_date).toLocaleDateString()})`}
+                </Typography>
+              ))}
+            </div>
           </ListItem>
         ))}
       </List>

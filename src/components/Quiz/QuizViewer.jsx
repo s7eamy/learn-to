@@ -75,9 +75,30 @@ const QuizViewer = () => {
   };
 
   const handleCompleteQuiz = () => {
-    setShowCompletionDialog(false);
-    navigate("/quizzes"); // This is the key change - navigates back to quizzes list
+    fetch(`/api/quizzes/${quizId}/attempts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        correctCount: score,
+        incorrectCount: questions.length - score,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to save quiz attempt");
+        }
+        return res.json();
+      })
+      .then(() => {
+        setShowCompletionDialog(false);
+        navigate("/quizzes");
+      })
+      .catch((err) => console.error(err));
   };
+
+  if (!quiz || questions.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   if (!quiz || questions.length === 0) {
     return <div>Loading...</div>;
