@@ -89,11 +89,13 @@ const TopBar = () => {
               fontSize: "32px",
               lineHeight: "48px",
               color: "#FFFFFF",
-              mr: 2,
             }}
           >
             Hello, {username}!
           </Typography>
+
+          {/* Spacer to push icons to the right */}
+          <Box sx={{ flexGrow: 1 }} />
 
           {/*Statistics Button */}
           <IconButton
@@ -106,6 +108,7 @@ const TopBar = () => {
               "&:hover": {
                 backgroundColor: "rgba(255, 255, 255, 0.1)",
               },
+              mx: 1,
             }}
           >
             <BarChartIcon sx={{ fontSize: 48 }} />
@@ -116,7 +119,7 @@ const TopBar = () => {
             color="inherit"
             aria-label="logout"
             onClick={handleLogout}
-            sx={{ ml: 1, pr: 0 }}
+            sx={{ mx: 1 }}
           >
             <img
               src="/icons/logout_icon.svg"
