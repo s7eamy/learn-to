@@ -348,7 +348,12 @@ const AddQuestionButton = ({
         >
           <IconButton
             onClick={handleClose}
-            sx={{ color: "#FFFFFF", p: 1, position: "absolute", left: "18px" }}
+            sx={{
+              color: "#FFFFFF",
+              p: 1,
+              position: "absolute",
+              left: "18px",
+            }}
           >
             <CloseIcon sx={{ fontSize: 30 }} />
           </IconButton>

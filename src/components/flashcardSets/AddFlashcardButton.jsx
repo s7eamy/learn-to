@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 import previewIcon from "/icons/preview_icon.svg";
 
 // Styled components
+// Styled components
 const StyledTextField = styled(TextField)(() => ({
   "& .MuiInputBase-root": {
     backgroundColor: "#292929",

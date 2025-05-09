@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --check .",
     "preview": "vite preview",
-    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose"
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose",
+    "seed": "node src/db/seed.js"
   },
   "jest": {
     "testEnvironment": "jsdom",
