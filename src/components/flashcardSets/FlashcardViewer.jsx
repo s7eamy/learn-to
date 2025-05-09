@@ -353,6 +353,15 @@ const FlashcardViewer = () => {
 						marginBottom: "40px",
 					}}
 				>
+					<Typography variant="body2" sx={{ marginTop: 2 }}>
+						Card {currentCardIndex + 1} of {flashcards.length}
+					</Typography>
+
+					<Typography variant="body2" sx={{ mt: 2 }}>
+						Progress: I Know: {statistics.know}, 50/50:{" "}
+						{statistics.fifty_fifty}, I Don't Know:{" "}
+						{statistics.dont_know}
+					</Typography>
 					{/* Previous Button (Left Arrow) */}
 					<Box
 						sx={{
@@ -437,6 +446,47 @@ const FlashcardViewer = () => {
 					</Box>
 				</Box>
 			</Box>
+			{/* Rating Dialog */}
+			<Dialog
+				open={ratingDialogOpen}
+				onClose={() => setRatingDialogOpen(false)}
+			>
+				<DialogTitle>Rate Your Knowledge</DialogTitle>
+				<DialogContent>
+					<Typography variant="body1">
+						How well do you know this flashcard?
+					</Typography>
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-around",
+							mt: 2,
+						}}
+					>
+						<Button
+							variant="contained"
+							color="success"
+							onClick={() => handleSubmitRating("know")}
+						>
+							I Know
+						</Button>
+						<Button
+							variant="contained"
+							color="warning"
+							onClick={() => handleSubmitRating("fifty_fifty")}
+						>
+							50/50
+						</Button>
+						<Button
+							variant="contained"
+							color="error"
+							onClick={() => handleSubmitRating("dont_know")}
+						>
+							I Don't Know
+						</Button>
+					</Box>
+				</DialogContent>
+			</Dialog>
 		</Box>
 	);
 };
