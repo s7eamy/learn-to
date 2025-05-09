@@ -1,40 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	AppBar,
 	Box,
 	IconButton,
-	InputBase,
 	Toolbar,
 	Button,
+	Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
 const iconStyle = { width: 40, height: 40 };
-
-// Styled search component
-const SearchContainer = styled("div")(({ theme }) => ({
-	position: "relative",
-	borderRadius: theme.shape.borderRadius * 4,
-	backgroundColor: "#373737",
-	width: "100%",
-	height: 64,
-	boxShadow: "inset -3px -2px 11.1px 2px rgba(0,0,0,0.25)",
-	display: "flex",
-	alignItems: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: "inherit",
-	width: "100%",
-	"& .MuiInputBase-input": {
-		padding: theme.spacing(1, 1, 1, 0),
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create("width"),
-		width: "100%",
-		fontSize: "1.5rem",
-	},
-}));
 
 // Styled app bar
 const StyledAppBar = styled(AppBar)(() => ({
@@ -60,9 +36,25 @@ const StyledAppBar = styled(AppBar)(() => ({
 }));
 
 const TopBar = () => {
-	const [searchOpen, setSearchOpen] = React.useState(false);
-	const toggleSearch = () => setSearchOpen((prev) => !prev);
 	const navigate = useNavigate();
+	const [username, setUsername] = useState("");
+
+	useEffect(() => {
+		fetch("/api/auth/user")
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error("Not logged in");
+				}
+				return res.json();
+			})
+			.then((data) => {
+				setUsername(data.username);
+			})
+			.catch((error) => {
+				console.error("Failed to fetch user:", error);
+				setUsername("");
+			});
+	}, []);
 
 	return (
 		<Box
@@ -78,70 +70,6 @@ const TopBar = () => {
 		>
 			<StyledAppBar>
 				<Toolbar sx={{ height: "100%" }}>
-					{/*Search Icon */}
-					<IconButton
-						edge="start"
-						color="inherit"
-						aria-label="home"
-						sx={{ mr: 1 }}
-					>
-						<img
-							src="/icons/home_icon.svg"
-							alt="Home Icon"
-							style={iconStyle}
-						/>
-					</IconButton>
-
-					{/*Search Icon */}
-					<IconButton
-						color="inherit"
-						aria-label="search"
-						sx={{ mr: 2 }}
-					>
-						<img
-							src="/icons/search_icon.svg"
-							alt="Search Icon"
-							onClick={toggleSearch}
-							style={iconStyle}
-						/>
-					</IconButton>
-
-					{/*SearchContainer Box */}
-					<SearchContainer>
-						{searchOpen && (
-							<StyledInputBase
-								placeholder="Search…"
-								inputProps={{ "aria-label": "search" }}
-							/>
-						)}
-					</SearchContainer>
-
-					{/*Settings Icon */}
-					<IconButton
-						color="inherit"
-						aria-label="settings"
-						sx={{ ml: 2 }}
-					>
-						<img
-							src="/icons/settings_icon.svg"
-							alt="Settings Icon"
-							style={iconStyle}
-						/>
-					</IconButton>
-
-					{/*Profile Icon */}
-					<IconButton
-						color="inherit"
-						aria-label="profile"
-						sx={{ mx: 1 }}
-					>
-						<img
-							src="/icons/profile_icon.svg"
-							alt="Profile Icon"
-							style={iconStyle}
-						/>
-					</IconButton>
-
 					{/*Learn2 Icon */}
 					<IconButton
 						color="inherit"
@@ -154,6 +82,19 @@ const TopBar = () => {
 							style={{ width: 160, height: 60 }}
 						/>
 					</IconButton>
+
+					<Typography
+						sx={{
+							fontFamily: "Poppins, sans-serif",
+							fontWeight: 900,
+							fontSize: "32px",
+							lineHeight: "48px",
+							color: "#FFFFFF",
+							mr: 2,
+						}}
+					>
+						Hello, {username}!
+					</Typography>
 
 					{/*Logout Icon */}
 					<IconButton
