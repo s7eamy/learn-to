@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Toolbar,
-  Button,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 const iconStyle = { width: 40, height: 40 };
 
@@ -97,7 +91,9 @@ const TopBar = () => {
           </Typography>
 
           {/*Statistics Button */}
-          <Button
+          <IconButton
+            color="inherit"
+            aria-label="statistics"
             onClick={() => navigate("/statistics")}
             sx={{
               color: "white",
@@ -107,8 +103,8 @@ const TopBar = () => {
               },
             }}
           >
-            Statistics
-          </Button>
+            <BarChartIcon sx={{ fontSize: 48 }} />
+          </IconButton>
 
           {/*Logout Icon */}
           <IconButton
