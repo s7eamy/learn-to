@@ -7,7 +7,6 @@ import DocumentList from "./DocumentList.jsx";
 
 const Dashboard = () => {
   /* Aurimo konstantos */
-  const [username, setUsername] = useState(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -20,11 +19,7 @@ const Dashboard = () => {
         }
         return res.json();
       })
-      .then((data) => {
-        setUsername(data.username);
-      })
       .catch(() => {
-        setUsername(null);
         navigate("/login");
       });
   }, []);
