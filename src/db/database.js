@@ -84,9 +84,8 @@ db.serialize(() => {
     )
   `);
 
-<<<<<<< HEAD
-	// Quiz Statistics table
-	db.run(`
+  // Quiz Statistics table
+  db.run(`
     CREATE TABLE IF NOT EXISTS quiz_statistics (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       quiz_id INTEGER NOT NULL,
@@ -96,12 +95,8 @@ db.serialize(() => {
     )
   `);
 
-	// Quiz Attempts table
-	db.run(`
-=======
   // Quiz Attempts table
   db.run(`
->>>>>>> 52271c6 (chore: fix  merge conflict)
     CREATE TABLE IF NOT EXISTS quiz_attempts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       quiz_id INTEGER NOT NULL,
