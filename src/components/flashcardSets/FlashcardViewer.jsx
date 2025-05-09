@@ -341,7 +341,7 @@ const FlashcardViewer = () => {
 
 					<Typography variant="body2" sx={{ mt: 2 }}>
 						Progress: I Know: {statistics.know}, 50/50:{" "}
-						{statistics.fifty_fifty}, I Don't Know:{" "}
+						{statistics.fifty_fifty} , I Don&apos;t Know:{" "}
 						{statistics.dont_know}
 					</Typography>
 					{/* Previous Button (Left Arrow) */}
@@ -464,7 +464,7 @@ const FlashcardViewer = () => {
 							color="error"
 							onClick={() => handleSubmitRating("dont_know")}
 						>
-							I Don't Know
+							I Don&apos;t Know
 						</Button>
 					</Box>
 				</DialogContent>
