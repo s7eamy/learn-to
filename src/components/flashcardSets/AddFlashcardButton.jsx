@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import checkIcon from "/icons/check_icon.svg";
-import checkIcon from "/icons/check_icon.svg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
-import previewIcon from "/icons/preview_icon.svg";
 import previewIcon from "/icons/preview_icon.svg";
 
 // Styled components

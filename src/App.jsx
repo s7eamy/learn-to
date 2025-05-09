@@ -8,8 +8,7 @@ import QuizViewer from "./components/Quiz/QuizViewer";
 import FlashcardViewer from "./components/flashcardSets/FlashcardViewer";
 import Set_Dashboard from "./components/common/Set_Dashboard.jsx";
 import Quizzes from "./components/Quiz/Quizzes";
-import Set_Dashboard from "./components/common/Set_Dashboard.jsx";
-import Quizzes from "./components/Quiz/Quizzes";
+
 function App() {
   return (
     <Router>
