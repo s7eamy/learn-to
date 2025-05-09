@@ -56,6 +56,10 @@ const TopBar = () => {
       });
   }, []);
 
+  const handleLogout = () => {
+    window.location.href = "/api/auth/logout";
+  };
+
   return (
     <Box
       sx={{
@@ -92,15 +96,6 @@ const TopBar = () => {
             Hello, {username}!
           </Typography>
 
-          {/*Logout Icon */}
-          <IconButton color="inherit" aria-label="logout" sx={{ ml: 1, pr: 0 }}>
-            <img
-              src="/icons/logout_icon.svg"
-              alt="Logout Icon"
-              style={iconStyle}
-            />
-          </IconButton>
-
           {/*Statistics Button */}
           <Button
             onClick={() => navigate("/statistics")}
@@ -114,6 +109,20 @@ const TopBar = () => {
           >
             Statistics
           </Button>
+
+          {/*Logout Icon */}
+          <IconButton
+            color="inherit"
+            aria-label="logout"
+            onClick={handleLogout}
+            sx={{ ml: 1, pr: 0 }}
+          >
+            <img
+              src="/icons/logout_icon.svg"
+              alt="Logout Icon"
+              style={iconStyle}
+            />
+          </IconButton>
         </Toolbar>
       </StyledAppBar>
     </Box>
