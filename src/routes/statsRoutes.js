@@ -9,9 +9,9 @@ router.get("/", (req, res) => {
   const today = new Date();
   const lastWeek = new Date(today);
   lastWeek.setDate(lastWeek.getDate() - 7);
-  
-  const todayStr = today.toISOString().split('T')[0];
-  const lastWeekStr = lastWeek.toISOString().split('T')[0];
+
+  const todayStr = today.toISOString().split("T")[0];
+  const lastWeekStr = lastWeek.toISOString().split("T")[0];
 
   // Use Promise.all to run all database queries concurrently
   Promise.all([
@@ -24,10 +24,10 @@ router.get("/", (req, res) => {
         (err, row) => {
           if (err) reject(err);
           else resolve({ flashcardAttemptsLastWeek: row.count });
-        }
+        },
       );
     }),
-    
+
     // Total known, 50/50, and unknown flashcards
     new Promise((resolve, reject) => {
       db.all(
@@ -40,21 +40,23 @@ router.get("/", (req, res) => {
             const stats = {
               knownFlashcards: 0,
               fiftyFiftyFlashcards: 0,
-              unknownFlashcards: 0
+              unknownFlashcards: 0,
             };
-            
-            rows.forEach(row => {
-              if (row.rating === 'know') stats.knownFlashcards = row.count;
-              else if (row.rating === 'fifty_fifty') stats.fiftyFiftyFlashcards = row.count;
-              else if (row.rating === 'dont_know') stats.unknownFlashcards = row.count;
+
+            rows.forEach((row) => {
+              if (row.rating === "know") stats.knownFlashcards = row.count;
+              else if (row.rating === "fifty_fifty")
+                stats.fiftyFiftyFlashcards = row.count;
+              else if (row.rating === "dont_know")
+                stats.unknownFlashcards = row.count;
             });
-            
+
             resolve(stats);
           }
-        }
+        },
       );
     }),
-    
+
     // Number of unattempted flashcard sets
     new Promise((resolve, reject) => {
       db.get(
@@ -64,10 +66,10 @@ router.get("/", (req, res) => {
         (err, row) => {
           if (err) reject(err);
           else resolve({ unattemptedSets: row.count });
-        }
+        },
       );
     }),
-    
+
     // Total quiz attempts in last week
     new Promise((resolve, reject) => {
       db.get(
@@ -77,10 +79,10 @@ router.get("/", (req, res) => {
         (err, row) => {
           if (err) reject(err);
           else resolve({ quizAttemptsLastWeek: row.count });
-        }
+        },
       );
     }),
-    
+
     // Total correct and incorrect answers
     new Promise((resolve, reject) => {
       db.get(
@@ -89,22 +91,23 @@ router.get("/", (req, res) => {
         [],
         (err, row) => {
           if (err) reject(err);
-          else resolve({ 
-            totalCorrectAnswers: row.correct || 0,
-            totalIncorrectAnswers: row.incorrect || 0
-          });
-        }
+          else
+            resolve({
+              totalCorrectAnswers: row.correct || 0,
+              totalIncorrectAnswers: row.incorrect || 0,
+            });
+        },
       );
-    })
+    }),
   ])
-  .then(results => {
-    // Merge all results into a single object
-    const stats = Object.assign({}, ...results);
-    res.json(stats);
-  })
-  .catch(err => {
-    res.status(500).json({ error: err.message });
-  });
+    .then((results) => {
+      // Merge all results into a single object
+      const stats = Object.assign({}, ...results);
+      res.json(stats);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 export default router;
