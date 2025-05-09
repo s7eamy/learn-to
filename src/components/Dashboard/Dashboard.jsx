@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Typography, Button, Box, Dialog } from "@mui/material";
 import TopBar from "../common/TopBar.jsx";
 import SetCreator from "../common/Set_selection_window.jsx";
@@ -8,18 +9,24 @@ const Dashboard = () => {
   /* Aurimo konstantos */
   const [username, setUsername] = useState(null);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   /* Aurimo kodas dėl prisijungimo errors ig */
   useEffect(() => {
     fetch("/api/auth/user")
       .then((res) => {
-        if (!res.ok) throw new Error("Not logged in");
+        if (!res.ok) {
+          throw new Error("Not logged in");
+        }
         return res.json();
       })
       .then((data) => {
         setUsername(data.username);
       })
-      .catch(() => setUsername(null));
+      .catch(() => {
+        setUsername(null);
+        navigate("/login");
+      });
   }, []);
 
   /* Konstantos, kurios atsakingos už set kūrimo lango atidarymą / uždarymą */
@@ -28,7 +35,6 @@ const Dashboard = () => {
     if (reason === "backdropClick") return;
     setOpen(false);
   };
-
 
   return (
     <Box
@@ -107,8 +113,8 @@ const Dashboard = () => {
           bottom: 20, // distancija nuo apacios
           left: 20, // distancija is kaires
           width: "50%",
-          height: "40%", 
-          overflow: "hidden", 
+          height: "40%",
+          overflow: "hidden",
         }}
       >
         <DocumentList />
