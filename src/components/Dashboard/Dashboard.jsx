@@ -7,7 +7,6 @@ import DocumentList from "./DocumentList.jsx";
 
 const Dashboard = () => {
   /* Aurimo konstantos */
-  const [username, setUsername] = useState(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -20,11 +19,7 @@ const Dashboard = () => {
         }
         return res.json();
       })
-      .then((data) => {
-        setUsername(data.username);
-      })
       .catch(() => {
-        setUsername(null);
         navigate("/login");
       });
   }, []);
@@ -86,11 +81,6 @@ const Dashboard = () => {
           sx={{ width: 35, height: 35 }}
         />
       </Button>
-
-      {/* Rodo vartotojo prisijungimo statusa */}
-      <Typography variant="subtitle1">
-        Logged in as: {username ? username : "Guest"}
-      </Typography>
 
       {/* Langas, kuris atsiranda kuriant nauja set */}
       <Dialog
