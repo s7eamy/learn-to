@@ -1,8 +1,19 @@
-# React + Vite
+# Learn2 - a platform to reach your studying goals
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Installation
 
-Currently, two official plugins are available:
+## Usage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture
+
+## Quality Assurance
+
+## Developers
+
+Developed by four Software Systems students from Kaunas University of Technology (KTU):
+* s7eamy (E8390) - architecture lead, backend engineering, backend unit tests, CI/CD
+* MyciuS () - frontend implementation, backend engineering, backend unit tests
+* PerfectJokester - backend engineering
+* xmivte (E8013) - UI/UX design, frontend implementation, frontend unit tests
+
+
