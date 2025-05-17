@@ -20,14 +20,17 @@ node --watch src/server.js # backend
 ## Usage
 
 **1. Register an user**
+
 Go to `localhost:5173/register` and create an user. The user will be saved in `app.db`.
 
 **2. Login as the created user or any of the sample users**
+
 Go to `localhost:5173/login` and login as your user or use one of the two sample users:
 a) User: aldona, password: aldona
 b) User: bronius, password: bronius
 
 **3. Create study material**
+
 As an user, you have two options to choose from:
 a) flashcard sets - sets of flashcards that have a front side and a back side. 
 b) quizzes - sets of questions that can have multiple answers to choose from.
@@ -36,9 +39,11 @@ Click on the Create button in the homepage, choose your type and specify a name 
 Here you can add cards/questions. Fill them up as you'd like!
 
 **4. Study**
+
 Now, once you've got the material, click on Study! You will be asked questions or shown cards. If you're studying flashcards, you'll have to measure how well you remember the back side after each card. This is done to track your statistics and studying progress.
 
 **5. Track your stats!**
+
 You racked up some studying hours. Now what?
 There is the possibility to check your progress! Head over to the statistics page and find insights about your efficiency.
 
