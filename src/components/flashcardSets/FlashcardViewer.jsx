@@ -22,14 +22,11 @@ const FlashcardViewer = () => {
     const [setName, setSetName] = useState("");
     const [loading, setLoading] = useState(true);
     const [ratingDialogOpen, setRatingDialogOpen] = useState(false);
-    const [currentRating, setCurrentRating] = useState(null);
     const [statistics, setStatistics] = useState({
         know: 0,
         dont_know: 0,
         fifty_fifty: 0,
     });
-    const [previousAttempts, setPreviousAttempts] = useState([]);
-
     // Handlers
     const handleFlip = () => {
         setIsFlipped(!isFlipped);
