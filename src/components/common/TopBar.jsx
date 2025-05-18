@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
+const StyledAppBar = styled(AppBar)(() => ({
     backgroundColor: '#000',
     boxShadow: 'none',
     borderRadius: 20,
