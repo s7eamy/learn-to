@@ -27,7 +27,6 @@ const Quizzes = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [quizName, setQuizName] = useState("");
   const [isPublic, setIsPublic] = useState(true);
-  const [statistics, setStatistics] = useState({});
   const [attempts, setAttempts] = useState({});
 
   const navigate = useNavigate();
