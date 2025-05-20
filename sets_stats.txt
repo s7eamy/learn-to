@@ -1,0 +1,1656 @@
+This is ApacheBench, Version 2.3 <$Revision: 1923142 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking localhost (be patient)
+
+
+Server Software:        
+Server Hostname:        localhost
+Server Port:            3000
+
+Document Path:          /sets/
+Document Length:        57 bytes
+
+Concurrency Level:      1000
+Time taken for tests:   5.249 seconds
+Complete requests:      50000
+Failed requests:        0
+Non-2xx responses:      50000
+Keep-Alive requests:    50000
+Total transferred:      15100000 bytes
+HTML transferred:       2850000 bytes
+Requests per second:    9525.62 [#/sec] (mean)
+Time per request:       104.980 [ms] (mean)
+Time per request:       0.105 [ms] (mean, across all concurrent requests)
+Transfer rate:          2809.31 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   1.6      0      18
+Processing:     4  103 469.8     57    5225
+Waiting:        2  103 469.8     57    5225
+Total:          5  104 470.5     57    5230
+
+Percentage of the requests served within a certain time (ms)
+  50%     57
+  66%     59
+  75%     61
+  80%     63
+  90%     68
+  95%     72
+  98%     84
+  99%    128
+ 100%   5230 (longest request)
+Statistical profiling result from isolate-0x5c2b2444c000-5897-v8.log, (40620 ticks, 27280 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   3966    9.8%          /usr/lib/libc.so.6
+    188    0.5%          /usr/lib/libcrypto.so.3
+    117    0.3%          /usr/lib/libuv.so.1.0.0
+     47    0.1%          [vdso]
+      4    0.0%          /usr/lib/ld-linux-x86-64.so.2
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+    732    1.8%    2.0%  Builtin: LoadIC_Megamorphic
+    576    1.4%    1.6%  Builtin: KeyedLoadIC_Megamorphic
+    304    0.7%    0.8%  JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    234    0.6%    0.6%  Builtin: StoreIC_Megamorphic
+    217    0.5%    0.6%  Builtin: LoadICTrampoline_Megamorphic
+    196    0.5%    0.5%  Builtin: RecordWriteSaveFP
+    175    0.4%    0.5%  Builtin: CompileLazy
+    163    0.4%    0.4%  Builtin: LoadIC
+    146    0.4%    0.4%  Builtin: KeyedStoreIC_Megamorphic
+    117    0.3%    0.3%  JS: *parserOnHeadersComplete node:_http_common:71:33
+    106    0.3%    0.3%  Builtin: CallFunction_ReceiverIsAny
+    103    0.3%    0.3%  Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+    100    0.2%    0.3%  JS: *parserOnIncoming node:_http_server:1040:26
+     85    0.2%    0.2%  JS: *_storeHeader node:_http_outgoing:454:22
+     80    0.2%    0.2%  JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     79    0.2%    0.2%  Builtin: StringAdd_CheckNone
+     75    0.2%    0.2%  JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     73    0.2%    0.2%  JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+     66    0.2%    0.2%  Builtin: RegExpPrototypeTestFast
+     64    0.2%    0.2%  Builtin: RegExpPrototypeTest
+     64    0.2%    0.2%  Builtin: CallBoundFunction
+     54    0.1%    0.1%  JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+     53    0.1%    0.1%  Builtin: RegExpReplace
+     52    0.1%    0.1%  JS: *end node:_http_outgoing:1084:45
+     51    0.1%    0.1%  JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     49    0.1%    0.1%  JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     49    0.1%    0.1%  Builtin: StringToLowerCaseIntl
+     48    0.1%    0.1%  Builtin: RegExpPrototypeExecSlow
+     47    0.1%    0.1%  JS: *socketListenerWrap node:_http_server:1203:37
+     44    0.1%    0.1%  JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     44    0.1%    0.1%  Builtin: StoreICTrampoline_Megamorphic
+     44    0.1%    0.1%  Builtin: CallFunction_ReceiverIsNullOrUndefined
+     41    0.1%    0.1%  JS: *store.generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:158:28
+     40    0.1%    0.1%  JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+     37    0.1%    0.1%  JS: *parserOnMessageComplete node:_http_common:135:33
+     36    0.1%    0.1%  RegExp: [^\t\x20-\x7e\x80-\xff]
+     36    0.1%    0.1%  JS: *nextTick node:internal/process/task_queues:113:18
+     36    0.1%    0.1%  Builtin: StringPrototypeReplace
+     36    0.1%    0.1%  Builtin: StringEqual
+     36    0.1%    0.1%  Builtin: KeyedLoadICTrampoline_Megamorphic
+     35    0.1%    0.1%  RegExp: ^[\^_`a-zA-Z\-0-9!#$%&'*+.|~]+$
+     34    0.1%    0.1%  JS: *resOnFinish node:_http_server:980:21
+     34    0.1%    0.1%  JS: *clearBuffer node:internal/streams/writable:744:21
+     33    0.1%    0.1%  Builtin: StoreIC
+     32    0.1%    0.1%  JS: *writeHead node:_http_server:348:19
+     32    0.1%    0.1%  JS: *setStreamTimeout node:internal/stream_base_commons:236:26
+     31    0.1%    0.1%  JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     31    0.1%    0.1%  Builtin: RegExpPrototypeExec
+     31    0.1%    0.1%  Builtin: KeyedLoadIC
+     31    0.1%    0.1%  Builtin: CallFunction_ReceiverIsNotNullOrUndefined
+     30    0.1%    0.1%  JS: *_send node:_http_outgoing:398:49
+     30    0.1%    0.1%  Builtin: CreateShallowObjectLiteral
+     29    0.1%    0.1%  JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     29    0.1%    0.1%  JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     29    0.1%    0.1%  JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     29    0.1%    0.1%  Builtin: StringIndexOf
+     28    0.1%    0.1%  JS: *randomBytes node:internal/crypto/random:97:21
+     28    0.1%    0.1%  JS: *matchKnownFields node:_http_incoming:276:26
+     28    0.1%    0.1%  Builtin: Call_ReceiverIsAny
+     27    0.1%    0.1%  JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+     27    0.1%    0.1%  JS: *Readable.on node:internal/streams/readable:1127:33
+     26    0.1%    0.1%  Builtin: KeyedLoadIC_PolymorphicName
+     25    0.1%    0.1%  JS: *endReadableNT node:internal/streams/readable:1692:23
+     25    0.1%    0.1%  Builtin: CreateObjectWithoutProperties
+     25    0.1%    0.1%  Builtin: CallApiCallbackOptimizedNoProfiling
+     25    0.1%    0.1%  Builtin: BaselineOutOfLinePrologue
+     23    0.1%    0.1%  JS: *get node:_http_incoming:109:16
+     23    0.1%    0.1%  JS: *Readable.read node:internal/streams/readable:647:35
+     22    0.1%    0.1%  JS: *endReadable node:internal/streams/readable:1682:21
+     22    0.1%    0.1%  JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+     22    0.1%    0.1%  JS: *<anonymous> node:internal/validators:176:40
+     22    0.1%    0.1%  Builtin: Call_ReceiverIsNotNullOrUndefined
+     21    0.1%    0.1%  Builtin: ObjectPrototypeHasOwnProperty
+     21    0.1%    0.1%  Builtin: JSEntry
+     21    0.1%    0.1%  Builtin: CallApiGetter
+     20    0.0%    0.1%  JS: *doWrite node:internal/streams/writable:587:17
+     20    0.0%    0.1%  Builtin: JSBuiltinsConstructStub
+     20    0.0%    0.1%  Builtin: GetProperty
+     19    0.0%    0.1%  JS: *write_ node:_http_outgoing:942:16
+     19    0.0%    0.1%  JS: *hash /home/aurims/Projects/learn-to/node_modules/express-session/index.js:604:14
+     19    0.0%    0.1%  Builtin: SubString
+     19    0.0%    0.1%  Builtin: LoadICTrampoline
+     19    0.0%    0.1%  Builtin: CreateTypedArray
+     18    0.0%    0.0%  JS: *setHeader node:_http_outgoing:697:57
+     18    0.0%    0.0%  JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     18    0.0%    0.0%  Builtin: JSEntryTrampoline
+     17    0.0%    0.0%  JS: *writevGeneric node:internal/stream_base_commons:121:23
+     17    0.0%    0.0%  Builtin: StringSubstring
+     17    0.0%    0.0%  Builtin: ForInFilter
+     16    0.0%    0.0%  JS: *wrappedFn node:internal/errors:535:21
+     16    0.0%    0.0%  JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     16    0.0%    0.0%  JS: *_write node:internal/streams/writable:453:16
+     15    0.0%    0.0%  JS: *runInAsyncScope node:async_hooks:207:18
+     15    0.0%    0.0%  JS: *parse /home/aurims/Projects/learn-to/node_modules/content-type/index.js:106:16
+     15    0.0%    0.0%  JS: *emit node:events:465:44
+     14    0.0%    0.0%  RegExp: (?:[^\x21\x23-\x3B\x3D\x3F-\x5F\x61-\x7A\x7C\x7E]|%(?:[^0-9A-Fa-f]|[0-9A-Fa-f][^0-9A-Fa-f]|$))+
+     14    0.0%    0.0%  JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     14    0.0%    0.0%  JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+     14    0.0%    0.0%  JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     14    0.0%    0.0%  JS: *isModified /home/aurims/Projects/learn-to/node_modules/express-session/index.js:433:24
+     14    0.0%    0.0%  JS: *Readable.push node:internal/streams/readable:387:35
+     14    0.0%    0.0%  Builtin: KeyedStoreIC
+     13    0.0%    0.0%  RegExp: ["'&<>]
+     13    0.0%    0.0%  JS: *processPromiseRejections node:internal/process/promises:439:34
+     13    0.0%    0.0%  JS: *normalizeParseOptions /home/aurims/Projects/learn-to/node_modules/qs/lib/parse.js:217:59
+     13    0.0%    0.0%  JS: *first /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:24:15
+     13    0.0%    0.0%  JS: *fastparse /home/aurims/Projects/learn-to/node_modules/parseurl/index.js:95:20
+     13    0.0%    0.0%  JS: *emitReadable_ node:internal/streams/readable:830:23
+     13    0.0%    0.0%  JS: *emitCloseNT node:internal/streams/destroy:133:21
+     13    0.0%    0.0%  Builtin: FastNewFunctionContextFunction
+     12    0.0%    0.0%  RegExp: ; *([!#$%&'*+.^_`|~0-9A-Za-z-]+) *= *("(?:[\u000b\u0020\u0021\u0023-\u005b\u005d-\u007e\u0080-\u00ff]|\\[\u000b\u0020-\u00ff])*"|[!#$%&'*+.^_`|~0-9A-Za-z-]+) *
+     12    0.0%    0.0%  JS: *setWriteHeadHeaders /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:105:30
+     12    0.0%    0.0%  JS: *onParserExecute node:_http_server:845:25
+     12    0.0%    0.0%  JS: *_handles_method /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:58:59
+     12    0.0%    0.0%  JS: *_destroy node:_http_incoming:218:55
+     11    0.0%    0.0%  RegExp: (^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]|[\uD800-\uDBFF]([^\uDC00-\uDFFF]|$)
+     11    0.0%    0.0%  JS: *assignSocket node:_http_server:288:62
+     11    0.0%    0.0%  Builtin: ToBooleanForBaselineJump
+     11    0.0%    0.0%  Builtin: LoadGlobalIC
+     11    0.0%    0.0%  Builtin: Call_ReceiverIsNullOrUndefined
+     11    0.0%    0.0%  Builtin: ArrayPrototypeSlice
+     10    0.0%    0.0%  RegExp: ^[!#$%&'*+.^_`|~0-9A-Za-z-]+\/[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+     10    0.0%    0.0%  RegExp: ;\s*charset\s*=
+     10    0.0%    0.0%  JS: *get node:_http_outgoing:195:6
+     10    0.0%    0.0%  JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     10    0.0%    0.0%  JS: *app.<computed> /home/aurims/Projects/learn-to/node_modules/express/lib/application.js:490:25
+     10    0.0%    0.0%  JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express-session/index.js:606:43
+     10    0.0%    0.0%  JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express-session/index.js:224:28
+     10    0.0%    0.0%  Builtin: StringPrototypeTrim
+     10    0.0%    0.0%  Builtin: GrowFastSmiOrObjectElements
+      9    0.0%    0.0%  RegExp: ^\/auth\/?(?=\/|$)
+      9    0.0%    0.0%  RegExp: =+$
+      9    0.0%    0.0%  RegExp: (?:^|\W)chunked(?:$|\W)
+      9    0.0%    0.0%  JS: *setUnrefTimeout node:internal/timers:391:25
+      9    0.0%    0.0%  JS: *onFinish node:_http_outgoing:1079:18
+      9    0.0%    0.0%  JS: *isFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:66:21
+      9    0.0%    0.0%  JS: *get node:internal/streams/readable:1542:8
+      9    0.0%    0.0%  JS: *get node:internal/bootstrap/node:100:8
+      9    0.0%    0.0%  JS: *format /home/aurims/Projects/learn-to/node_modules/content-type/index.js:65:17
+      9    0.0%    0.0%  JS: *emitCloseNT node:_http_server:1029:21
+      9    0.0%    0.0%  JS: *callback node:internal/streams/writable:764:63
+      9    0.0%    0.0%  Builtin: ToString
+      9    0.0%    0.0%  Builtin: ObjectSetPrototypeOf
+      8    0.0%    0.0%  RegExp: ^\/stats\/?(?=\/|$)
+      8    0.0%    0.0%  RegExp: ^\/login\/?$
+      8    0.0%    0.0%  JS: *wrapmethods /home/aurims/Projects/learn-to/node_modules/express-session/index.js:402:25
+      8    0.0%    0.0%  JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+      8    0.0%    0.0%  JS: *onwrite node:internal/streams/writable:615:17
+      8    0.0%    0.0%  JS: *onParserExecuteCommon node:_http_server:918:31
+      8    0.0%    0.0%  JS: *listenerCount node:events:850:23
+      8    0.0%    0.0%  JS: *isstats /home/aurims/Projects/learn-to/node_modules/etag/index.js:104:18
+      8    0.0%    0.0%  Builtin: ToBoolean
+      8    0.0%    0.0%  Builtin: StringSlowFlatten
+      8    0.0%    0.0%  Builtin: StrictEqual
+      8    0.0%    0.0%  Builtin: RegExpExecAtom
+      8    0.0%    0.0%  Builtin: KeyedStoreICTrampoline_Megamorphic
+      8    0.0%    0.0%  Builtin: CallWithArrayLike
+      8    0.0%    0.0%  Builtin: CallFunctionTemplate_Generic
+      7    0.0%    0.0%  RegExp: ^\/user\/?$
+      7    0.0%    0.0%  RegExp: ^\/sets\/?(?=\/|$)
+      7    0.0%    0.0%  RegExp: ^\/quizzes\/?(?=\/|$)
+      7    0.0%    0.0%  RegExp: \x20{2}
+      7    0.0%    0.0%  JS: *toJSON /home/aurims/Projects/learn-to/node_modules/express-session/session/cookie.js:149:19
+      7    0.0%    0.0%  JS: *clearIncoming node:_http_server:967:23
+      7    0.0%    0.0%  Builtin: NumberToString
+      7    0.0%    0.0%  Builtin: MapIteratorPrototypeNext
+      7    0.0%    0.0%  Builtin: CallApiCallbackGeneric
+      7    0.0%    0.0%  Builtin: CEntry_Return1_ArgvOnStack_BuiltinExit
+      6    0.0%    0.0%  RegExp: ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
+      6    0.0%    0.0%  JS: *wrap /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:219:15
+      6    0.0%    0.0%  JS: *resume_ node:internal/streams/readable:1254:17
+      6    0.0%    0.0%  JS: *resume node:internal/streams/readable:1247:16
+      6    0.0%    0.0%  JS: *removeHeader node:_http_outgoing:844:63
+      6    0.0%    0.0%  JS: *getHeader node:_http_outgoing:784:57
+      6    0.0%    0.0%  JS: *get node:_http_outgoing:882:16
+      6    0.0%    0.0%  JS: *fromString node:buffer:480:20
+      6    0.0%    0.0%  JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      6    0.0%    0.0%  JS: *OutgoingMessage node:_http_outgoing:105:25
+      6    0.0%    0.0%  Builtin: StrictEqual_Baseline
+      6    0.0%    0.0%  Builtin: ObjectKeys
+      6    0.0%    0.0%  Builtin: MapConstructor
+      6    0.0%    0.0%  Builtin: LoadIC_FunctionPrototype
+      6    0.0%    0.0%  Builtin: FastNewObject
+      6    0.0%    0.0%  Builtin: Call_ReceiverIsNullOrUndefined_Baseline_Compact
+      6    0.0%    0.0%  Builtin: Call_ReceiverIsNotNullOrUndefined_Baseline_Compact
+      6    0.0%    0.0%  Builtin: BaselineLeaveFrame
+      5    0.0%    0.0%  JS: *writeOrBuffer node:internal/streams/writable:548:23
+      5    0.0%    0.0%  JS: *updateOutgoingData node:_http_server:766:28
+      5    0.0%    0.0%  JS: *update node:internal/crypto/hash:107:40
+      5    0.0%    0.0%  JS: *touch /home/aurims/Projects/learn-to/node_modules/express-session/session/session.js:47:56
+      5    0.0%    0.0%  JS: *shouldTouch /home/aurims/Projects/learn-to/node_modules/express-session/index.js:461:25
+      5    0.0%    0.0%  JS: *set node:_http_outgoing:250:16
+      5    0.0%    0.0%  JS: *onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+      5    0.0%    0.0%  JS: *normalizeEncoding node:internal/util:213:27
+      5    0.0%    0.0%  JS: *header /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:777:29
+      5    0.0%    0.0%  JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      5    0.0%    0.0%  JS: *entitytag /home/aurims/Projects/learn-to/node_modules/etag/index.js:39:20
+      5    0.0%    0.0%  JS: *checkError node:internal/streams/destroy:33:20
+      5    0.0%    0.0%  JS: *_flushOutput node:_http_outgoing:1209:63
+      5    0.0%    0.0%  JS: *ReadableState node:internal/streams/readable:262:23
+      5    0.0%    0.0%  Builtin: ToNumber
+      5    0.0%    0.0%  Builtin: StringAddConvertRight
+      5    0.0%    0.0%  Builtin: JSConstructStubGeneric
+      5    0.0%    0.0%  Builtin: ForInEnumerate
+      5    0.0%    0.0%  Builtin: DefineNamedOwnIC
+      5    0.0%    0.0%  Builtin: ArrayPrototypeUnshift
+      4    0.0%    0.0%  RegExp: ^\/register\/?$
+      4    0.0%    0.0%  JS: *unenroll node:timers:76:18
+      4    0.0%    0.0%  JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      4    0.0%    0.0%  JS: *insert node:internal/timers:368:16
+      4    0.0%    0.0%  JS: *getEncodingOps node:buffer:721:24
+      4    0.0%    0.0%  JS: *debug /home/aurims/Projects/learn-to/node_modules/express/node_modules/debug/src/debug.js:65:17
+      4    0.0%    0.0%  JS: *afterWriteTick node:internal/streams/writable:693:24
+      4    0.0%    0.0%  JS: *addListener node:events:609:58
+      4    0.0%    0.0%  JS: *_flush node:_http_outgoing:1192:51
+      4    0.0%    0.0%  JS: *_addListener node:events:546:22
+      4    0.0%    0.0%  JS: *Writable.write node:internal/streams/writable:504:36
+      4    0.0%    0.0%  Builtin: ObjectPrototypeToString
+      4    0.0%    0.0%  Builtin: FastNewClosure
+      4    0.0%    0.0%  Builtin: FastFunctionPrototypeBind
+      4    0.0%    0.0%  Builtin: DeleteProperty
+      4    0.0%    0.0%  Builtin: AdaptorWithBuiltinExitFrame
+      3    0.0%    0.0%  JS: ^tryReadStart node:net:715:22
+      3    0.0%    0.0%  JS: *originalurl /home/aurims/Projects/learn-to/node_modules/parseurl/index.js:65:22
+      3    0.0%    0.0%  JS: *isEncoding node:buffer:572:40
+      3    0.0%    0.0%  JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      3    0.0%    0.0%  JS: *get node:internal/bootstrap/node:473:8
+      3    0.0%    0.0%  JS: *createHtmlDocument /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:43:29
+      3    0.0%    0.0%  JS: *append node:internal/linkedlist:30:16
+      3    0.0%    0.0%  JS: *_finish node:_http_server:238:52
+      3    0.0%    0.0%  JS: *_dump node:_http_incoming:429:49
+      3    0.0%    0.0%  JS: *Writable.cork node:internal/streams/writable:513:35
+      3    0.0%    0.0%  JS: *Readable.removeListener node:internal/streams/readable:1159:45
+      3    0.0%    0.0%  JS: *<anonymous> node:internal/validators:406:42
+      3    0.0%    0.0%  JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/request.js:467:36
+      3    0.0%    0.0%  Builtin: Typeof
+      3    0.0%    0.0%  Builtin: StoreICTrampoline
+      3    0.0%    0.0%  Builtin: NumberPrototypeToString
+      3    0.0%    0.0%  Builtin: LoadIC_NoFeedback
+      3    0.0%    0.0%  Builtin: LoadICBaseline
+      3    0.0%    0.0%  Builtin: CloneFastJSArray
+      3    0.0%    0.0%  Builtin: CallForwardVarargs
+      3    0.0%    0.0%  Builtin: CallApiCallbackOptimized
+      3    0.0%    0.0%  Builtin: ArrayPrototypePush
+      3    0.0%    0.0%  Builtin: Add_Baseline
+      2    0.0%    0.0%  RegExp: ^\/?$
+      2    0.0%    0.0%  JS: ^writevGeneric node:internal/stream_base_commons:121:23
+      2    0.0%    0.0%  JS: ^store.generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:158:28
+      2    0.0%    0.0%  JS: ^session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      2    0.0%    0.0%  JS: ^runInAsyncScope node:async_hooks:207:18
+      2    0.0%    0.0%  JS: ^parserOnIncoming node:_http_server:1040:26
+      2    0.0%    0.0%  JS: ^onwrite node:internal/streams/writable:615:17
+      2    0.0%    0.0%  JS: ^next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      2    0.0%    0.0%  JS: ^listOnTimeout node:internal/timers:528:25
+      2    0.0%    0.0%  JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      2    0.0%    0.0%  JS: ^assertOffset node:internal/crypto/random:69:22
+      2    0.0%    0.0%  JS: *unpipe /home/aurims/Projects/learn-to/node_modules/unpipe/index.js:40:16
+      2    0.0%    0.0%  JS: *set node:internal/streams/writable:132:8
+      2    0.0%    0.0%  JS: *set /home/aurims/Projects/learn-to/node_modules/express/lib/application.js:359:23
+      2    0.0%    0.0%  JS: *restore /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:631:17
+      2    0.0%    0.0%  JS: *nop node:internal/streams/writable:95:13
+      2    0.0%    0.0%  JS: *noop node:internal/util/debuglog:57:14
+      2    0.0%    0.0%  JS: *getcookie /home/aurims/Projects/learn-to/node_modules/express-session/index.js:537:19
+      2    0.0%    0.0%  JS: *getObserverType node:internal/perf/observe:134:25
+      2    0.0%    0.0%  JS: *digest node:internal/crypto/hash:125:40
+      2    0.0%    0.0%  JS: *<anonymous> node:_http_outgoing:673:45
+      2    0.0%    0.0%  JS: *<anonymous> node:_http_outgoing:667:44
+      2    0.0%    0.0%  Builtin: StringPrototypeSplit
+      2    0.0%    0.0%  Builtin: StringPrototypeCharCodeAt
+      2    0.0%    0.0%  Builtin: ObjectToString
+      2    0.0%    0.0%  Builtin: ObjectGetPrototypeOf
+      2    0.0%    0.0%  Builtin: LoadGlobalICTrampoline
+      2    0.0%    0.0%  Builtin: LessThan_Baseline
+      2    0.0%    0.0%  Builtin: KeyedLoadICBaseline
+      2    0.0%    0.0%  Builtin: InterpreterEntryTrampoline
+      2    0.0%    0.0%  Builtin: InstanceOf_Baseline
+      2    0.0%    0.0%  Builtin: GreaterThanOrEqual_Baseline
+      2    0.0%    0.0%  Builtin: FastNewStrictArguments
+      2    0.0%    0.0%  Builtin: Construct
+      2    0.0%    0.0%  Builtin: ArrayPrototypeShift
+      2    0.0%    0.0%  Builtin: ArrayBufferPrototypeGetByteLength
+      2    0.0%    0.0%  Builtin: AllocateInYoungGeneration
+      1    0.0%    0.0%  RegExp: ^\/logout\/?$
+      1    0.0%    0.0%  RegExp: [\s,]+
+      1    0.0%    0.0%  JS: ~onData /home/aurims/Projects/learn-to/node_modules/raw-body/index.js:254:19
+      1    0.0%    0.0%  JS: ~markAsUntransferable node:internal/buffer:1074:30
+      1    0.0%    0.0%  JS: ^writeHead node:_http_server:348:19
+      1    0.0%    0.0%  JS: ^wrap /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:219:15
+      1    0.0%    0.0%  JS: ^trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      1    0.0%    0.0%  JS: ^toString node:buffer:835:46
+      1    0.0%    0.0%  JS: ^status /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:67:29
+      1    0.0%    0.0%  JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1    0.0%    0.0%  JS: ^restore /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:631:17
+      1    0.0%    0.0%  JS: ^processTicksAndRejections node:internal/process/task_queues:72:35
+      1    0.0%    0.0%  JS: ^processPromiseRejections node:internal/process/promises:439:34
+      1    0.0%    0.0%  JS: ^parserOnHeadersComplete node:_http_common:71:33
+      1    0.0%    0.0%  JS: ^onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+      1    0.0%    0.0%  JS: ^onFinish node:_http_outgoing:1079:18
+      1    0.0%    0.0%  JS: ^onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+      1    0.0%    0.0%  JS: ^normalize node:path:1222:12
+      1    0.0%    0.0%  JS: ^needFinish node:internal/streams/writable:870:20
+      1    0.0%    0.0%  JS: ^matchKnownFields node:_http_incoming:276:26
+      1    0.0%    0.0%  JS: ^getOrSetAsyncId node:internal/async_hooks:421:25
+      1    0.0%    0.0%  JS: ^get node:internal/streams/writable:1085:8
+      1    0.0%    0.0%  JS: ^generateSocketListenerWrapper node:_http_server:1202:39
+      1    0.0%    0.0%  JS: ^emitReadable node:internal/streams/readable:819:22
+      1    0.0%    0.0%  JS: ^emitCloseNT node:_http_server:1029:21
+      1    0.0%    0.0%  JS: ^dirname node:path:1370:10
+      1    0.0%    0.0%  JS: ^digest node:internal/crypto/hash:125:40
+      1    0.0%    0.0%  JS: ^detachSocket node:_http_server:299:62
+      1    0.0%    0.0%  JS: ^connectionListenerInternal node:_http_server:666:36
+      1    0.0%    0.0%  JS: ^clearBuffer node:internal/streams/writable:744:21
+      1    0.0%    0.0%  JS: ^authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+      1    0.0%    0.0%  JS: ^attachListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:141:25
+      1    0.0%    0.0%  JS: ^afterWriteTick node:internal/streams/writable:693:24
+      1    0.0%    0.0%  JS: ^_write node:internal/streams/writable:453:16
+      1    0.0%    0.0%  JS: ^_send node:_http_outgoing:398:49
+      1    0.0%    0.0%  JS: ^_finish node:_http_server:238:52
+      1    0.0%    0.0%  JS: ^_destroy node:_http_incoming:218:55
+      1    0.0%    0.0%  JS: ^Writable.write node:internal/streams/writable:504:36
+      1    0.0%    0.0%  JS: ^Socket node:net:367:16
+      1    0.0%    0.0%  JS: ^ReadableState node:internal/streams/readable:262:23
+      1    0.0%    0.0%  JS: ^Readable.read node:internal/streams/readable:647:35
+      1    0.0%    0.0%  JS: ^Readable.on node:internal/streams/readable:1127:33
+      1    0.0%    0.0%  JS: ^Readable node:internal/streams/readable:320:18
+      1    0.0%    0.0%  JS: ^OutgoingMessage node:_http_outgoing:105:25
+      1    0.0%    0.0%  JS: ^Duplex node:internal/streams/duplex:64:16
+      1    0.0%    0.0%  JS: *shouldSetCookie /home/aurims/Projects/learn-to/node_modules/express-session/index.js:472:29
+      1    0.0%    0.0%  JS: *shouldSave /home/aurims/Projects/learn-to/node_modules/express-session/index.js:448:24
+      1    0.0%    0.0%  JS: *set node:net:2446:6
+      1    0.0%    0.0%  JS: *set maxAge /home/aurims/Projects/learn-to/node_modules/express-session/session/cookie.js:83:13
+      1    0.0%    0.0%  JS: *parseExtendedQueryString /home/aurims/Projects/learn-to/node_modules/express/lib/utils.js:288:34
+      1    0.0%    0.0%  JS: *onSocket /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:107:21
+      1    0.0%    0.0%  JS: *listener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:162:21
+      1    0.0%    0.0%  JS: *isUint8Array node:internal/util/types:13:22
+      1    0.0%    0.0%  JS: *isTraceHTTPEnabled node:internal/http:40:28
+      1    0.0%    0.0%  JS: *isEmpty node:internal/fixed_queue:96:10
+      1    0.0%    0.0%  JS: *initAsyncResource node:internal/timers:164:27
+      1    0.0%    0.0%  JS: *get node:internal/streams/writable:230:8
+      1    0.0%    0.0%  JS: *get node:internal/streams/readable:1415:8
+      1    0.0%    0.0%  JS: *get node:internal/streams/readable:132:8
+      1    0.0%    0.0%  JS: *get node:internal/streams/duplex:161:8
+      1    0.0%    0.0%  JS: *get node:_http_outgoing:247:16
+      1    0.0%    0.0%  JS: *generateSocketListenerWrapper node:_http_server:1202:39
+      1    0.0%    0.0%  JS: *generateSessionId /home/aurims/Projects/learn-to/node_modules/express-session/index.js:526:27
+      1    0.0%    0.0%  JS: *destroy node:internal/streams/destroy:49:17
+      1    0.0%    0.0%  JS: *createHash node:crypto:138:20
+      1    0.0%    0.0%  JS: *connectionListenerInternal node:_http_server:666:36
+      1    0.0%    0.0%  JS: *checkListener node:events:274:23
+      1    0.0%    0.0%  JS: *attempt /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:180:22
+      1    0.0%    0.0%  JS: *_finish node:_http_outgoing:1167:53
+      1    0.0%    0.0%  JS: *Writable.uncork node:internal/streams/writable:520:37
+      1    0.0%    0.0%  JS: *Socket.read node:net:785:33
+      1    0.0%    0.0%  JS: *Socket node:net:367:16
+      1    0.0%    0.0%  JS: *Readable.resume node:internal/streams/readable:1227:37
+      1    0.0%    0.0%  JS: *<anonymous> node:internal/validators:459:42
+      1    0.0%    0.0%  JS: *<anonymous> node:internal/validators:161:40
+      1    0.0%    0.0%  JS: *<anonymous> node:internal/per_context/primordials:383:32
+      1    0.0%    0.0%  Builtin: ToObject
+      1    0.0%    0.0%  Builtin: ToNumeric_Baseline
+      1    0.0%    0.0%  Builtin: SubtractSmi_Baseline
+      1    0.0%    0.0%  Builtin: StringConstructor
+      1    0.0%    0.0%  Builtin: StoreFastElementIC_NoTransitionGrowAndHandleCOW
+      1    0.0%    0.0%  Builtin: RecordWriteIgnoreFP
+      1    0.0%    0.0%  Builtin: ObjectCreate
+      1    0.0%    0.0%  Builtin: NonNumberToNumber
+      1    0.0%    0.0%  Builtin: NewRestArgumentsElements
+      1    0.0%    0.0%  Builtin: JsonStringify
+      1    0.0%    0.0%  Builtin: HandleApiConstruct
+      1    0.0%    0.0%  Builtin: GreaterThan_Baseline
+      1    0.0%    0.0%  Builtin: FunctionPrototypeApply
+      1    0.0%    0.0%  Builtin: FindNonDefaultConstructorOrConstruct
+      1    0.0%    0.0%  Builtin: FastNewSloppyArguments
+      1    0.0%    0.0%  Builtin: DivideSmi_Baseline
+      1    0.0%    0.0%  Builtin: Decrement_Baseline
+      1    0.0%    0.0%  Builtin: CreateEmptyArrayLiteral
+      1    0.0%    0.0%  Builtin: Construct_Baseline
+      1    0.0%    0.0%  Builtin: CloneObjectIC
+      1    0.0%    0.0%  Builtin: CallVarargs
+      1    0.0%    0.0%  Builtin: BitwiseOr_Baseline
+      1    0.0%    0.0%  Builtin: BitwiseOrSmi_Baseline
+      1    0.0%    0.0%  Builtin: BitwiseNot_Baseline
+      1    0.0%    0.0%  Builtin: BitwiseAnd_Baseline
+      1    0.0%    0.0%  Builtin: ArraySingleArgumentConstructor_Holey_DisableAllocationSites
+
+ [C++]:
+   ticks  total  nonlib   name
+    218    0.5%    0.6%  __getpid@@GLIBC_2.2.5
+    156    0.4%    0.4%  __libc_malloc@@GLIBC_2.2.5
+    103    0.3%    0.3%  cfree@GLIBC_2.2.5
+     56    0.1%    0.2%  node::async_context_frame::set(v8::Isolate*, v8::Local<v8::Value>)
+     51    0.1%    0.1%  __pthread_rwlock_unlock@GLIBC_2.2.5
+     44    0.1%    0.1%  shutdown@@GLIBC_2.2.5
+     43    0.1%    0.1%  ERR_clear_error@@OPENSSL_3.0.0
+     42    0.1%    0.1%  __munmap@@GLIBC_PRIVATE
+     41    0.1%    0.1%  node::http_parser::Parser::Proxy<int (node::http_parser::Parser::*)(char const*, unsigned long), &node::http_parser::Parser::on_header_value>::Raw(llhttp__internal_s*, char const*, unsigned long)
+     38    0.1%    0.1%  node::ParseEncoding(char const*, node::encoding)
+     37    0.1%    0.1%  syscall@@GLIBC_2.2.5
+     31    0.1%    0.1%  std::_Hashtable<node::CleanupQueue::CleanupHookCallback, node::CleanupQueue::CleanupHookCallback, std::allocator<node::CleanupQueue::CleanupHookCallback>, std::__detail::_Identity, node::CleanupQueue::CleanupHookCallback::Equal, node::CleanupQueue::CleanupHookCallback::Hash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_find_before_node(unsigned long, node::CleanupQueue::CleanupHookCallback const&, unsigned long) const
+     27    0.1%    0.1%  fputc@@GLIBC_2.2.5
+     26    0.1%    0.1%  node::StringBytes::StorageSize(v8::Isolate*, v8::Local<v8::Value>, node::encoding)
+     26    0.1%    0.1%  node::StreamBase::Writev(v8::FunctionCallbackInfo<v8::Value> const&)
+     25    0.1%    0.1%  node::http_parser::Parser::Proxy<int (node::http_parser::Parser::*)(), &node::http_parser::Parser::on_message_begin>::Raw(llhttp__internal_s*)
+     24    0.1%    0.1%  void node::StreamBase::JSMethod<&node::StreamBase::Writev>(v8::FunctionCallbackInfo<v8::Value> const&)
+     24    0.1%    0.1%  node::InternalCallbackScope::Close()
+     24    0.1%    0.1%  node::BaseObject::~BaseObject()
+     22    0.1%    0.1%  node::http_parser::Parser::OnStreamRead(long, uv_buf_t const&)
+     22    0.1%    0.1%  __pthread_rwlock_rdlock@GLIBC_2.2.5
+     21    0.1%    0.1%  node::ParseEncoding(v8::Isolate*, v8::Local<v8::Value>, node::encoding)
+     20    0.0%    0.1%  node::LibuvStreamWrap::OnUvAlloc(unsigned long, uv_buf_t*)
+     20    0.0%    0.1%  __pthread_rwlock_trywrlock@GLIBC_2.2.5
+     20    0.0%    0.1%  SHA1_Final@@OPENSSL_3.0.0
+     18    0.0%    0.0%  std::_Rb_tree_insert_and_rebalance(bool, std::_Rb_tree_node_base*, std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)
+     17    0.0%    0.0%  uv_try_write2
+     16    0.0%    0.0%  node::http_parser::Parser::on_headers_complete()
+     15    0.0%    0.0%  node::Realm::context() const
+     14    0.0%    0.0%  std::_Rb_tree_rebalance_for_erase(std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)
+     14    0.0%    0.0%  node::StringBytes::Encode(v8::Isolate*, char const*, unsigned long, node::encoding, v8::Local<v8::Value>*)
+     14    0.0%    0.0%  node::AsyncHooks::pop_async_context(double)
+     14    0.0%    0.0%  __pthread_rwlock_wrlock@GLIBC_2.2.5
+     14    0.0%    0.0%  EVP_MD_free@@OPENSSL_3.0.0
+     13    0.0%    0.0%  operator new(unsigned long)
+     13    0.0%    0.0%  node::AsyncWrap::EmitTraceEventAfter(node::AsyncWrap::ProviderType, double)
+     13    0.0%    0.0%  EVP_RAND_CTX_get_params@@OPENSSL_3.0.0
+     12    0.0%    0.0%  EVP_MD_CTX_gettable_params@@OPENSSL_3.0.0
+     11    0.0%    0.0%  pthread_cond_signal@@GLIBC_2.3.2
+     11    0.0%    0.0%  node::http_parser::Parser::Execute(char const*, unsigned long)
+     11    0.0%    0.0%  node::StringBytes::Write(v8::Isolate*, char*, unsigned long, v8::Local<v8::Value>, node::encoding)
+     11    0.0%    0.0%  OPENSSL_init_crypto@@OPENSSL_3.0.0
+     10    0.0%    0.0%  node::errors::TryCatchScope::~TryCatchScope()
+     10    0.0%    0.0%  node::NodeArrayBufferAllocator::Allocate(unsigned long)
+     10    0.0%    0.0%  fwrite@@GLIBC_2.2.5
+     10    0.0%    0.0%  __pthread_mutex_lock@GLIBC_2.2.5
+     10    0.0%    0.0%  OSSL_PARAM_locate@@OPENSSL_3.0.0
+     10    0.0%    0.0%  CRYPTO_free@@OPENSSL_3.0.0
+      9    0.0%    0.0%  std::_Rb_tree_increment(std::_Rb_tree_node_base*)
+      9    0.0%    0.0%  node::IsConstructCallCallback(v8::FunctionCallbackInfo<v8::Value> const&)
+      9    0.0%    0.0%  node::InternalCallbackScope::InternalCallbackScope(node::Environment*, v8::Local<v8::Object>, node::async_context const&, int, v8::Local<v8::Value>)
+      8    0.0%    0.0%  writev@@GLIBC_2.2.5
+      8    0.0%    0.0%  node::timers::BindingData::SlowGetLibuvNow(v8::FunctionCallbackInfo<v8::Value> const&)
+      8    0.0%    0.0%  node::http_parser::Parser::Proxy<int (node::http_parser::Parser::*)(char const*, unsigned long), &node::http_parser::Parser::on_header_field>::Raw(llhttp__internal_s*, char const*, unsigned long)
+      8    0.0%    0.0%  node::http_parser::Parser::Proxy<int (node::http_parser::Parser::*)(), &node::http_parser::Parser::on_headers_complete>::Raw(llhttp__internal_s*)
+      8    0.0%    0.0%  node::http_parser::Parser::CreateHeaders()
+      8    0.0%    0.0%  node::StreamBase::Write(uv_buf_t*, unsigned long, uv_stream_s*, v8::Local<v8::Object>, bool)
+      8    0.0%    0.0%  node::InternalCallbackScope::InternalCallbackScope(node::AsyncWrap*, int)
+      8    0.0%    0.0%  node::AsyncWrap::EmitTraceEventBefore()
+      8    0.0%    0.0%  node::AsyncHooks::DefaultTriggerAsyncIdScope::DefaultTriggerAsyncIdScope(node::AsyncWrap*)
+      8    0.0%    0.0%  OPENSSL_cleanse@@OPENSSL_3.0.0
+      8    0.0%    0.0%  EVP_RAND_generate@@OPENSSL_3.0.0
+      8    0.0%    0.0%  CRYPTO_ctr128_encrypt_ctr32@@OPENSSL_3.0.0
+      7    0.0%    0.0%  operator delete(void*, unsigned long)
+      7    0.0%    0.0%  node::Environment::GetNowUint64()
+      7    0.0%    0.0%  __pthread_once@GLIBC_2.2.5
+      7    0.0%    0.0%  __pthread_getspecific@GLIBC_2.2.5
+      7    0.0%    0.0%  EVP_DigestFinal_ex@@OPENSSL_3.0.0
+      6    0.0%    0.0%  std::vector<v8::internal::LocalUnchecked<v8::Object>, std::allocator<v8::internal::LocalUnchecked<v8::Object> > >::resize(unsigned long)
+      6    0.0%    0.0%  setsockopt@@GLIBC_2.2.5
+      6    0.0%    0.0%  __lll_lock_wake_private@@GLIBC_PRIVATE
+      6    0.0%    0.0%  EVP_RAND_get_state@@OPENSSL_3.0.0
+      6    0.0%    0.0%  CRYPTO_THREAD_run_once@@OPENSSL_3.0.0
+      5    0.0%    0.0%  node::PrincipalRealm::async_hooks_after_function() const
+      5    0.0%    0.0%  node::AsyncWrap::MakeCallback(v8::Local<v8::Function>, int, v8::Local<v8::Value>*)
+      5    0.0%    0.0%  node::AsyncHooks::push_async_context(double, double, v8::Local<v8::Object>)
+      5    0.0%    0.0%  epoll_ctl@@GLIBC_2.3.2
+      5    0.0%    0.0%  __madvise@@GLIBC_PRIVATE
+      5    0.0%    0.0%  __clock_gettime@@GLIBC_PRIVATE
+      5    0.0%    0.0%  SHA1_Update@@OPENSSL_3.0.0
+      5    0.0%    0.0%  RAND_status@@OPENSSL_3.0.0
+      5    0.0%    0.0%  EVP_MD_CTX_test_flags@@OPENSSL_3.0.0
+      4    0.0%    0.0%  uv_try_write
+      4    0.0%    0.0%  uv_now
+      4    0.0%    0.0%  operator new[](unsigned long)
+      4    0.0%    0.0%  non-virtual thunk to node::LibuvStreamWrap::IsAlive()
+      4    0.0%    0.0%  node::http_parser::Parser::Proxy<int (node::http_parser::Parser::*)(), &node::http_parser::Parser::on_message_complete>::Raw(llhttp__internal_s*)
+      4    0.0%    0.0%  node::PrincipalRealm::process_object() const
+      4    0.0%    0.0%  node::AsyncWrap::IsDoneInitializing() const
+      4    0.0%    0.0%  __mprotect@@GLIBC_PRIVATE
+      4    0.0%    0.0%  __errno_location@@GLIBC_2.2.5
+      4    0.0%    0.0%  EVP_MD_CTX_reset@@OPENSSL_3.0.0
+      4    0.0%    0.0%  EVP_EncryptUpdate@@OPENSSL_3.0.0
+      4    0.0%    0.0%  CRYPTO_clear_free@@OPENSSL_3.0.0
+      3    0.0%    0.0%  std::ostream::put(char)
+      3    0.0%    0.0%  operator delete(void*)
+      3    0.0%    0.0%  node::PrincipalRealm::async_hooks_before_function() const
+      3    0.0%    0.0%  node::MaybeStackBuffer<char, 1024ul>::AllocateSufficientStorage(unsigned long)
+      3    0.0%    0.0%  node::LibuvStreamWrap::OnUvRead(long, uv_buf_t const*)
+      3    0.0%    0.0%  node::InternalMakeCallback(node::Environment*, v8::Local<v8::Object>, v8::Local<v8::Object>, v8::Local<v8::Function>, int, v8::Local<v8::Value>*, node::async_context, v8::Local<v8::Value>)
+      3    0.0%    0.0%  node::Environment::PrintSyncTrace() const
+      3    0.0%    0.0%  node::Buffer::HasInstance(v8::Local<v8::Value>)
+      3    0.0%    0.0%  node::BaseObject::pointer_data()
+      3    0.0%    0.0%  node::AsyncWrap::EmitAfter(node::Environment*, double)
+      3    0.0%    0.0%  isprint@@GLIBC_2.2.5
+      3    0.0%    0.0%  __popcountdi2
+      3    0.0%    0.0%  __mmap@@GLIBC_PRIVATE
+      3    0.0%    0.0%  RAND_bytes_ex@@OPENSSL_3.0.0
+      3    0.0%    0.0%  OSSL_PARAM_set_uint32@@OPENSSL_3.0.0
+      3    0.0%    0.0%  OSSL_PARAM_set_int32@@OPENSSL_3.0.0
+      3    0.0%    0.0%  EVP_MD_get_size@@OPENSSL_3.0.0
+      3    0.0%    0.0%  EVP_DigestUpdate@@OPENSSL_3.0.0
+      3    0.0%    0.0%  ENGINE_finish@@OPENSSL_3.0.0
+      3    0.0%    0.0%  CRYPTO_THREAD_read_lock@@OPENSSL_3.0.0
+      2    0.0%    0.0%  uv_update_time
+      2    0.0%    0.0%  uv_run
+      2    0.0%    0.0%  uv_hrtime
+      2    0.0%    0.0%  std::ostream::sentry::sentry(std::ostream&)
+      2    0.0%    0.0%  std::_Rb_tree_decrement(std::_Rb_tree_node_base*)
+      2    0.0%    0.0%  non-virtual thunk to node::http_parser::Parser::OnStreamAlloc(unsigned long)
+      2    0.0%    0.0%  non-virtual thunk to node::LibuvStreamWrap::HasDoTryWrite() const
+      2    0.0%    0.0%  node::loader::ModuleWrap::New(v8::FunctionCallbackInfo<v8::Value> const&)
+      2    0.0%    0.0%  node::http_parser::Parser::on_message_complete()
+      2    0.0%    0.0%  node::LibuvStreamWrap::DoTryWrite(uv_buf_t**, unsigned long*)
+      2    0.0%    0.0%  node::InternalCallbackScope::~InternalCallbackScope()
+      2    0.0%    0.0%  node::Environment::RunWeakRefCleanup()
+      2    0.0%    0.0%  node::Emit(node::Environment*, double, node::AsyncHooks::Fields, v8::Local<v8::Function>)
+      2    0.0%    0.0%  node::CleanupQueue::CleanupHookCallback::Equal::operator()(node::CleanupQueue::CleanupHookCallback const&, node::CleanupQueue::CleanupHookCallback const&) const
+      2    0.0%    0.0%  node::AsyncHooks::DefaultTriggerAsyncIdScope::~DefaultTriggerAsyncIdScope()
+      2    0.0%    0.0%  __pthread_mutex_destroy@GLIBC_2.2.5
+      2    0.0%    0.0%  __lll_lock_wait_private@@GLIBC_PRIVATE
+      2    0.0%    0.0%  RAND_get_rand_method@@OPENSSL_3.0.0
+      2    0.0%    0.0%  RAND_get0_primary@@OPENSSL_3.0.0
+      2    0.0%    0.0%  EVP_MD_CTX_get_size_ex@@OPENSSL_3.4.0
+      2    0.0%    0.0%  EVP_MD_CTX_free@@OPENSSL_3.0.0
+      2    0.0%    0.0%  CRYPTO_THREAD_get_local@@OPENSSL_3.0.0
+      1    0.0%    0.0%  uv_read_start
+      1    0.0%    0.0%  uv_mutex_lock
+      1    0.0%    0.0%  uv_fs_open
+      1    0.0%    0.0%  tcgetattr@@GLIBC_2.2.5
+      1    0.0%    0.0%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<unsigned long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, unsigned long) const
+      1    0.0%    0.0%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    0.0%    0.0%  std::ostream& std::ostream::_M_insert<long>(long)
+      1    0.0%    0.0%  std::__use_cache<std::__numpunct_cache<char> >::operator()(std::locale const&) const [clone .isra.0]
+      1    0.0%    0.0%  std::_Hash_bytes(void const*, unsigned long, unsigned long)
+      1    0.0%    0.0%  pthread_cond_broadcast@@GLIBC_2.3.2
+      1    0.0%    0.0%  posix_memalign@@GLIBC_2.2.5
+      1    0.0%    0.0%  non-virtual thunk to node::LibuvStreamWrap::GetAsyncWrap()
+      1    0.0%    0.0%  node::http_parser::Parser::Proxy<int (node::http_parser::Parser::*)(char const*, unsigned long), &node::http_parser::Parser::on_url>::Raw(llhttp__internal_s*, char const*, unsigned long)
+      1    0.0%    0.0%  node::http_parser::Parser::OnStreamAlloc(unsigned long)
+      1    0.0%    0.0%  node::http_parser::Parser::Initialize(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.0%    0.0%  node::async_context_frame::exchange(v8::Isolate*, v8::Local<v8::Value>)
+      1    0.0%    0.0%  node::StreamReq::Dispose()
+      1    0.0%    0.0%  node::StreamBase::CallJSOnreadMethod(long, v8::Local<v8::ArrayBuffer>, unsigned long, node::StreamBase::StreamBaseJSChecks)
+      1    0.0%    0.0%  node::PrincipalRealm::tick_callback_function() const
+      1    0.0%    0.0%  node::PerIsolatePlatformData::PostTask(std::unique_ptr<v8::Task, std::default_delete<v8::Task> >)
+      1    0.0%    0.0%  node::NodeArrayBufferAllocator::Free(void*, unsigned long)
+      1    0.0%    0.0%  node::NodeArrayBufferAllocator::AllocateUninitialized(unsigned long)
+      1    0.0%    0.0%  node::AsyncWrap::EmitTraceEventDestroy()
+      1    0.0%    0.0%  node::AsyncWrap::EmitDestroy(node::Environment*, double)
+      1    0.0%    0.0%  node::AsyncWrap::EmitDestroy(bool)
+      1    0.0%    0.0%  node::AsyncWrap::EmitBefore(node::Environment*, double)
+      1    0.0%    0.0%  malloc_usable_size@@GLIBC_2.2.5
+      1    0.0%    0.0%  __pthread_mutex_init@GLIBC_2.2.5
+      1    0.0%    0.0%  RAND_OpenSSL@@OPENSSL_3.0.0
+      1    0.0%    0.0%  OSSL_PARAM_set_size_t@@OPENSSL_3.0.0
+      1    0.0%    0.0%  OSSL_PARAM_set_int@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CipherUpdate@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CipherInit_ex@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CIPHER_CTX_get_key_length@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CIPHER_CTX_get_iv_length@@OPENSSL_3.0.0
+      1    0.0%    0.0%  CRYPTO_malloc@@OPENSSL_3.0.0
+
+ [Summary]:
+   ticks  total  nonlib   name
+   7144   17.6%   19.7%  JavaScript
+   1873    4.6%    5.2%  C++
+   3398    8.4%    9.4%  GC
+   4322   10.6%          Shared libraries
+  27280   67.2%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+   1873   66.8%    4.6%  void node::StreamBase::JSMethod<&node::StreamBase::Writev>(v8::FunctionCallbackInfo<v8::Value> const&)
+    216    7.7%    0.5%  __getpid@@GLIBC_2.2.5
+    120    4.3%    0.3%  __libc_malloc@@GLIBC_2.2.5
+     43    1.5%    0.1%  ERR_clear_error@@OPENSSL_3.0.0
+     37    1.3%    0.1%  cfree@GLIBC_2.2.5
+     37    1.3%    0.1%  __pthread_rwlock_unlock@GLIBC_2.2.5
+     32    1.1%    0.1%  node::ParseEncoding(char const*, node::encoding)
+     30    1.1%    0.1%  node::timers::BindingData::SlowGetLibuvNow(v8::FunctionCallbackInfo<v8::Value> const&)
+     24    0.9%    0.1%  fputc@@GLIBC_2.2.5
+     22    0.8%    0.1%  __pthread_rwlock_rdlock@GLIBC_2.2.5
+     21    0.7%    0.1%  node::StringBytes::StorageSize(v8::Isolate*, v8::Local<v8::Value>, node::encoding)
+     20    0.7%    0.0%  __pthread_rwlock_trywrlock@GLIBC_2.2.5
+     20    0.7%    0.0%  SHA1_Final@@OPENSSL_3.0.0
+     19    0.7%    0.0%  syscall@@GLIBC_2.2.5
+     15    0.5%    0.0%  node::ParseEncoding(v8::Isolate*, v8::Local<v8::Value>, node::encoding)
+     14    0.5%    0.0%  node::StringBytes::Encode(v8::Isolate*, char const*, unsigned long, node::encoding, v8::Local<v8::Value>*)
+     13    0.5%    0.0%  EVP_RAND_CTX_get_params@@OPENSSL_3.0.0
+     12    0.4%    0.0%  EVP_MD_CTX_gettable_params@@OPENSSL_3.0.0
+     11    0.4%    0.0%  OPENSSL_init_crypto@@OPENSSL_3.0.0
+     10    0.4%    0.0%  node::StringBytes::Write(v8::Isolate*, char*, unsigned long, v8::Local<v8::Value>, node::encoding)
+     10    0.4%    0.0%  OSSL_PARAM_locate@@OPENSSL_3.0.0
+      9    0.3%    0.0%  node::IsConstructCallCallback(v8::FunctionCallbackInfo<v8::Value> const&)
+      9    0.3%    0.0%  CRYPTO_free@@OPENSSL_3.0.0
+      8    0.3%    0.0%  fwrite@@GLIBC_2.2.5
+      8    0.3%    0.0%  EVP_RAND_generate@@OPENSSL_3.0.0
+      8    0.3%    0.0%  CRYPTO_ctr128_encrypt_ctr32@@OPENSSL_3.0.0
+      7    0.2%    0.0%  __pthread_once@GLIBC_2.2.5
+      7    0.2%    0.0%  __pthread_getspecific@GLIBC_2.2.5
+      7    0.2%    0.0%  EVP_DigestFinal_ex@@OPENSSL_3.0.0
+      6    0.2%    0.0%  node::Realm::context() const
+      6    0.2%    0.0%  EVP_RAND_get_state@@OPENSSL_3.0.0
+      6    0.2%    0.0%  CRYPTO_THREAD_run_once@@OPENSSL_3.0.0
+      5    0.2%    0.0%  setsockopt@@GLIBC_2.2.5
+      5    0.2%    0.0%  operator new(unsigned long)
+      5    0.2%    0.0%  SHA1_Update@@OPENSSL_3.0.0
+      5    0.2%    0.0%  RAND_status@@OPENSSL_3.0.0
+      4    0.1%    0.0%  node::HandleWrap::Close(v8::FunctionCallbackInfo<v8::Value> const&)
+      4    0.1%    0.0%  __errno_location@@GLIBC_2.2.5
+      4    0.1%    0.0%  OPENSSL_cleanse@@OPENSSL_3.0.0
+      4    0.1%    0.0%  EVP_EncryptUpdate@@OPENSSL_3.0.0
+      3    0.1%    0.0%  std::ostream::put(char)
+      3    0.1%    0.0%  operator delete(void*, unsigned long)
+      3    0.1%    0.0%  node::Environment::PrintSyncTrace() const
+      3    0.1%    0.0%  isprint@@GLIBC_2.2.5
+      3    0.1%    0.0%  epoll_ctl@@GLIBC_2.3.2
+      3    0.1%    0.0%  __madvise@@GLIBC_PRIVATE
+      3    0.1%    0.0%  RAND_bytes_ex@@OPENSSL_3.0.0
+      3    0.1%    0.0%  OSSL_PARAM_set_uint32@@OPENSSL_3.0.0
+      3    0.1%    0.0%  OSSL_PARAM_set_int32@@OPENSSL_3.0.0
+      3    0.1%    0.0%  EVP_MD_get_size@@OPENSSL_3.0.0
+      3    0.1%    0.0%  EVP_DigestUpdate@@OPENSSL_3.0.0
+      3    0.1%    0.0%  CRYPTO_THREAD_read_lock@@OPENSSL_3.0.0
+      2    0.1%    0.0%  void node::StreamBase::JSMethod<&node::StreamBase::ReadStartJS>(v8::FunctionCallbackInfo<v8::Value> const&)
+      2    0.1%    0.0%  std::ostream::sentry::sentry(std::ostream&)
+      2    0.1%    0.0%  node::loader::ModuleWrap::New(v8::FunctionCallbackInfo<v8::Value> const&)
+      2    0.1%    0.0%  node::StreamBase::Writev(v8::FunctionCallbackInfo<v8::Value> const&)
+      2    0.1%    0.0%  node::MaybeStackBuffer<char, 1024ul>::AllocateSufficientStorage(unsigned long)
+      2    0.1%    0.0%  RAND_get_rand_method@@OPENSSL_3.0.0
+      2    0.1%    0.0%  RAND_get0_primary@@OPENSSL_3.0.0
+      2    0.1%    0.0%  EVP_MD_CTX_get_size_ex@@OPENSSL_3.4.0
+      2    0.1%    0.0%  CRYPTO_clear_free@@OPENSSL_3.0.0
+      2    0.1%    0.0%  CRYPTO_THREAD_get_local@@OPENSSL_3.0.0
+      1    0.0%    0.0%  uv_read_start
+      1    0.0%    0.0%  uv_hrtime
+      1    0.0%    0.0%  uv_fs_open
+      1    0.0%    0.0%  tcgetattr@@GLIBC_2.2.5
+      1    0.0%    0.0%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<unsigned long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, unsigned long) const
+      1    0.0%    0.0%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    0.0%    0.0%  std::ostream& std::ostream::_M_insert<long>(long)
+      1    0.0%    0.0%  std::__use_cache<std::__numpunct_cache<char> >::operator()(std::locale const&) const [clone .isra.0]
+      1    0.0%    0.0%  std::_Rb_tree_insert_and_rebalance(bool, std::_Rb_tree_node_base*, std::_Rb_tree_node_base*, std::_Rb_tree_node_base&)
+      1    0.0%    0.0%  std::_Hash_bytes(void const*, unsigned long, unsigned long)
+      1    0.0%    0.0%  pthread_cond_signal@@GLIBC_2.3.2
+      1    0.0%    0.0%  posix_memalign@@GLIBC_2.2.5
+      1    0.0%    0.0%  operator delete(void*)
+      1    0.0%    0.0%  node::http_parser::Parser::Initialize(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.0%    0.0%  node::TCPWrap::SetNoDelay(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.0%    0.0%  node::NodeArrayBufferAllocator::AllocateUninitialized(unsigned long)
+      1    0.0%    0.0%  node::NodeArrayBufferAllocator::Allocate(unsigned long)
+      1    0.0%    0.0%  node::Buffer::HasInstance(v8::Local<v8::Value>)
+      1    0.0%    0.0%  node::AsyncWrap::IsDoneInitializing() const
+      1    0.0%    0.0%  malloc_usable_size@@GLIBC_2.2.5
+      1    0.0%    0.0%  __pthread_mutex_lock@GLIBC_2.2.5
+      1    0.0%    0.0%  __lll_lock_wake_private@@GLIBC_PRIVATE
+      1    0.0%    0.0%  RAND_OpenSSL@@OPENSSL_3.0.0
+      1    0.0%    0.0%  OSSL_PARAM_set_size_t@@OPENSSL_3.0.0
+      1    0.0%    0.0%  OSSL_PARAM_set_int@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CipherUpdate@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CipherInit_ex@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CIPHER_CTX_get_key_length@@OPENSSL_3.0.0
+      1    0.0%    0.0%  EVP_CIPHER_CTX_get_iv_length@@OPENSSL_3.0.0
+      1    0.0%    0.0%  CRYPTO_malloc@@OPENSSL_3.0.0
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+  27280   67.2%  UNKNOWN
+   3703   13.6%    JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+   2353   63.5%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+   2353  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+   2352  100.0%          JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+   2352  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+   1350   36.5%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+   1350  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+   1350  100.0%          JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+   1350  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+   3080   11.3%    JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+   1993   64.7%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+   1993  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+   1856   93.1%          JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+   1856  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    137    6.9%          JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    137  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+   1087   35.3%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+   1087  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+   1063   97.8%          JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+   1063  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     24    2.2%          JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     24  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    969    3.6%    JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    968   99.9%      JS: *runInAsyncScope node:async_hooks:207:18
+    965   99.7%        JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+    965  100.0%          JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+    965  100.0%            JS: *endReadableNT node:internal/streams/readable:1692:23
+    888    3.3%    JS: *hash /home/aurims/Projects/learn-to/node_modules/express-session/index.js:604:14
+    395   44.5%      JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+    244   61.8%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    244  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    226   92.6%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     18    7.4%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    151   38.2%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    151  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    147   97.4%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      4    2.6%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    200   22.5%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express-session/index.js:224:28
+    200  100.0%        JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+    200  100.0%          JS: *write_ node:_http_outgoing:942:16
+    200  100.0%            JS: *end node:_http_outgoing:1084:45
+    118   13.3%      JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    118  100.0%        JS: *runInAsyncScope node:async_hooks:207:18
+    117   99.2%          JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+    117  100.0%            JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+    107   12.0%      JS: *isModified /home/aurims/Projects/learn-to/node_modules/express-session/index.js:433:24
+     92   86.0%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     92  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+     92  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     10    9.3%        JS: ^shouldSetCookie /home/aurims/Projects/learn-to/node_modules/express-session/index.js:472:29
+     10  100.0%          JS: ^<anonymous> /home/aurims/Projects/learn-to/node_modules/express-session/index.js:224:28
+      7   70.0%            JS: ^writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+      3   30.0%            JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+      5    4.7%        JS: ^shouldSave /home/aurims/Projects/learn-to/node_modules/express-session/index.js:448:24
+      5  100.0%          JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      5  100.0%            JS: ^write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     49    5.5%      JS: *shouldSave /home/aurims/Projects/learn-to/node_modules/express-session/index.js:448:24
+     49  100.0%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     49  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+     49  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     13    1.5%      JS: *shouldSetCookie /home/aurims/Projects/learn-to/node_modules/express-session/index.js:472:29
+     13  100.0%        JS: ^<anonymous> /home/aurims/Projects/learn-to/node_modules/express-session/index.js:224:28
+     12   92.3%          JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     12  100.0%            JS: *write_ node:_http_outgoing:942:16
+      1    7.7%          JS: ^writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+      1  100.0%            JS: *write_ node:_http_outgoing:942:16
+    816    3.0%    JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    304   37.3%      JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+    285   93.8%        JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+    261   91.6%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    261  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     24    8.4%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     24  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     19    6.3%        JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     18   94.7%          JS: *parserOnIncoming node:_http_server:1040:26
+     18  100.0%            JS: *parserOnHeadersComplete node:_http_common:71:33
+      1    5.3%          JS: *emit node:events:465:44
+      1  100.0%            JS: ^parserOnIncoming node:_http_server:1040:26
+    163   20.0%      JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+    115   70.6%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    115  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    114   99.1%            JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     48   29.4%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     48  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     48  100.0%            JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+    160   19.6%      JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+    109   68.1%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    109  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     98   89.9%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     11   10.1%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     51   31.9%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     51  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     49   96.1%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      2    3.9%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    145   17.8%      JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     84   57.9%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     84  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     84  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     61   42.1%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     61  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     61  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     12    1.5%      JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      8   66.7%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      8  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      4   33.3%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      4  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      4  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+     10    1.2%      JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      7   70.0%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      7  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      5   71.4%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      2   28.6%            JS: ^expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      3   30.0%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+    800    2.9%    JS: *store.generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:158:28
+    800  100.0%      JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+    506   63.2%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    506  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    476   94.1%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     30    5.9%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    294   36.8%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    294  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    284   96.6%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     10    3.4%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    768    2.8%    JS: *Readable.on node:internal/streams/readable:1127:33
+    462   60.2%      JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+    462  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+    462  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+    462  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    191   24.9%      JS: *resOnFinish node:_http_server:980:21
+    191  100.0%        JS: *onFinish node:_http_outgoing:1079:18
+    191  100.0%          JS: *callback node:internal/streams/writable:764:63
+    191  100.0%            JS: *afterWriteTick node:internal/streams/writable:693:24
+    104   13.5%      JS: *first /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:24:15
+     89   85.6%        JS: *onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+     89  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+     89  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     15   14.4%        JS: ^attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+     10   66.7%          JS: ^attachListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:141:25
+     10  100.0%            JS: ^onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+      5   33.3%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      5  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+    666    2.4%    JS: *_storeHeader node:_http_outgoing:454:22
+    662   99.4%      JS: *writeHead node:_http_server:348:19
+    648   97.9%        JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+    648  100.0%          JS: *write_ node:_http_outgoing:942:16
+    648  100.0%            JS: *end node:_http_outgoing:1084:45
+     14    2.1%        JS: ^writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     11   78.6%          JS: *write_ node:_http_outgoing:942:16
+      9   81.8%            JS: ^end node:_http_outgoing:1084:45
+      2   18.2%            JS: *end node:_http_outgoing:1084:45
+      3   21.4%          JS: ^_implicitHeader node:_http_server:343:68
+      3  100.0%            JS: ^write_ node:_http_outgoing:942:16
+    655    2.4%    JS: *resOnFinish node:_http_server:980:21
+    650   99.2%      JS: *onFinish node:_http_outgoing:1079:18
+    650  100.0%        JS: *callback node:internal/streams/writable:764:63
+    650  100.0%          JS: *afterWriteTick node:internal/streams/writable:693:24
+    650  100.0%            JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+    635    2.3%    JS: *end node:_http_outgoing:1084:45
+    372   58.6%      JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    372  100.0%        JS: *runInAsyncScope node:async_hooks:207:18
+    372  100.0%          JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+    372  100.0%            JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+    176   27.7%      JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+    176  100.0%        JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     89   50.6%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+     89  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     78   44.3%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+     78  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      8    4.5%          JS: ~isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      8  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     87   13.7%      JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     86   98.9%        JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     86  100.0%          JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     86  100.0%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      1    1.1%        JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1  100.0%          JS: ^json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      1  100.0%            JS: ~isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+    592    2.2%    JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+    365   61.7%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    365  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    361   98.9%          JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+    361  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      4    1.1%          JS: ^query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      4  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    227   38.3%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    227  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    227  100.0%          JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+    227  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    548    2.0%    JS: *write_ node:_http_outgoing:942:16
+    537   98.0%      JS: *end node:_http_outgoing:1084:45
+    382   71.1%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    382  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+    382  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+    103   19.2%        JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+    103  100.0%          JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     51   49.5%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+     50   48.5%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+     52    9.7%        JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     50   96.2%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     50  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      2    3.8%          JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      2  100.0%            JS: ^json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     11    2.0%      JS: ^end node:_http_outgoing:1084:45
+     10   90.9%        JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      8   80.0%          JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      6   75.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      2   25.0%            JS: ^json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      2   20.0%          JS: ^write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      2  100.0%            JS: ^runInAsyncScope node:async_hooks:207:18
+      1    9.1%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      1  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      1  100.0%            JS: *listener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:162:21
+    542    2.0%    JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+    339   62.5%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    339  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    339  100.0%          JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+    339  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    203   37.5%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    203  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    203  100.0%          JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+    203  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    538    2.0%    JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+    538  100.0%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+    538  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    538  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+    538  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    461    1.7%    JS: *endReadable node:internal/streams/readable:1682:21
+    461  100.0%      JS: *Readable.read node:internal/streams/readable:647:35
+    332   72.0%        JS: *resume_ node:internal/streams/readable:1254:17
+    332  100.0%          JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+    121   26.2%        JS: *emitReadable_ node:internal/streams/readable:830:23
+    121  100.0%          JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+      5    1.1%        JS: ^Socket.read node:net:785:33
+      3   60.0%          JS: *emitReadable_ node:internal/streams/readable:830:23
+      3  100.0%            JS: *Readable.push node:internal/streams/readable:387:35
+      2   40.0%          JS: ^onStreamRead node:internal/stream_base_commons:166:22
+    457    1.7%    JS: *endReadableNT node:internal/streams/readable:1692:23
+    457  100.0%      JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+    444    1.6%    JS: *nextTick node:internal/process/task_queues:113:18
+    122   27.5%      JS: *resOnFinish node:_http_server:980:21
+    119   97.5%        JS: *onFinish node:_http_outgoing:1079:18
+    119  100.0%          JS: *callback node:internal/streams/writable:764:63
+    119  100.0%            JS: *afterWriteTick node:internal/streams/writable:693:24
+      3    2.5%        JS: *emit node:events:465:44
+      3  100.0%          JS: ^onFinish node:_http_outgoing:1079:18
+      3  100.0%            JS: *callback node:internal/streams/writable:764:63
+    119   26.8%      JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+    119   26.8%      JS: *Readable.push node:internal/streams/readable:387:35
+    116   97.5%        JS: *parserOnMessageComplete node:_http_common:135:33
+      3    2.5%        JS: ^parserOnMessageComplete node:_http_common:135:33
+     36    8.1%      JS: *Readable.resume node:internal/streams/readable:1227:37
+     33   91.7%        JS: *resOnFinish node:_http_server:980:21
+     33  100.0%          JS: *onFinish node:_http_outgoing:1079:18
+     33  100.0%            JS: *callback node:internal/streams/writable:764:63
+      2    5.6%        JS: ^_dump node:_http_incoming:429:49
+      2  100.0%          JS: ^resOnFinish node:_http_server:980:21
+      1   50.0%            JS: *onFinish node:_http_outgoing:1079:18
+      1   50.0%            JS: *emit node:events:465:44
+      1    2.8%        JS: ^send /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:274:15
+      1  100.0%          JS: ^<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      1  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     21    4.7%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+     21  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     21  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     21  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     14    3.2%      JS: *_dump node:_http_incoming:429:49
+     14  100.0%        JS: *resOnFinish node:_http_server:980:21
+     14  100.0%          JS: *onFinish node:_http_outgoing:1079:18
+     14  100.0%            JS: *callback node:internal/streams/writable:764:63
+    443    1.6%    JS: *writeHead node:_http_server:348:19
+    439   99.1%      JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+    439  100.0%        JS: *write_ node:_http_outgoing:942:16
+    438   99.8%          JS: *end node:_http_outgoing:1084:45
+    216   49.3%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+    113   25.8%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    109   24.9%            JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+    335    1.2%    JS: *randomBytes node:internal/crypto/random:97:21
+    322   96.1%      JS: *store.generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:158:28
+    322  100.0%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+    208   64.6%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    208  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    114   35.4%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+    114  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     12    3.6%      JS: *generateSessionId /home/aurims/Projects/learn-to/node_modules/express-session/index.js:526:27
+     12  100.0%        JS: ^store.generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:158:28
+      9   75.0%          JS: ^generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:371:22
+      9  100.0%            JS: ^session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      3   25.0%          JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      3  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    305    1.1%    void node::StreamBase::JSMethod<&node::StreamBase::Writev>(v8::FunctionCallbackInfo<v8::Value> const&)
+    207   67.9%      JS: *writevGeneric node:internal/stream_base_commons:121:23
+    206   99.5%        JS: *clearBuffer node:internal/streams/writable:744:21
+    202   98.1%          JS: *end node:_http_outgoing:1084:45
+    123   60.9%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     42   20.8%            JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     37   18.3%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      4    1.9%          JS: *Writable.uncork node:internal/streams/writable:520:37
+      4  100.0%            JS: ^end node:_http_outgoing:1084:45
+     98   32.1%      JS: *doWrite node:internal/streams/writable:587:17
+     96   98.0%        JS: *clearBuffer node:internal/streams/writable:744:21
+     96  100.0%          JS: *end node:_http_outgoing:1084:45
+     59   61.5%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     36   37.5%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1    1.0%            JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      2    2.0%        JS: ^clearBuffer node:internal/streams/writable:744:21
+      2  100.0%          JS: *Writable.uncork node:internal/streams/writable:520:37
+      2  100.0%            JS: ^end node:_http_outgoing:1084:45
+    284    1.0%    JS: *_destroy node:_http_incoming:218:55
+    284  100.0%      JS: *endReadableNT node:internal/streams/readable:1692:23
+    284  100.0%        JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+    283    1.0%    JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+    217   76.7%      JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+    143   65.9%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+    143  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+    143  100.0%            JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+     74   34.1%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     74  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     73   98.6%            JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+      1    1.4%            JS: ^strategy.pass /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:354:31
+     62   21.9%      JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     57   91.9%        JS: *parserOnIncoming node:_http_server:1040:26
+     56   98.2%          JS: *parserOnHeadersComplete node:_http_common:71:33
+      1    1.8%          JS: ^parserOnHeadersComplete node:_http_common:71:33
+      5    8.1%        JS: *emit node:events:465:44
+      5  100.0%          JS: ^parserOnIncoming node:_http_server:1040:26
+      5  100.0%            JS: ^parserOnHeadersComplete node:_http_common:71:33
+      3    1.1%      JS: ^router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+      3  100.0%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      3  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      2   66.7%            JS: ^strategy.pass /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:354:31
+      1   33.3%            JS: *attempt /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:180:22
+    276    1.0%    JS: *_send node:_http_outgoing:398:49
+    275   99.6%      JS: *write_ node:_http_outgoing:942:16
+    272   98.9%        JS: *end node:_http_outgoing:1084:45
+    134   49.3%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+    134  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     70   25.7%          JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     70  100.0%            JS: *runInAsyncScope node:async_hooks:207:18
+     68   25.0%          JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     66   97.1%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      2    2.9%            JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      3    1.1%        JS: ^end node:_http_outgoing:1084:45
+      2   66.7%          JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      2  100.0%            JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1   33.3%          JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      1  100.0%            JS: ^write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+
+   3966    9.8%  /usr/lib/libc.so.6
+   1718   43.3%    void node::StreamBase::JSMethod<&node::StreamBase::Writev>(v8::FunctionCallbackInfo<v8::Value> const&)
+   1104   64.3%      JS: *writevGeneric node:internal/stream_base_commons:121:23
+   1099   99.5%        JS: *clearBuffer node:internal/streams/writable:744:21
+   1083   98.5%          JS: *end node:_http_outgoing:1084:45
+    683   63.1%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    236   21.8%            JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+    164   15.1%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     16    1.5%          JS: *Writable.uncork node:internal/streams/writable:520:37
+     16  100.0%            JS: ^end node:_http_outgoing:1084:45
+    613   35.7%      JS: *doWrite node:internal/streams/writable:587:17
+    609   99.3%        JS: *clearBuffer node:internal/streams/writable:744:21
+    609  100.0%          JS: *end node:_http_outgoing:1084:45
+    391   64.2%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+    215   35.3%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     60    1.5%    JS: *randomBytes node:internal/crypto/random:97:21
+     60  100.0%      JS: *store.generate /home/aurims/Projects/learn-to/node_modules/express-session/index.js:158:28
+     60  100.0%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     44   73.3%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     44  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     16   26.7%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     16  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     53    1.3%    JS: *hash /home/aurims/Projects/learn-to/node_modules/express-session/index.js:604:14
+     39   73.6%      JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     29   74.4%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     29  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     28   96.6%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      1    3.4%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     10   25.6%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     10  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      9   90.0%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      1   10.0%            JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     12   22.6%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express-session/index.js:224:28
+     12  100.0%        JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     12  100.0%          JS: *write_ node:_http_outgoing:942:16
+     12  100.0%            JS: *end node:_http_outgoing:1084:45
+      2    3.8%      JS: *isModified /home/aurims/Projects/learn-to/node_modules/express-session/index.js:433:24
+      2  100.0%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      2  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      2  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+
+    732    1.8%  Builtin: LoadIC_Megamorphic
+     72    9.8%    JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     72  100.0%      JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     32   44.4%        JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     32  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     32  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     23   31.9%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     23  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     23  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     10   13.9%        JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     10  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     10  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6    8.3%        JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+      6  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      6  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1    1.4%        JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      1  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      1  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     60    8.2%    JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     18   30.0%      JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+     10   55.6%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     10  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     10  100.0%            JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      8   44.4%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      8  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8  100.0%            JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     11   18.3%      JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+     11  100.0%        JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     11  100.0%          JS: *parserOnIncoming node:_http_server:1040:26
+     11  100.0%            JS: *parserOnHeadersComplete node:_http_common:71:33
+      9   15.0%      JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      5   55.6%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      5  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      5  100.0%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      4   44.4%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      4  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      4  100.0%            JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      9   15.0%      JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      6   66.7%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      6  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      3   33.3%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      6   10.0%      JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      5   83.3%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      5  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      5  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      1   16.7%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      1  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      6   10.0%      JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      6  100.0%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      6  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6  100.0%            JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      1    1.7%      JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      1  100.0%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      1  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     49    6.7%    JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     32    4.4%    JS: *end node:_http_outgoing:1084:45
+     17   53.1%      JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     17  100.0%        JS: *runInAsyncScope node:async_hooks:207:18
+     17  100.0%          JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     17  100.0%            JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+      8   25.0%      JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      8  100.0%        JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      6   75.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      6  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      2   25.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      2  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      7   21.9%      JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      7  100.0%        JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      7  100.0%          JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      7  100.0%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+     30    4.1%    JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+     20   66.7%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     20  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     20  100.0%          JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     20  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     10   33.3%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     10  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     10  100.0%          JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     10  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     29    4.0%    JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     29  100.0%      JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     13   44.8%        JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     13  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     13  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8   27.6%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      8  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      8  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3   10.3%        JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      3  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      2    6.9%        JS: ^jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      2  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      2  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      2    6.9%        JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+      2  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      2  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1    3.4%        JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      1  100.0%          JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+      1  100.0%            JS: *parserOnIncoming node:_http_server:1040:26
+     28    3.8%    JS: *onFinish node:_http_outgoing:1079:18
+     28  100.0%      JS: *callback node:internal/streams/writable:764:63
+     28  100.0%        JS: *afterWriteTick node:internal/streams/writable:693:24
+     28  100.0%          JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     27    3.7%    JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+     25   92.6%      JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     24   96.0%        JS: *parserOnIncoming node:_http_server:1040:26
+     24  100.0%          JS: *parserOnHeadersComplete node:_http_common:71:33
+      1    4.0%        JS: *emit node:events:465:44
+      1  100.0%          JS: ^parserOnIncoming node:_http_server:1040:26
+      1  100.0%            JS: ^parserOnHeadersComplete node:_http_common:71:33
+      2    7.4%      JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+      2  100.0%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      2  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      2  100.0%            JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+     24    3.3%    JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+     24  100.0%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     24  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     24  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     24  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     23    3.1%    JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+     23  100.0%      JS: *endReadableNT node:internal/streams/readable:1692:23
+     23  100.0%        JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     21    2.9%    JS: *writeHead node:_http_server:348:19
+     21  100.0%      JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     21  100.0%        JS: *write_ node:_http_outgoing:942:16
+     20   95.2%          JS: *end node:_http_outgoing:1084:45
+     11   55.0%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      6   30.0%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      3   15.0%            JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      1    4.8%          JS: ^end node:_http_outgoing:1084:45
+      1  100.0%            JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     21    2.9%    JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+     11   52.4%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     11  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     11  100.0%          JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     11  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     10   47.6%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     10  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     10  100.0%          JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     10  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     19    2.6%    JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     19  100.0%      JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     17   89.5%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     17  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     17  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      2   10.5%        JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      2  100.0%          JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+      2  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     18    2.5%    JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     18  100.0%      JS: *runInAsyncScope node:async_hooks:207:18
+     18  100.0%        JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     18  100.0%          JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+     18  100.0%            JS: *endReadableNT node:internal/streams/readable:1692:23
+     17    2.3%    JS: *endReadableNT node:internal/streams/readable:1692:23
+     17  100.0%      JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     14    1.9%    JS: *runInAsyncScope node:async_hooks:207:18
+     14  100.0%      JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     14  100.0%        JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+     14  100.0%          JS: *endReadableNT node:internal/streams/readable:1692:23
+     14  100.0%            JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     14    1.9%    JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     10   71.4%      JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+     10  100.0%        JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     10  100.0%          JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+     10  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3   21.4%      JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      3  100.0%        JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      3  100.0%          JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      3  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      1    7.1%      JS: ~isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      1  100.0%        JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1  100.0%          JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      1  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     14    1.9%    JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     14  100.0%      JS: *parserOnIncoming node:_http_server:1040:26
+     14  100.0%        JS: *parserOnHeadersComplete node:_http_common:71:33
+     14    1.9%    JS: *Readable.on node:internal/streams/readable:1127:33
+      6   42.9%      JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+      6  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      6  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      6  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3   21.4%      JS: *first /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:24:15
+      3  100.0%        JS: *onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+      3  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      3  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      2   14.3%      JS: *socketListenerWrap node:_http_server:1203:37
+      2  100.0%        JS: *parserOnIncoming node:_http_server:1040:26
+      2  100.0%          JS: *parserOnHeadersComplete node:_http_common:71:33
+      2   14.3%      JS: *resOnFinish node:_http_server:980:21
+      2  100.0%        JS: *onFinish node:_http_outgoing:1079:18
+      2  100.0%          JS: *callback node:internal/streams/writable:764:63
+      2  100.0%            JS: *afterWriteTick node:internal/streams/writable:693:24
+      1    7.1%      JS: ^socketListenerWrap node:_http_server:1203:37
+      1  100.0%        JS: *parserOnIncoming node:_http_server:1040:26
+      1  100.0%          JS: *parserOnHeadersComplete node:_http_common:71:33
+     13    1.8%    JS: *write_ node:_http_outgoing:942:16
+     13  100.0%      JS: *end node:_http_outgoing:1084:45
+      7   53.8%        JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      7  100.0%          JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      5   71.4%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      2   28.6%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      4   30.8%        JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      4  100.0%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      4  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      2   15.4%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      2  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      2  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     13    1.8%    JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     13  100.0%      JS: *write_ node:_http_outgoing:942:16
+     13  100.0%        JS: *end node:_http_outgoing:1084:45
+      6   46.2%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      6  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      5   38.5%          JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      5  100.0%            JS: *runInAsyncScope node:async_hooks:207:18
+      2   15.4%          JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      2  100.0%            JS: ^send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     13    1.8%    JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     13  100.0%      JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     10   76.9%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+     10  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     10  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      3   23.1%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      3  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      3  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+     13    1.8%    JS: *parserOnIncoming node:_http_server:1040:26
+     13  100.0%      JS: *parserOnHeadersComplete node:_http_common:71:33
+     13    1.8%    JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+     13  100.0%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+     13  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     13  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     13  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+     10    1.4%    JS: *OutgoingMessage node:_http_outgoing:105:25
+     10  100.0%      JS: *parserOnIncoming node:_http_server:1040:26
+     10  100.0%        JS: *parserOnHeadersComplete node:_http_common:71:33
+      9    1.2%    Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+      4   44.4%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      4  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      4  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      4  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      2   22.2%      JS: *end node:_http_outgoing:1084:45
+      2  100.0%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      2  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      2  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+      1   11.1%      JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1  100.0%        JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      1  100.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      1  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1   11.1%      JS: *resOnFinish node:_http_server:980:21
+      1  100.0%        JS: *onFinish node:_http_outgoing:1079:18
+      1  100.0%          JS: *callback node:internal/streams/writable:764:63
+      1  100.0%            JS: *afterWriteTick node:internal/streams/writable:693:24
+      1   11.1%      JS: *_destroy node:_http_incoming:218:55
+      1  100.0%        JS: *endReadableNT node:internal/streams/readable:1692:23
+      1  100.0%          JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+      8    1.1%    JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      5   62.5%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      5  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      5  100.0%          JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      5  100.0%            JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+      3   37.5%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3  100.0%          JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+      3  100.0%            JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+      8    1.1%    JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      8  100.0%      JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      8  100.0%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      8  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+
+    576    1.4%  Builtin: KeyedLoadIC_Megamorphic
+    100   17.4%    JS: *end node:_http_outgoing:1084:45
+     61   61.0%      JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     61  100.0%        JS: *runInAsyncScope node:async_hooks:207:18
+     61  100.0%          JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     61  100.0%            JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+     25   25.0%      JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     25  100.0%        JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     12   48.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+     12  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     11   44.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+     11  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1    4.0%          JS: ~isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      1  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1    4.0%          JS: ~isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      1  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     13   13.0%      JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     13  100.0%        JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     13  100.0%          JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     13  100.0%            JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      1    1.0%      JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      1  100.0%        JS: ^write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      1  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      1  100.0%            JS: *listener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:162:21
+     65   11.3%    JS: *get node:_http_incoming:109:16
+     40   61.5%      JS: *parserOnIncoming node:_http_server:1040:26
+     39   97.5%        JS: *parserOnHeadersComplete node:_http_common:71:33
+      1    2.5%        JS: ^parserOnHeadersComplete node:_http_common:71:33
+     19   29.2%      Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+     10   52.6%        JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      9   90.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      9  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1   10.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      1  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      9   47.4%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      6   66.7%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      6  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3   33.3%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6    9.2%      JS: *jsonParser /home/aurims/Projects/learn-to/node_modules/body-parser/lib/types/json.js:101:30
+      5   83.3%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      5  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      5  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      1   16.7%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      1  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1  100.0%            JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+     38    6.6%    JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+     24   63.2%      JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+     16   66.7%        JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+     16  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     15   93.8%            JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+      1    6.3%            JS: *SessionStrategy.authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/strategies/session.js:96:50
+      8   33.3%        JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      8  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8  100.0%            JS: *authenticate /home/aurims/Projects/learn-to/node_modules/passport/lib/middleware/authenticate.js:94:31
+     14   36.8%      JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     14  100.0%        JS: *parserOnIncoming node:_http_server:1040:26
+     14  100.0%          JS: *parserOnHeadersComplete node:_http_common:71:33
+     24    4.2%    JS: *removeHeader node:_http_outgoing:844:63
+     23   95.8%      JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     23  100.0%        JS: *runInAsyncScope node:async_hooks:207:18
+     23  100.0%          JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     23  100.0%            JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+      1    4.2%      JS: ^write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      1  100.0%        JS: ^runInAsyncScope node:async_hooks:207:18
+      1  100.0%          JS: ^listener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:162:21
+      1  100.0%            JS: ^onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     21    3.6%    JS: *setHeader node:_http_outgoing:697:57
+     17   81.0%      JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     17  100.0%        JS: *runInAsyncScope node:async_hooks:207:18
+     16   94.1%          JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     16  100.0%            JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+      1    5.9%          JS: *listener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:162:21
+      1  100.0%            JS: ^onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+      3   14.3%      JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      2   66.7%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      2  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      2  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      1   33.3%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      1  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      1    4.8%      JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1  100.0%        JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      1  100.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      1  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+     20    3.5%    JS: *parserOnIncoming node:_http_server:1040:26
+     20  100.0%      JS: *parserOnHeadersComplete node:_http_common:71:33
+     19    3.3%    JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+     19  100.0%      JS: *runInAsyncScope node:async_hooks:207:18
+     19  100.0%        JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+     19  100.0%          JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+     19  100.0%            JS: *endReadableNT node:internal/streams/readable:1692:23
+     19    3.3%    JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+     15    2.6%    JS: *writeHead node:_http_server:348:19
+     15  100.0%      JS: *writeHead /home/aurims/Projects/learn-to/node_modules/on-headers/index.js:28:29
+     15  100.0%        JS: *write_ node:_http_outgoing:942:16
+     15  100.0%          JS: *end node:_http_outgoing:1084:45
+     10   66.7%            JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      3   20.0%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      2   13.3%            JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+     14    2.4%    JS: *get node:_http_outgoing:195:6
+     14  100.0%      Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+     14  100.0%        JS: *end node:_http_outgoing:1084:45
+      6   42.9%          JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      6  100.0%            JS: *runInAsyncScope node:async_hooks:207:18
+      5   35.7%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      5  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      3   21.4%          JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      3  100.0%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     13    2.3%    JS: *getHeader node:_http_outgoing:784:57
+     10   76.9%      JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+     10  100.0%        JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      6   60.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      6  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      3   30.0%          JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      3  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1   10.0%          JS: ~isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      1  100.0%            JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      3   23.1%      JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      2   66.7%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      2  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      2  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      1   33.3%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      1  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      1  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+     12    2.1%    JS: *set node:_http_outgoing:250:16
+      6   50.0%      JS: *assignSocket node:_http_server:288:62
+      6  100.0%        JS: *parserOnIncoming node:_http_server:1040:26
+      6  100.0%          JS: *parserOnHeadersComplete node:_http_common:71:33
+      4   33.3%      JS: *parserOnIncoming node:_http_server:1040:26
+      4  100.0%        JS: *parserOnHeadersComplete node:_http_common:71:33
+      2   16.7%      Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+      2  100.0%        JS: *resOnFinish node:_http_server:980:21
+      2  100.0%          JS: *onFinish node:_http_outgoing:1079:18
+      2  100.0%            JS: *callback node:internal/streams/writable:764:63
+     11    1.9%    JS: *expressInit /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/init.js:29:30
+      8   72.7%      JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      8  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8  100.0%          JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      8  100.0%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      3   27.3%      JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      3  100.0%        JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      3  100.0%          JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      3  100.0%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     11    1.9%    JS: *clearBuffer node:internal/streams/writable:744:21
+     11  100.0%      JS: *end node:_http_outgoing:1084:45
+      9   81.8%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      9  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      9  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+      1    9.1%        JS: ^end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      1  100.0%          JS: ^write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      1  100.0%            JS: *runInAsyncScope node:async_hooks:207:18
+      1    9.1%        JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      1  100.0%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+     11    1.9%    JS: *app /home/aurims/Projects/learn-to/node_modules/express/lib/express.js:38:21
+     11  100.0%      JS: *parserOnIncoming node:_http_server:1040:26
+     11  100.0%        JS: *parserOnHeadersComplete node:_http_common:71:33
+     11    1.9%    JS: *_handles_method /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:58:59
+     11  100.0%      JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+     11  100.0%        JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:136:31
+     11  100.0%          JS: *router /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:46:18
+      7   63.6%            JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      4   36.4%            JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+     10    1.7%    JS: *onFinish node:_http_outgoing:1079:18
+     10  100.0%      JS: *callback node:internal/streams/writable:764:63
+     10  100.0%        JS: *afterWriteTick node:internal/streams/writable:693:24
+     10  100.0%          JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+      9    1.6%    JS: *doWrite node:internal/streams/writable:587:17
+      9  100.0%      JS: *clearBuffer node:internal/streams/writable:744:21
+      9  100.0%        JS: *end node:_http_outgoing:1084:45
+      8   88.9%          JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      8  100.0%            JS: *runInAsyncScope node:async_hooks:207:18
+      1   11.1%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      9    1.6%    JS: *Readable.removeListener node:internal/streams/readable:1159:45
+      7   77.8%      JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+      7  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      7  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      7  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1   11.1%      JS: *onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+      1  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      1  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      1  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1   11.1%      JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+      1  100.0%        JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+      1  100.0%          JS: *endReadableNT node:internal/streams/readable:1692:23
+      1  100.0%            JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+      8    1.4%    JS: *updateOutgoingData node:_http_server:766:28
+      6   75.0%      JS: *_send node:_http_outgoing:398:49
+      6  100.0%        JS: *write_ node:_http_outgoing:942:16
+      6  100.0%          JS: *end node:_http_outgoing:1084:45
+      4   66.7%            JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      2   33.3%            JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      2   25.0%      JS: *_flushOutput node:_http_outgoing:1209:63
+      2  100.0%        JS: *_send node:_http_outgoing:398:49
+      2  100.0%          JS: *write_ node:_http_outgoing:942:16
+      2  100.0%            JS: *end node:_http_outgoing:1084:45
+      8    1.4%    JS: *setUnrefTimeout node:internal/timers:391:25
+      8  100.0%      JS: *setStreamTimeout node:internal/stream_base_commons:236:26
+      8  100.0%        JS: *resOnFinish node:_http_server:980:21
+      8  100.0%          JS: *onFinish node:_http_outgoing:1079:18
+      8  100.0%            JS: *callback node:internal/streams/writable:764:63
+      8    1.4%    JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      8  100.0%      JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      6   75.0%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/flashcardRoutes.js:7:25
+      6  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      6  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      2   25.0%        JS: *isAuthenticated file:///home/aurims/Projects/learn-to/src/routes/quizRoutes.js:7:25
+      2  100.0%          JS: *dispatch /home/aurims/Projects/learn-to/node_modules/express/lib/router/route.js:101:45
+      2  100.0%            JS: *handle /home/aurims/Projects/learn-to/node_modules/express/lib/router/layer.js:86:49
+      8    1.4%    JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      8  100.0%      JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6   75.0%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      6  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      6  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      2   25.0%        JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      2  100.0%          JS: *process_params /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:338:47
+      2  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      8    1.4%    JS: *_send node:_http_outgoing:398:49
+      4   50.0%      JS: *write_ node:_http_outgoing:942:16
+      4  100.0%        JS: *end node:_http_outgoing:1084:45
+      3   75.0%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      3  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      1   25.0%          JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      1  100.0%            JS: *runInAsyncScope node:async_hooks:207:18
+      4   50.0%      JS: *end node:_http_outgoing:1084:45
+      3   75.0%        JS: *write /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:275:18
+      3  100.0%          JS: *runInAsyncScope node:async_hooks:207:18
+      3  100.0%            JS: *onFinish /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:96:21
+      1   25.0%        JS: *end /home/aurims/Projects/learn-to/node_modules/express-session/index.js:258:27
+      1  100.0%          JS: *send /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:111:25
+      1  100.0%            JS: *json /home/aurims/Projects/learn-to/node_modules/express/lib/response.js:250:25
+      7    1.2%    JS: *resume_ node:internal/streams/readable:1254:17
+      7  100.0%      JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+      7    1.2%    JS: *onevent /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:81:26
+      7  100.0%      JS: *endReadableNT node:internal/streams/readable:1692:23
+      7  100.0%        JS: *processTicksAndRejections node:internal/process/task_queues:72:35
+      6    1.0%    JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      6  100.0%      JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      5   83.3%        JS: *session /home/aurims/Projects/learn-to/node_modules/express-session/index.js:179:26
+      5  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      5  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1   16.7%        JS: *query /home/aurims/Projects/learn-to/node_modules/express/lib/middleware/query.js:39:24
+      1  100.0%          JS: *trim_prefix /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:293:23
+      1  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6    1.0%    JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+      6  100.0%      JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      6  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      6  100.0%          JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      6  100.0%            JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      6    1.0%    JS: *Readable.on node:internal/streams/readable:1127:33
+      4   66.7%      JS: *attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+      4  100.0%        JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/finalhandler/index.js:86:19
+      4  100.0%          JS: *<anonymous> /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:640:19
+      4  100.0%            JS: *next /home/aurims/Projects/learn-to/node_modules/express/lib/router/index.js:177:16
+      1   16.7%      JS: *resOnFinish node:_http_server:980:21
+      1  100.0%        JS: *onFinish node:_http_outgoing:1079:18
+      1  100.0%          JS: *callback node:internal/streams/writable:764:63
+      1  100.0%            JS: *afterWriteTick node:internal/streams/writable:693:24
+      1   16.7%      JS: *first /home/aurims/Projects/learn-to/node_modules/ee-first/index.js:24:15
+      1  100.0%        JS: ^attachFinishedListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:91:33
+      1  100.0%          JS: ^attachListener /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:141:25
+      1  100.0%            JS: ^onFinished /home/aurims/Projects/learn-to/node_modules/on-finished/index.js:46:21
+
