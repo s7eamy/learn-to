@@ -11,6 +11,8 @@
     "preview": "vite preview",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose",
     "seed": "node src/db/seed.js"
+    "profile": "node --prof src/server.js"
+    "backend": "node --watch src/server.js"
   },
   "jest": {
     "testEnvironment": "jsdom",
