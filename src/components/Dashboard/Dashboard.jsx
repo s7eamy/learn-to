@@ -134,8 +134,10 @@ const Dashboard = () => {
           bottom: 20, // distancija nuo apacios
           left: 20, // distancija is kaires
           width: "50%",
-          height: "40%",
-          overflow: "hidden",
+          height: "calc(40% + 110px)", // Increased height to accommodate both components
+          overflow: "visible", // Changed from hidden to visible
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <DocumentList />
