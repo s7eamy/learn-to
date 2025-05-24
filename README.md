@@ -1,5 +1,81 @@
-# Learn2 - a platform to reach your studying goals
+# Learn2 
 
+![home](https://github.com/user-attachments/assets/be892c1c-6bd1-4457-963e-e5df9481998a)
+
+## Overview
+
+Learn2 is built around evidence-based learning techniques—active recall and spaced repetition—to help you retain information more efficiently and confidently. At its core, the platform offers two complementary study modes: flashcards for bite-sized, rapid-fire review and multiple-choice quizzes for deeper, contextual understanding. In the flashcard view, you see a prompt (word, concept or question) and actively search your memory for the answer; after revealing the back side, you rate how well you recalled it. That self-assessment drives the spacing algorithm, ensuring that cards you find easy are shown less often, while those you struggle with reappear sooner to reinforce your weak spots.  
+
+Quizzes take you beyond simple recall by presenting questions with one or more correct answers in a randomized order. Immediate, per-question feedback highlights both successes and mistakes, helping you learn from errors in real time. All quiz attempts are logged, so you can revisit specific questions later or track trends in your accuracy over time.  
+
+Behind the scenes, Learn2 seamlessly unites these study modes into a single session. You can switch back and forth between flashcards and quizzes without leaving the Study view, maintaining focus and momentum. Every interaction—answers, ratings, timestamps—is recorded and fed into the Statistics dashboard, where you’ll find up-to-the-minute insights on your progress: total reviews, accuracy percentages, and which items are due for another pass.  
+
+By combining a clean, distraction-free interface with proven cognitive techniques, Learn2 keeps you engaged, motivated and in control of your learning journey. Whether you’re tackling language vocabulary, technical concepts or exam preparation, the platform adapts to your pace and highlights exactly where you should focus next.  
+
+---
+
+## Core Features
+
+### 1. Flashcards with Adaptive Reviews  
+Flashcards are at the core of Learn2’s methodology. In a single-page editor you define a prompt (“front”) and its answer or explanation (“back”). During study sessions, each card appears one at a time; after recalling the answer, you select from a simple quality scale (e.g. “Poor”, “Okay”, “Good”). Your choice is recorded and available in the Statistics dashboard, helping you pinpoint which cards to revisit.
+
+Each card tracks:
+- **Review Count**: how often you’ve practiced it  
+- **Last Reviewed**: the date and time of your most recent session  
+- **Quality History**: a log of past self-assessments  
+
+These metrics surface in your daily overview so you can see where to focus next.
+
+### 2. Multiple-Choice Quizzes  
+Quizzes let you test your knowledge with structured questions. You add any number of choices and mark one or more as correct. When you take a quiz, answers are shuffled to prevent memorization of positions. Immediate feedback highlights correct and incorrect selections, reinforcing learning in real time. Each attempt is logged—complete with timestamps and scores—so you can track your improvement over time.
+
+![viewer](https://github.com/user-attachments/assets/8c258ae6-a1f0-4f50-8d43-e69f1b45da30)
+
+### 3. Unified Study Mode  
+Whether you’re working through flashcards or quizzes, the Study view delivers a seamless experience. Select a deck or quiz set, then progress through items one by one. Answers and ratings save automatically—no page reloads—so you can pause and resume at will without losing your place.
+
+### 4. Real-Time Statistics Dashboard  
+Learn2’s Statistics page provides on-demand insights into your study habits. Data is pulled directly from the built-in SQLite database (`app.db`) and rendered as:
+- **Total Reviews per Set**  
+- **Overall Accuracy Percentage**  
+- **Review Frequency Graphs**  
+- **“Needs Practice” Lists** for items below a chosen accuracy threshold
+
+  
+![stat](https://github.com/user-attachments/assets/7fa41cd4-c356-48e3-bb3b-3260ea09d455)
+
+
+Charts and tables update instantly as you study or add new material, giving you a clear picture of your progress.
+
+---
+
+## Workflow & Usage
+
+1. **Registration & Login**
+
+   - Navigate to `/register` to create a new account with a username and password.  
+   - All credentials and profiles live in the same SQLite file, ensuring seamless data management.
+
+2. **Creating Study Materials**  
+   - Click **Create** on the homepage.  
+   - Choose **Flashcards** or **Quiz**, enter a descriptive title, then start adding items.  
+   - Use the inline editor to type prompts, answers and select correct options—everything happens in one view for maximum speed.
+
+3. **Studying**
+
+ ![dash](https://github.com/user-attachments/assets/2f5de589-2e16-47e0-bf65-eaa2810a5153)
+
+   - From the homepage, select a flashcard deck or quiz set and hit **Study**.  
+   - For flashcards, view the front, recall the answer mentally, then click a quality button.  
+   - For quizzes, select answers, submit, and review immediate feedback.  
+   - You can stop at any time; Learn2 remembers your place so you can resume later.
+
+5. **Reviewing Performance**  
+   - Head to **Statistics** to see how you’ve been doing.  
+   - Filter by date ranges or by specific decks/quizzes to focus on weak spots.  
+   - Export data directly from the SQLite file if you want to run custom analyses or back up your progress.
+
+---
 ## Installation
 1. Clone the repository
 ```bash
