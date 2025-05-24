@@ -135,6 +135,11 @@ const Register = () => {
                   value={formData.username}
                   onChange={handleChange}
                   autoFocus
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 4, 
+                    }
+                  }}
                 />
               </Box>
 
@@ -151,6 +156,11 @@ const Register = () => {
                   variant="outlined"
                   value={formData.password}
                   onChange={handleChange}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 4,
+                    }
+                  }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -173,6 +183,7 @@ const Register = () => {
                   mb: 2,
                   py: 1.5,
                   bgcolor: "#b75454",
+                  borderRadius: 4, 
                   "&:hover": {
                     bgcolor: "#a04545",
                   },
