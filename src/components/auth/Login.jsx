@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
-  Container,
-  Typography,
-  Button,
-  TextField,
   Box,
+  Button,
+  Container,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +21,7 @@ const Login = () => {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,54 +53,196 @@ const Login = () => {
     });
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <Container maxWidth="sm">
+    <Box
+      sx={{
+        bgcolor: "white",
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+      }}
+    >
       <Box
-        component="form"
-        onSubmit={handleSubmit}
         sx={{
-          mt: 8,
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
+          bgcolor: "white",
+          overflow: "hidden",
+          width: "100%",
+          height: "100vh",
+          position: "relative",
         }}
       >
-        <Typography variant="h4" align="center">
-          Login
+        {/* Background Image */}
+        <Box
+          component="div" // Changed from img to div as fallback
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+            objectFit: "cover",
+            backgroundImage: "url(/upscalemedia-transformed.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            background: "linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 50%, #3a3a3a 100%)",
+          }}
+        />
+
+        {/* Learn2 Logo */}
+        <Typography
+          sx={{
+            position: "absolute",
+            width: "305px",
+            top: "59px",
+            right: "140px", // Changed from left: 1643px to right: 140px for better responsiveness
+            fontFamily: "'Poppins-Medium', Helvetica",
+            fontWeight: 500,
+            fontSize: "64px",
+            textShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+          }}
+        >
+          <Box component="span" sx={{ color: "white" }}>
+            Learn
+          </Box>
+          <Box component="span" sx={{ color: "#b75454" }}>
+            2
+          </Box>
         </Typography>
 
-        {error && <Alert severity="error">{error}</Alert>}
-
-        <TextField
-          required
-          fullWidth
-          name="username"
-          label="Username"
-          value={formData.username}
-          onChange={handleChange}
-          autoFocus
+        {/* Left Side Image */}
+        {/* Commenting out as you may need to adjust the image path
+        <Box
+          component="img"
+          sx={{
+            position: "absolute",
+            width: "610px",
+            height: "662px",
+            top: "217px",
+            left: "140px",
+          }}
+          alt="Group"
+          src="/group-66.png"
         />
+        */}
 
-        <TextField
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-
-        <Button
-          variant="contained"
-          type="submit"
-          disabled={isLoading}
-          sx={{ mt: 2 }}
+        {/* Login Form Container */}
+        <Container
+          component="form"
+          onSubmit={handleSubmit}
+          maxWidth="sm"
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            borderRadius: "8px",
+            p: 4,
+            boxShadow: 1,
+          }}
         >
-          {isLoading ? "Logging in..." : "Login"}
-        </Button>
+          <Typography
+            variant="h4"
+            component="h1"
+            sx={{ mb: 3, fontWeight: "bold" }}
+          >
+            Welcome back!
+          </Typography>
+
+          {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
+
+          <Typography variant="body1" sx={{ mb: 1 }}>
+            Username
+          </Typography>
+          <TextField
+            required
+            fullWidth
+            name="username"
+            placeholder="Enter your username"
+            variant="outlined"
+            value={formData.username}
+            onChange={handleChange}
+            sx={{ 
+              mb: 3,
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 4,
+              }
+            }}
+            autoFocus
+          />
+
+          <Typography variant="body1" sx={{ mb: 1 }}>
+            Password
+          </Typography>
+          <TextField
+            required
+            fullWidth
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter your password"
+            variant="outlined"
+            value={formData.password}
+            onChange={handleChange}
+            sx={{ 
+              mb: 3,
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 4,
+              }
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Button
+            fullWidth
+            variant="contained"
+            type="submit"
+            disabled={isLoading}
+            sx={{
+              mb: 2,
+              bgcolor: "#b75454",
+              "&:hover": { bgcolor: "#a04545" },
+              py: 1.5,
+              borderRadius: 4,
+            }}
+          >
+            {isLoading ? "Signing in..." : "Sign In"}
+          </Button>
+
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="body2" component="span">
+              Don't have an account?
+            </Typography>
+            <Box
+              component="span"
+              onClick={() => navigate("/register")}
+              sx={{ 
+                ml: 0.5, 
+                color: "primary.main",
+                cursor: "pointer"
+              }}
+            >
+              Sign Up
+            </Box>
+          </Box>
+        </Container>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
