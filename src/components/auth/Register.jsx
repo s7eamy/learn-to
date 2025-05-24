@@ -110,7 +110,7 @@ const Register = () => {
             top: "217px",
             right: "162px",
             width: "610px",
-            borderRadius: 2,
+            borderRadius: 8, 
             boxShadow: 3,
           }}
         >
